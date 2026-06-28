@@ -7,10 +7,10 @@ use App\Models\SchoolClass;
 use App\Models\User;
 use App\Models\Period;
 use App\Models\Document;
+use App\Support\TempPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class SchoolController extends Controller
 {
@@ -396,7 +396,7 @@ class SchoolController extends Controller
             return redirect()->route('school.professors')->with('error', 'Acesso negado para esta escola.');
         }
         
-        $tempPassword = Str::password(10, symbols: false);
+        $tempPassword = TempPassword::generate();
 
         User::create([
             'tenant_id' => $user->tenant_id,
@@ -473,7 +473,7 @@ class SchoolController extends Controller
             return redirect()->route('school.professors')->with('error', 'Acesso negado para esta ação.');
         }
         
-        $tempPassword = Str::password(10, symbols: false);
+        $tempPassword = TempPassword::generate();
 
         $prof->update([
             'password' => Hash::make($tempPassword)
@@ -608,7 +608,7 @@ class SchoolController extends Controller
             return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('error', 'Acesso negado para esta escola.');
         }
         
-        $tempPassword = Str::password(10, symbols: false);
+        $tempPassword = TempPassword::generate();
 
         $coordinator = User::create([
             'tenant_id' => $user->tenant_id,
@@ -724,7 +724,7 @@ class SchoolController extends Controller
             return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('error', 'Acesso negado.');
         }
         
-        $tempPassword = Str::password(10, symbols: false);
+        $tempPassword = TempPassword::generate();
 
         $coordinator->update([
             'password' => Hash::make($tempPassword),

@@ -6,9 +6,9 @@ use App\Models\Tenant;
 use App\Models\School;
 use App\Models\User;
 use App\Models\AiQuery;
+use App\Support\TempPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class SuperAdminController extends Controller
@@ -167,7 +167,7 @@ class SuperAdminController extends Controller
         $tenant = Tenant::findOrFail($validated['tenant_id']);
         $tenant->update(['max_schools_limit' => $validated['max_schools_limit']]);
 
-        $tempPassword = Str::password(10, symbols: false);
+        $tempPassword = TempPassword::generate();
 
         User::create([
             'tenant_id' => $tenant->id,
@@ -232,7 +232,7 @@ class SuperAdminController extends Controller
     {
         abort_unless($user->role === 'semed', 404);
 
-        $tempPassword = Str::password(10, symbols: false);
+        $tempPassword = TempPassword::generate();
 
         $user->update([
             'password' => Hash::make($tempPassword),
