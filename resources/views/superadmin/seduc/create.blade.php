@@ -8,11 +8,11 @@
     <div class="max-w-3xl mx-auto space-y-6">
         <!-- Botão Voltar -->
         <div>
-            <a href="{{ route('superadmin.tenants') }}" class="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-slate-700 transition">
+            <a href="{{ route('superadmin.seducs') }}" class="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-slate-700 transition">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
-                Voltar para lista de municípios
+                Voltar para lista de secretarias
             </a>
         </div>
 

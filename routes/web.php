@@ -41,6 +41,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/superadmin/security/password', [SuperAdminController::class, 'updatePassword'])->name('superadmin.security.password');
         Route::get('/superadmin/seduc/create', [SuperAdminController::class, 'seducCreate'])->name('superadmin.seduc.create');
         Route::post('/superadmin/seduc', [SuperAdminController::class, 'seducStore'])->name('superadmin.seduc.store');
+        Route::get('/superadmin/seducs', [SuperAdminController::class, 'seducs'])->name('superadmin.seducs');
+        Route::get('/superadmin/seducs/{user}/edit', [SuperAdminController::class, 'seducsEdit'])->name('superadmin.seducs.edit');
+        Route::put('/superadmin/seducs/{user}', [SuperAdminController::class, 'seducsUpdate'])->name('superadmin.seducs.update');
+        Route::post('/superadmin/seducs/{user}/reset-password', [SuperAdminController::class, 'seducsResetPassword'])->name('superadmin.seducs.reset-password');
     });
     
     Route::middleware('role:semed')->group(function () {

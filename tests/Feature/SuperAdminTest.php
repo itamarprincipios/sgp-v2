@@ -207,7 +207,7 @@ class SuperAdminTest extends TestCase
 
         $response = $this->actingAs($superadmin)->post('/superadmin/seduc', $seducData);
 
-        $response->assertRedirect('/superadmin/tenants');
+        $response->assertRedirect('/superadmin/seducs');
         $response->assertSessionHas('success');
 
         $this->assertDatabaseHas('users', [
@@ -246,6 +246,105 @@ class SuperAdminTest extends TestCase
         $this->assertDatabaseMissing('users', [
             'email' => 'semed@teste.gov.br',
         ]);
+    }
+
+    /**
+     * Test that a superadmin can view the list of registered Seducs.
+     */
+    public function test_superadmin_can_view_seducs_list(): void
+    {
+        $superadmin = User::factory()->create(['role' => 'superadmin']);
+
+        $tenant = Tenant::create(['name' => 'Prefeitura X', 'slug' => 'prefeitura-x']);
+
+        User::create([
+            'tenant_id' => $tenant->id,
+            'name' => 'SEMED Prefeitura X',
+            'email' => 'semed@prefeiturax.gov.br',
+            'password' => bcrypt('senha123'),
+            'role' => 'semed',
+        ]);
+
+        $response = $this->actingAs($superadmin)->get('/superadmin/seducs');
+
+        $response->assertStatus(200);
+        $response->assertSee('SEMED Prefeitura X');
+        $response->assertSee('Prefeitura X');
+    }
+
+    /**
+     * Test that a superadmin can update a Seduc's contact details.
+     */
+    public function test_superadmin_can_update_seduc_contact(): void
+    {
+        $superadmin = User::factory()->create(['role' => 'superadmin']);
+
+        $tenant = Tenant::create(['name' => 'Prefeitura Y', 'slug' => 'prefeitura-y']);
+
+        $seduc = User::create([
+            'tenant_id' => $tenant->id,
+            'name' => 'SEMED Antiga',
+            'email' => 'semed.antigo@prefeituray.gov.br',
+            'whatsapp' => '5595911112222',
+            'password' => bcrypt('senha123'),
+            'role' => 'semed',
+        ]);
+
+        $response = $this->actingAs($superadmin)->put("/superadmin/seducs/{$seduc->id}", [
+            'name' => 'SEMED Atualizada',
+            'email' => 'semed.novo@prefeituray.gov.br',
+            'whatsapp' => '5595933334444',
+        ]);
+
+        $response->assertRedirect('/superadmin/seducs');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $seduc->id,
+            'name' => 'SEMED Atualizada',
+            'email' => 'semed.novo@prefeituray.gov.br',
+            'whatsapp' => '5595933334444',
+        ]);
+    }
+
+    /**
+     * Test that a superadmin can reset a Seduc's password.
+     */
+    public function test_superadmin_can_reset_seduc_password(): void
+    {
+        $superadmin = User::factory()->create(['role' => 'superadmin']);
+
+        $tenant = Tenant::create(['name' => 'Prefeitura Z', 'slug' => 'prefeitura-z']);
+
+        $seduc = User::create([
+            'tenant_id' => $tenant->id,
+            'name' => 'SEMED Z',
+            'email' => 'semed@prefeituraz.gov.br',
+            'password' => bcrypt('senhaoriginal'),
+            'role' => 'semed',
+        ]);
+
+        $oldPassword = $seduc->password;
+
+        $response = $this->actingAs($superadmin)->post("/superadmin/seducs/{$seduc->id}/reset-password");
+
+        $response->assertRedirect('/superadmin/seducs');
+        $response->assertSessionHas('success');
+
+        $this->assertNotEquals($oldPassword, $seduc->refresh()->password);
+    }
+
+    /**
+     * Test that Seduc management endpoints reject non-semed users.
+     */
+    public function test_seduc_endpoints_reject_non_semed_user(): void
+    {
+        $superadmin = User::factory()->create(['role' => 'superadmin']);
+        $professor = User::factory()->create(['role' => 'professor']);
+
+        $response = $this->actingAs($superadmin)->post("/superadmin/seducs/{$professor->id}/reset-password");
+
+        $response->assertStatus(404);
     }
 
     /**

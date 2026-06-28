@@ -179,7 +179,66 @@ class SuperAdminController extends Controller
             'role' => 'semed',
         ]);
 
-        return redirect()->route('superadmin.tenants')
+        return redirect()->route('superadmin.seducs')
             ->with('success', "Seduc cadastrada com sucesso para {$tenant->name}! Senha inicial: {$tempPassword} (informe à secretaria e oriente a troca no primeiro acesso).");
+    }
+
+    /**
+     * List all registered Seduc (SEMED) users across all tenants.
+     */
+    public function seducs()
+    {
+        $seducs = User::where('role', 'semed')
+            ->with('tenant')
+            ->orderBy('name')
+            ->paginate(10);
+
+        return view('superadmin.seducs.index', compact('seducs'));
+    }
+
+    /**
+     * Show the form for editing a Seduc's contact details.
+     */
+    public function seducsEdit(User $user)
+    {
+        abort_unless($user->role === 'semed', 404);
+
+        return view('superadmin.seducs.edit', compact('user'));
+    }
+
+    /**
+     * Update a Seduc's contact details (name, email, whatsapp).
+     */
+    public function seducsUpdate(Request $request, User $user)
+    {
+        abort_unless($user->role === 'semed', 404);
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'whatsapp' => ['nullable', 'string', 'max:20'],
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('superadmin.seducs')
+            ->with('success', "Dados de contato de {$user->name} atualizados com sucesso!");
+    }
+
+    /**
+     * Reset a Seduc's password to a new random temporary password.
+     */
+    public function seducsResetPassword(User $user)
+    {
+        abort_unless($user->role === 'semed', 404);
+
+        $tempPassword = Str::password(10, symbols: false);
+
+        $user->update([
+            'password' => Hash::make($tempPassword),
+        ]);
+
+        return redirect()->route('superadmin.seducs')
+            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} (informe à secretaria e oriente a troca no primeiro acesso).");
     }
 }
