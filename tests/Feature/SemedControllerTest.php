@@ -75,4 +75,39 @@ class SemedControllerTest extends TestCase
         $response->assertSee('Professores Destaque');
         $response->assertSee('Coordenadores Destaque');
     }
+
+    public function test_semed_user_can_view_security_page()
+    {
+        $response = $this->actingAs($this->semedUser)
+            ->get(route('semed.security'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Segurança da Conta');
+    }
+
+    public function test_semed_user_can_update_own_password()
+    {
+        $response = $this->actingAs($this->semedUser)->put(route('semed.security.password'), [
+            'current_password' => 'senha123',
+            'password' => 'novaSenhaForte123',
+            'password_confirmation' => 'novaSenhaForte123',
+        ]);
+
+        $response->assertRedirect(route('semed.security'));
+        $response->assertSessionHas('success');
+
+        $this->assertTrue(\Illuminate\Support\Facades\Hash::check('novaSenhaForte123', $this->semedUser->refresh()->password));
+    }
+
+    public function test_semed_password_update_requires_correct_current_password()
+    {
+        $response = $this->actingAs($this->semedUser)->put(route('semed.security.password'), [
+            'current_password' => 'senha-errada',
+            'password' => 'novaSenhaForte123',
+            'password_confirmation' => 'novaSenhaForte123',
+        ]);
+
+        $response->assertSessionHasErrors('current_password');
+        $this->assertTrue(\Illuminate\Support\Facades\Hash::check('senha123', $this->semedUser->refresh()->password));
+    }
 }

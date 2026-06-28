@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserMedal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -476,5 +477,32 @@ class DashboardController extends Controller
     public function supervisorMonitor(Request $request): View
     {
         return view('dashboard.supervisor_monitor');
+    }
+
+    /**
+     * SEMED Security settings page (change own password).
+     */
+    public function semedSecurity(): View
+    {
+        return view('semed.security');
+    }
+
+    /**
+     * Update the authenticated SEMED user's own password.
+     */
+    public function semedUpdatePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.current_password' => 'A senha atual informada está incorreta.',
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('semed.security')->with('success', 'Senha alterada com sucesso!');
     }
 }

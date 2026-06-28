@@ -45,6 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::middleware('role:semed')->group(function () {
         Route::get('/semed/dashboard', [DashboardController::class, 'semed'])->name('semed.dashboard');
+        Route::get('/semed/security', [DashboardController::class, 'semedSecurity'])->name('semed.security');
+        Route::put('/semed/security/password', [DashboardController::class, 'semedUpdatePassword'])->name('semed.security.password');
     });
     
     Route::middleware('role:director,coordinator')->group(function () {
