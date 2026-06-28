@@ -24,7 +24,7 @@
 
             {{-- Background glow --}}
             <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
                 <div class="absolute bottom-1/4 right-1/3 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl"></div>
             </div>
 
@@ -33,15 +33,12 @@
                 <a href="/">
                     <img src="{{ asset('images/ncircuits-logo.png') }}" alt="N Circuits Technologies" class="h-16 w-auto">
                 </a>
-                <div class="flex items-center gap-2">
-                    <span class="text-xl font-bold text-indigo-400 tracking-wide">SGP</span>
-                    <span class="text-[10px] font-semibold px-2 py-0.5 bg-indigo-500/10 text-indigo-300 rounded border border-indigo-500/20">v2</span>
-                </div>
-                <p class="text-xs text-slate-500 font-medium">Sistema de Gestão Pedagógica</p>
+                <span class="text-xl font-bold text-purple-400 tracking-wide">SGP</span>
+                <p class="text-xs text-zinc-500 font-medium">Sistema de Gestão Pedagógica</p>
             </div>
 
             {{-- Login Card --}}
-            <div class="relative z-10 w-full sm:max-w-md bg-slate-950/60 border border-slate-800 backdrop-blur-sm rounded-2xl shadow-2xl shadow-slate-950/50 px-8 py-8">
+            <div class="relative z-10 w-full sm:max-w-md bg-zinc-950/60 border border-zinc-800 backdrop-blur-sm rounded-2xl shadow-2xl shadow-zinc-950/50 px-8 py-8">
                 {{ $slot }}
             </div>
 
@@ -51,7 +48,7 @@
                     &copy; 2026 SGP - Todos os direitos reservados.
                 </p>
                 <p class="text-xs text-slate-600">
-                    Desenvolvido por <a href="https://wa.me/5595991248941" target="_blank" class="font-semibold text-indigo-500 hover:text-indigo-400 transition">N Circuits Technologies</a>
+                    Desenvolvido por <a href="https://wa.me/5595991248941" target="_blank" class="font-semibold text-purple-500 hover:text-purple-400 transition">N Circuits Technologies</a>
                 </p>
             </div>
         </div>
