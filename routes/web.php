@@ -51,6 +51,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/semed/dashboard', [DashboardController::class, 'semed'])->name('semed.dashboard');
         Route::get('/semed/security', [DashboardController::class, 'semedSecurity'])->name('semed.security');
         Route::put('/semed/security/password', [DashboardController::class, 'semedUpdatePassword'])->name('semed.security.password');
+
+        // Schools
+        Route::get('/semed/escolas', [\App\Http\Controllers\SemedController::class, 'schools'])->name('semed.schools');
+        Route::get('/semed/escolas/criar', [\App\Http\Controllers\SemedController::class, 'schoolsCreate'])->name('semed.schools.create');
+        Route::post('/semed/escolas', [\App\Http\Controllers\SemedController::class, 'schoolsStore'])->name('semed.schools.store');
+        Route::get('/semed/escolas/{school}/editar', [\App\Http\Controllers\SemedController::class, 'schoolsEdit'])->name('semed.schools.edit');
+        Route::put('/semed/escolas/{school}', [\App\Http\Controllers\SemedController::class, 'schoolsUpdate'])->name('semed.schools.update');
+        Route::delete('/semed/escolas/{school}', [\App\Http\Controllers\SemedController::class, 'schoolsDelete'])->name('semed.schools.delete');
+
+        // Directors
+        Route::get('/semed/diretores', [\App\Http\Controllers\SemedController::class, 'directors'])->name('semed.directors');
+        Route::get('/semed/diretores/criar', [\App\Http\Controllers\SemedController::class, 'directorsCreate'])->name('semed.directors.create');
+        Route::post('/semed/diretores', [\App\Http\Controllers\SemedController::class, 'directorsStore'])->name('semed.directors.store');
+        Route::get('/semed/diretores/{user}/editar', [\App\Http\Controllers\SemedController::class, 'directorsEdit'])->name('semed.directors.edit');
+        Route::put('/semed/diretores/{user}', [\App\Http\Controllers\SemedController::class, 'directorsUpdate'])->name('semed.directors.update');
+        Route::post('/semed/diretores/{user}/reset-password', [\App\Http\Controllers\SemedController::class, 'directorsResetPassword'])->name('semed.directors.reset-password');
+        Route::delete('/semed/diretores/{user}', [\App\Http\Controllers\SemedController::class, 'directorsDelete'])->name('semed.directors.delete');
+
+        // Supervisors
+        Route::get('/semed/supervisores', [\App\Http\Controllers\SemedController::class, 'supervisors'])->name('semed.supervisors');
+        Route::get('/semed/supervisores/criar', [\App\Http\Controllers\SemedController::class, 'supervisorsCreate'])->name('semed.supervisors.create');
+        Route::post('/semed/supervisores', [\App\Http\Controllers\SemedController::class, 'supervisorsStore'])->name('semed.supervisors.store');
+        Route::get('/semed/supervisores/{user}/editar', [\App\Http\Controllers\SemedController::class, 'supervisorsEdit'])->name('semed.supervisors.edit');
+        Route::put('/semed/supervisores/{user}', [\App\Http\Controllers\SemedController::class, 'supervisorsUpdate'])->name('semed.supervisors.update');
+        Route::post('/semed/supervisores/{user}/reset-password', [\App\Http\Controllers\SemedController::class, 'supervisorsResetPassword'])->name('semed.supervisors.reset-password');
+        Route::delete('/semed/supervisores/{user}', [\App\Http\Controllers\SemedController::class, 'supervisorsDelete'])->name('semed.supervisors.delete');
     });
     
     Route::middleware('role:director,coordinator')->group(function () {
@@ -115,6 +141,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::middleware('role:supervisor_monitor')->group(function () {
         Route::get('/supervisor-monitor/dashboard', [DashboardController::class, 'supervisorMonitor'])->name('supervisor-monitor.dashboard');
+    });
+
+    Route::middleware('role:supervisor_infantil')->group(function () {
+        Route::get('/supervisor-infantil/dashboard', [DashboardController::class, 'supervisorInfantil'])->name('supervisor-infantil.dashboard');
+    });
+
+    Route::middleware('role:supervisor_fundamental')->group(function () {
+        Route::get('/supervisor-fundamental/dashboard', [DashboardController::class, 'supervisorFundamental'])->name('supervisor-fundamental.dashboard');
     });
 
     // RAG AI Endpoints

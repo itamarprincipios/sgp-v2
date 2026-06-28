@@ -69,6 +69,8 @@ class User extends Authenticatable
             'professor' => '/professor/dashboard',
             'supervisor_edfis' => '/supervisor-edfis/dashboard',
             'supervisor_monitor' => '/supervisor-monitor/dashboard',
+            'supervisor_infantil' => '/supervisor-infantil/dashboard',
+            'supervisor_fundamental' => '/supervisor-fundamental/dashboard',
             default => '/dashboard',
         };
     }

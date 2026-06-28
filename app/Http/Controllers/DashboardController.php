@@ -480,6 +480,22 @@ class DashboardController extends Controller
     }
 
     /**
+     * Supervisor Early Childhood Education Dashboard.
+     */
+    public function supervisorInfantil(Request $request): View
+    {
+        return view('dashboard.supervisor_infantil');
+    }
+
+    /**
+     * Supervisor Elementary Education Dashboard.
+     */
+    public function supervisorFundamental(Request $request): View
+    {
+        return view('dashboard.supervisor_fundamental');
+    }
+
+    /**
      * SEMED Security settings page (change own password).
      */
     public function semedSecurity(): View
