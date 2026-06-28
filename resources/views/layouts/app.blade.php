@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'SGP v2') }}</title>
+        <title>{{ config('app.name', 'SGP') }}</title>
 
         <!-- Google Fonts: Inter -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
                 <div class="flex items-center h-16 px-6 bg-slate-950 border-b border-slate-800/50">
                     <span class="text-xl font-bold text-indigo-400 tracking-wide flex items-center gap-2">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        SGP <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/10 text-indigo-300 rounded border border-indigo-500/20">v2</span>
+                        SGP
                     </span>
                 </div>
 
@@ -80,7 +80,7 @@
                     <!-- Header Mobile -->
                     <div class="flex items-center h-16 px-6 bg-slate-950 border-b border-slate-800/50">
                         <span class="text-xl font-bold text-indigo-400 tracking-wide flex items-center gap-2">
-                            SGP <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/10 text-indigo-300 rounded border border-indigo-500/20">v2</span>
+                            SGP
                         </span>
                     </div>
 

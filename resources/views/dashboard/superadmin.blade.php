@@ -12,7 +12,7 @@
             <div class="relative z-10 space-y-2 text-center md:text-left">
                 <h3 class="text-2xl font-bold tracking-tight">Olá, Super Administrador!</h3>
                 <p class="text-slate-400 text-sm max-w-xl">
-                    Bem-vindo ao painel central do SGP v2. Aqui você pode gerenciar os municípios parceiros, acompanhar o limite de escolas contratadas, monitorar o uso da Inteligência Artificial IANNE e gerenciar o status das assinaturas SaaS.
+                    Bem-vindo ao painel central do SGP. Aqui você pode gerenciar os municípios parceiros, acompanhar o limite de escolas contratadas, monitorar o uso da Inteligência Artificial IANNE e gerenciar o status das assinaturas SaaS.
                 </p>
             </div>
             <div class="relative z-10 flex gap-3 flex-shrink-0">

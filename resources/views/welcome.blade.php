@@ -74,7 +74,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center gap-3 group">
                 <img src="{{ asset('images/ncircuits-logo.png') }}" alt="N Circuits Technologies" class="h-8 w-auto transition-transform duration-300 group-hover:scale-105">
-                <span class="text-base font-extrabold tracking-tight header-text">SGP <span class="text-[10px] font-bold px-1.5 py-0.5 bg-indigo-500/10 text-indigo-300 rounded border border-indigo-500/20 align-middle">v2</span></span>
+                <span class="text-base font-extrabold tracking-tight header-text">SGP</span>
             </a>
             <nav class="flex items-center gap-3">
                 @if (Route::has('login'))
