@@ -55,16 +55,6 @@
                         @enderror
                     </div>
 
-                    <!-- Limite de Escolas -->
-                    <div>
-                        <label for="max_schools_limit" class="block text-sm font-semibold text-slate-700 mb-2">Limite Máximo de Escolas</label>
-                        <input type="number" name="max_schools_limit" id="max_schools_limit" value="{{ old('max_schools_limit', $tenant->max_schools_limit) }}" class="w-full rounded-lg border-slate-200 focus:border-violet-500 focus:ring focus:ring-violet-500/20 text-sm py-2.5 transition @error('max_schools_limit') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror" min="1" required>
-                        <p class="text-[11px] text-slate-400 mt-1.5">Número máximo de escolas permitidas para cadastro sob este inquilino.</p>
-                        @error('max_schools_limit')
-                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
                     <!-- Expira em -->
                     <div>
                         <label for="expires_at" class="block text-sm font-semibold text-slate-700 mb-2">Data de Expiração do Contrato</label>
@@ -74,6 +64,15 @@
                             <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
                         @enderror
                     </div>
+                </div>
+
+                <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-lg text-indigo-800 text-xs flex items-start gap-2">
+                    <svg class="w-4 h-4 text-indigo-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>
+                        O limite de escolas deste município (atualmente <strong>{{ $tenant->max_schools_limit }}</strong>) agora é definido em <strong>Cadastrar Seduc</strong>.
+                    </span>
                 </div>
 
                 <!-- Toggles / Checkboxes -->

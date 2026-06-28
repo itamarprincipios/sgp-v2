@@ -17,6 +17,12 @@
             </svg>
             <span>Municípios (SaaS)</span>
         </a>
+        <a href="/superadmin/seduc/create" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('superadmin/seduc*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4M9 21V3h6v18"></path>
+            </svg>
+            <span>Cadastrar Seduc</span>
+        </a>
         <a href="/superadmin/security" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('superadmin/security*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm0 0c0 1.657 1.343 3 3 3s3-1.343 3-3-1.343-3-3-3-3 1.343-3 3zM5 11V8a7 7 0 1114 0v3"></path>

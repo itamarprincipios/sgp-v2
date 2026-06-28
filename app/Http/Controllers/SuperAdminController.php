@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\AiQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class SuperAdminController extends Controller
@@ -57,7 +58,6 @@ class SuperAdminController extends Controller
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:tenants,slug'],
             'is_active' => ['boolean'],
             'ai_enabled' => ['boolean'],
-            'max_schools_limit' => ['required', 'integer', 'min:1'],
             'expires_at' => ['nullable', 'date'],
         ]);
 
@@ -89,7 +89,6 @@ class SuperAdminController extends Controller
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', Rule::unique('tenants', 'slug')->ignore($tenant->id)],
             'is_active' => ['boolean'],
             'ai_enabled' => ['boolean'],
-            'max_schools_limit' => ['required', 'integer', 'min:1'],
             'expires_at' => ['nullable', 'date'],
         ]);
 
@@ -141,5 +140,46 @@ class SuperAdminController extends Controller
         ]);
 
         return redirect()->route('superadmin.security')->with('success', 'Senha alterada com sucesso!');
+    }
+
+    /**
+     * Show the form for registering a new SEMED/Seduc (education department) for a tenant.
+     */
+    public function seducCreate()
+    {
+        $tenants = Tenant::orderBy('name')->get();
+        return view('superadmin.seduc.create', compact('tenants'));
+    }
+
+    /**
+     * Store a newly created SEMED/Seduc user, and set the tenant's school limit.
+     */
+    public function seducStore(Request $request)
+    {
+        $validated = $request->validate([
+            'tenant_id' => ['required', 'exists:tenants,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'max_schools_limit' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $tenant = Tenant::findOrFail($validated['tenant_id']);
+        $tenant->update(['max_schools_limit' => $validated['max_schools_limit']]);
+
+        $tempPassword = Str::password(10, symbols: false);
+
+        User::create([
+            'tenant_id' => $tenant->id,
+            'school_id' => null,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'whatsapp' => $validated['whatsapp'] ?? null,
+            'password' => Hash::make($tempPassword),
+            'role' => 'semed',
+        ]);
+
+        return redirect()->route('superadmin.tenants')
+            ->with('success', "Seduc cadastrada com sucesso para {$tenant->name}! Senha inicial: {$tempPassword} (informe à secretaria e oriente a troca no primeiro acesso).");
     }
 }

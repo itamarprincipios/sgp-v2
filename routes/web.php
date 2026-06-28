@@ -39,6 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/superadmin/tenants/{tenant}/toggle', [SuperAdminController::class, 'tenantsToggleStatus'])->name('superadmin.tenants.toggle');
         Route::get('/superadmin/security', [SuperAdminController::class, 'security'])->name('superadmin.security');
         Route::put('/superadmin/security/password', [SuperAdminController::class, 'updatePassword'])->name('superadmin.security.password');
+        Route::get('/superadmin/seduc/create', [SuperAdminController::class, 'seducCreate'])->name('superadmin.seduc.create');
+        Route::post('/superadmin/seduc', [SuperAdminController::class, 'seducStore'])->name('superadmin.seduc.store');
     });
     
     Route::middleware('role:semed')->group(function () {

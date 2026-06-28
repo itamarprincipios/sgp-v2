@@ -91,7 +91,6 @@ class SuperAdminTest extends TestCase
         $tenantData = [
             'name' => 'Prefeitura de Caracaraí',
             'slug' => 'caracarai',
-            'max_schools_limit' => 8,
             'is_active' => '1',
             'ai_enabled' => '1',
             'expires_at' => '2027-12-31',
@@ -105,7 +104,6 @@ class SuperAdminTest extends TestCase
         $this->assertDatabaseHas('tenants', [
             'name' => 'Prefeitura de Caracaraí',
             'slug' => 'caracarai',
-            'max_schools_limit' => 8,
             'is_active' => true,
             'ai_enabled' => true,
         ]);
@@ -164,7 +162,6 @@ class SuperAdminTest extends TestCase
         $updateData = [
             'name' => 'Prefeitura Atualizada',
             'slug' => 'pref-atualizada',
-            'max_schools_limit' => 12,
             'is_active' => '1',
             'ai_enabled' => '1',
         ];
@@ -178,9 +175,76 @@ class SuperAdminTest extends TestCase
             'id' => $tenant->id,
             'name' => 'Prefeitura Atualizada',
             'slug' => 'pref-atualizada',
-            'max_schools_limit' => 12,
+            'max_schools_limit' => 5,
             'is_active' => true,
             'ai_enabled' => true,
+        ]);
+    }
+
+    /**
+     * Test that a superadmin can register a Seduc (SEMED user) for a tenant
+     * and that it updates the tenant's school limit.
+     */
+    public function test_superadmin_can_store_seduc_for_tenant(): void
+    {
+        $superadmin = User::factory()->create([
+            'role' => 'superadmin',
+        ]);
+
+        $tenant = Tenant::create([
+            'name' => 'Prefeitura de Rorainópolis',
+            'slug' => 'rorainopolis',
+            'max_schools_limit' => 10,
+        ]);
+
+        $seducData = [
+            'tenant_id' => $tenant->id,
+            'name' => 'SEMED Rorainópolis',
+            'email' => 'semed@rorainopolis.gov.br',
+            'whatsapp' => '5595999998888',
+            'max_schools_limit' => 6,
+        ];
+
+        $response = $this->actingAs($superadmin)->post('/superadmin/seduc', $seducData);
+
+        $response->assertRedirect('/superadmin/tenants');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('users', [
+            'tenant_id' => $tenant->id,
+            'name' => 'SEMED Rorainópolis',
+            'email' => 'semed@rorainopolis.gov.br',
+            'role' => 'semed',
+            'school_id' => null,
+        ]);
+
+        $this->assertEquals(6, $tenant->refresh()->max_schools_limit);
+    }
+
+    /**
+     * Test that regular users cannot register a Seduc.
+     */
+    public function test_regular_user_cannot_store_seduc(): void
+    {
+        $user = User::factory()->create([
+            'role' => 'professor',
+        ]);
+
+        $tenant = Tenant::create([
+            'name' => 'Prefeitura Teste',
+            'slug' => 'pref-teste',
+        ]);
+
+        $response = $this->actingAs($user)->post('/superadmin/seduc', [
+            'tenant_id' => $tenant->id,
+            'name' => 'SEMED Teste',
+            'email' => 'semed@teste.gov.br',
+            'max_schools_limit' => 5,
+        ]);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseMissing('users', [
+            'email' => 'semed@teste.gov.br',
         ]);
     }
 
