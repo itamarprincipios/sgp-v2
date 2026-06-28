@@ -7,6 +7,7 @@ use App\Models\School;
 use App\Models\User;
 use App\Models\AiQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class SuperAdminController extends Controller
@@ -113,5 +114,32 @@ class SuperAdminController extends Controller
 
         $status = $tenant->is_active ? 'ativado' : 'desativado';
         return back()->with('success', "O município {$tenant->name} foi {$status} com sucesso!");
+    }
+
+    /**
+     * Show the security settings page (change own password).
+     */
+    public function security()
+    {
+        return view('superadmin.security');
+    }
+
+    /**
+     * Update the authenticated superadmin's own password.
+     */
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.current_password' => 'A senha atual informada está incorreta.',
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('superadmin.security')->with('success', 'Senha alterada com sucesso!');
     }
 }

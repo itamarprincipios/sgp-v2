@@ -22,6 +22,9 @@
                 <a href="{{ route('superadmin.tenants') }}" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold rounded-xl text-sm transition duration-150">
                     Gerenciar Municípios
                 </a>
+                <a href="{{ route('superadmin.security') }}" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold rounded-xl text-sm transition duration-150">
+                    Segurança da Conta
+                </a>
             </div>
         </div>
 
@@ -192,6 +195,18 @@
                             <div>
                                 <h4 class="text-sm font-semibold text-slate-900 group-hover:text-indigo-700 transition duration-150">Limites & Recursos</h4>
                                 <p class="text-xs text-slate-400">Modificar limites de escolas e uso da IA.</p>
+                            </div>
+                        </a>
+
+                        <a href="{{ route('superadmin.security') }}" class="flex items-center gap-4 p-4 rounded-xl border border-slate-100 hover:border-rose-100 hover:bg-rose-50/30 transition duration-150 group">
+                            <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-bold group-hover:bg-rose-600 group-hover:text-white transition duration-150">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm0 0c0 1.657 1.343 3 3 3s3-1.343 3-3-1.343-3-3-3-3 1.343-3 3zM5 11V8a7 7 0 1114 0v3"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-rose-700 transition duration-150">Segurança da Conta</h4>
+                                <p class="text-xs text-slate-400">Alterar a senha do Super Administrador.</p>
                             </div>
                         </a>
                     </div>
