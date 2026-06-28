@@ -10,6 +10,7 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class SchoolController extends Controller
 {
@@ -395,13 +396,15 @@ class SchoolController extends Controller
             return redirect()->route('school.professors')->with('error', 'Acesso negado para esta escola.');
         }
         
+        $tempPassword = Str::password(10, symbols: false);
+
         User::create([
             'tenant_id' => $user->tenant_id,
             'school_id' => $request->school_id,
             'name' => $request->name,
             'email' => $request->email,
             'whatsapp' => $request->whatsapp,
-            'password' => Hash::make('professor123'),
+            'password' => Hash::make($tempPassword),
             'role' => 'professor',
             'class_id' => $request->class_id,
             'monitor_class_id' => $request->monitor_class_id,
@@ -409,8 +412,8 @@ class SchoolController extends Controller
             'is_monitor' => $request->has('is_monitor'),
             'is_first_grade' => $request->has('is_first_grade'),
         ]);
-        
-        return redirect()->route('school.professors')->with('success', 'Professor cadastrado com sucesso! Senha inicial padrão: professor123');
+
+        return redirect()->route('school.professors')->with('success', "Professor cadastrado com sucesso! Senha inicial: {$tempPassword} (informe ao professor e oriente a troca no primeiro acesso).");
     }
 
     /**
@@ -470,11 +473,13 @@ class SchoolController extends Controller
             return redirect()->route('school.professors')->with('error', 'Acesso negado para esta ação.');
         }
         
+        $tempPassword = Str::password(10, symbols: false);
+
         $prof->update([
-            'password' => Hash::make('professor123')
+            'password' => Hash::make($tempPassword)
         ]);
-        
-        return redirect()->route('school.professors')->with('success', "A senha do professor {$prof->name} foi redefinida para 'professor123'.");
+
+        return redirect()->route('school.professors')->with('success', "A senha do professor {$prof->name} foi redefinida para: {$tempPassword} (oriente a troca no primeiro acesso).");
     }
 
     /**
@@ -552,7 +557,15 @@ class SchoolController extends Controller
      */
     public function changePassword(Request $request)
     {
-        return redirect()->route('school.dashboard');
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        auth()->user()->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('school.dashboard')->with('success', 'Senha alterada com sucesso!');
     }
 
     /**
@@ -595,16 +608,18 @@ class SchoolController extends Controller
             return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('error', 'Acesso negado para esta escola.');
         }
         
+        $tempPassword = Str::password(10, symbols: false);
+
         $coordinator = User::create([
             'tenant_id' => $user->tenant_id,
             'school_id' => $request->school_id,
             'name' => $request->name,
             'email' => $request->email,
             'whatsapp' => $request->whatsapp,
-            'password' => Hash::make('coord123'),
+            'password' => Hash::make($tempPassword),
             'role' => 'coordinator',
         ]);
-        
+
         // Link in pivot table user_schools
         \Illuminate\Support\Facades\DB::table('user_schools')->insert([
             'user_id' => $coordinator->id,
@@ -612,8 +627,8 @@ class SchoolController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
-        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', 'Coordenador cadastrado com sucesso! Senha padrão: coord123');
+
+        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "Coordenador cadastrado com sucesso! Senha inicial: {$tempPassword} (informe ao coordenador e oriente a troca no primeiro acesso).");
     }
 
     /**
@@ -709,11 +724,13 @@ class SchoolController extends Controller
             return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('error', 'Acesso negado.');
         }
         
+        $tempPassword = Str::password(10, symbols: false);
+
         $coordinator->update([
-            'password' => Hash::make('coord123'),
+            'password' => Hash::make($tempPassword),
         ]);
-        
-        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "A senha do coordenador {$coordinator->name} foi redefinida para 'coord123'.");
+
+        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "A senha do coordenador {$coordinator->name} foi redefinida para: {$tempPassword} (oriente a troca no primeiro acesso).");
     }
 
     /**

@@ -217,7 +217,11 @@
                     @csrf
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 mb-1.5">Nova Senha</label>
-                        <input type="password" name="password" required class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                        <input type="password" name="password" required minlength="8" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1.5">Confirmar Nova Senha</label>
+                        <input type="password" name="password_confirmation" required minlength="8" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                     </div>
                     <button type="submit" class="px-4 py-2.5 bg-slate-950 hover:bg-slate-900 text-white font-bold rounded-xl text-xs shadow-sm transition">
                         Salvar Nova Senha

@@ -380,11 +380,11 @@ DB_DATABASE=u199671261_smartsheets1
 DB_USERNAME=u199671261_smart1
 DB_PASSWORD=<configurada no servidor>
 
-# Opcional: Configurações da IA
-OPENAI_API_KEY=
-OPENAI_MODEL=gpt-4o-mini
-OPENAI_MAX_TOKENS=1000
-OPENAI_TEMPERATURE=0.3
+# Opcional: Configurações da IA (IANNE usa a Gemini API do Google)
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-1.5-flash
+GEMINI_MAX_TOKENS=1000
+GEMINI_TEMPERATURE=0.3
 ```
 
 ---

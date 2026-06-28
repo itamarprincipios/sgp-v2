@@ -36,6 +36,11 @@ class DocumentController extends Controller
 
         $period = Period::findOrFail($request->period_id);
 
+        // Period must be global (no school_id) or belong to the professor's own school
+        if ($period->school_id && $period->school_id != $user->school_id) {
+            abort(403, 'Este cronograma não pertence à sua escola.');
+        }
+
         // Check if there is an existing document for this period/user to replace it
         $existingDoc = Document::where('user_id', $user->id)
             ->where('period_id', $request->period_id)

@@ -27,7 +27,7 @@ class RAGController extends Controller
         try {
             $this->aiService = new AIService();
         } catch (Exception $e) {
-            // Fail silently on construct to avoid throwing errors if OpenAI Key is missing during loading
+            // Fail silently on construct to avoid throwing errors if Gemini Key is missing during loading
             $this->aiService = null;
         }
     }

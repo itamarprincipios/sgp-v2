@@ -15,18 +15,18 @@ class AIService
 
     public function __construct()
     {
-        $this->apiKey = env('OPENAI_API_KEY');
-        $this->model = env('OPENAI_MODEL', 'gpt-4o-mini');
-        $this->maxTokens = (int) env('OPENAI_MAX_TOKENS', 1000);
-        $this->temperature = (float) env('OPENAI_TEMPERATURE', 0.3);
+        $this->apiKey = env('GEMINI_API_KEY');
+        $this->model = env('GEMINI_MODEL', 'gemini-1.5-flash');
+        $this->maxTokens = (int) env('GEMINI_MAX_TOKENS', 1000);
+        $this->temperature = (float) env('GEMINI_TEMPERATURE', 0.3);
 
         if (empty($this->apiKey) || $this->apiKey === 'sua-chave-aqui') {
-            throw new Exception('OPENAI_API_KEY não configurada no arquivo .env');
+            throw new Exception('GEMINI_API_KEY não configurada no arquivo .env');
         }
     }
 
     /**
-     * Envia uma pergunta para a OpenAI e retorna a resposta.
+     * Envia uma pergunta para a Gemini API (Google) e retorna a resposta.
      *
      * @param string $prompt O prompt a ser enviado
      * @return string A resposta da IA
@@ -38,35 +38,42 @@ class AIService
         $prompt = mb_convert_encoding($prompt, 'UTF-8', 'UTF-8');
         $prompt = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $prompt);
 
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent";
+
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json; charset=utf-8',
+                'x-goog-api-key' => $this->apiKey,
             ])
-            ->withToken($this->apiKey)
             ->timeout(30)
-            ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => $this->model,
-                'messages' => [
-                    ['role' => 'user', 'content' => $prompt]
+            ->post($url, [
+                'contents' => [
+                    ['role' => 'user', 'parts' => [['text' => $prompt]]]
                 ],
-                'temperature' => $this->temperature,
-                'max_tokens' => $this->maxTokens
+                'generationConfig' => [
+                    'temperature' => $this->temperature,
+                    'maxOutputTokens' => $this->maxTokens,
+                ],
             ]);
 
             if ($response->failed()) {
                 $errorMsg = $response->json('error.message', $response->body());
-                Log::error("OpenAI API Error (HTTP {$response->status()}): {$errorMsg}");
-                throw new Exception("OpenAI API Error (HTTP {$response->status()}): {$errorMsg}");
+                Log::error("Gemini API Error (HTTP {$response->status()}): {$errorMsg}");
+                throw new Exception("Gemini API Error (HTTP {$response->status()}): {$errorMsg}");
             }
 
-            $content = $response->json('choices.0.message.content');
+            $content = $response->json('candidates.0.content.parts.0.text');
             if (is_null($content)) {
-                throw new Exception("Resposta inválida da OpenAI: " . $response->body());
+                $blockReason = $response->json('promptFeedback.blockReason');
+                if ($blockReason) {
+                    throw new Exception("Resposta bloqueada pela Gemini API: {$blockReason}");
+                }
+                throw new Exception("Resposta inválida da Gemini API: " . $response->body());
             }
 
             return $content;
         } catch (Exception $e) {
-            Log::error("Erro na consulta à OpenAI: " . $e->getMessage());
+            Log::error("Erro na consulta à Gemini API: " . $e->getMessage());
             throw $e;
         }
     }
