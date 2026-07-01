@@ -143,14 +143,15 @@ O controle de acesso é feito pelo middleware `RoleMiddleware` registrado como `
 | `admin`              | Administrador do tenant (visão geral)             | `/admin/dashboard`          |
 | `semed`              | Equipe da Secretaria de Educação                  | `/semed/dashboard`          |
 | `director`           | Diretor de escola (gerencia coordenadores)        | `/school/dashboard`         |
+| `vice_director`      | Vice-diretor de escola (mesmo acesso do director) | `/school/dashboard`         |
 | `coordinator`        | Coordenador pedagógico (gerencia professores)     | `/school/dashboard`         |
 | `professor`          | Professor (envia planejamentos .docx)             | `/professor/dashboard`      |
 | `supervisor_edfis`   | Supervisor de Educação Física                     | `/supervisor-edfis/dashboard` |
 | `supervisor_monitor` | Supervisor de Monitores                           | `/supervisor-monitor/dashboard` |
 
 ### Hierarquia de Permissões
-- **Director** pode criar/editar/deletar coordenadores e resetar senhas de coordenadores e professores.
-- **Director e Coordinator** compartilham acesso às rotas de gestão escolar (turmas, professores, cronogramas, envios).
+- **Director e Vice-Director** têm acesso idêntico: podem criar/editar/deletar coordenadores e resetar senhas de coordenadores e professores. Diretor e Vice-Diretor são cadastrados pela SEMED (não pela escola), um por escola cada (vice-diretor é opcional).
+- **Director, Vice-Director e Coordinator** compartilham acesso às rotas de gestão escolar (turmas, professores, cronogramas, envios).
 - **Professor** só acessa seu próprio dashboard e pode enviar documentos `.docx`.
 - **SEMED** visualiza métricas consolidadas de todas as escolas da rede.
 - **SuperAdmin** gerencia os tenants (municípios) do sistema SaaS.
@@ -178,7 +179,7 @@ O controle de acesso é feito pelo middleware `RoleMiddleware` registrado como `
 | GET    | `/admin/dashboard`             | DashboardController@admin       | admin                      |
 | GET    | `/superadmin/dashboard`        | SuperAdminController@index      | superadmin                 |
 | GET    | `/semed/dashboard`             | DashboardController@semed       | semed                      |
-| GET    | `/school/dashboard`            | DashboardController@school      | director, coordinator      |
+| GET    | `/school/dashboard`            | DashboardController@school      | director, vice_director, coordinator |
 | GET    | `/professor/dashboard`         | DashboardController@professor   | professor                  |
 | GET    | `/supervisor-edfis/dashboard`  | DashboardController@supervisorEdfis | supervisor_edfis       |
 | GET    | `/supervisor-monitor/dashboard`| DashboardController@supervisorMonitor | supervisor_monitor   |
@@ -251,9 +252,11 @@ O controle de acesso é feito pelo middleware `RoleMiddleware` registrado como `
 
 ### School (Escola)
 - `hasMany` → User, SchoolClass, Period
+- `hasOne` → User (`director()`, role='director'), User (`viceDirector()`, role='vice_director')
 - Usa trait `BelongsToTenant`
 - **Evento `created`:** Auto-cria 30 turmas (1º-5º Ano × A-F)
-- Campos: `tenant_id`, `name`, `inep_code`, `address`, `director_name`, `director_phone`
+- Campos: `tenant_id`, `name`, `inep_code`, `address`
+- Diretor(a)/Vice-Diretor(a) não são campos da escola — são usuários (role `director`/`vice_director`) vinculados via `school_id`, cadastrados separadamente no painel SEMED
 
 ### User (Usuário)
 - `belongsTo` → School, SchoolClass (class_id), SchoolClass (monitor_class_id)
@@ -410,3 +413,43 @@ php artisan config:cache   # Cachear configurações
 php artisan route:cache    # Cachear rotas
 php artisan view:cache     # Cachear views
 ```
+
+---
+
+## 14. 🔄 PIVÔ ESTRATÉGICO PLANEJADO — Plataforma de Correção (decidido em 01/07/2026)
+
+> **Contexto da decisão:** professores e coordenadores rejeitaram o fluxo atual (envio com deadline + cronogramas obrigatórios). Na prática, coordenadores já recebem os planejamentos digitalmente por e-mail/WhatsApp e já usam IA de forma dispersa para corrigir. O sistema será realinhado a esse comportamento real: o coordenador arrasta os documentos para dentro do SGP, a IA ajuda na correção, e a hierarquia (Diretor/SEMED/Seduc) ganha diagnósticos analíticos em tempo real da rede via RAG.
+
+### O que SAI (desativar, NÃO deletar — fica dormindo atrás de flags)
+
+| Peça | Localização | Ação |
+|---|---|---|
+| Upload pelo professor | `DocumentController@store`, rota `professor.documents.store`, dashboard do professor | Desativar rota |
+| CRUD de cronogramas | `SchoolController` (`plannings`…`deletePlanning`, ~250 linhas) + views `school/planning_*` | Desativar |
+| Pontuação punitiva | Cálculo por prazo (`score_base`, `penalty_delay`, `penalty_resubmission`, `rejection_count`) | Ignorar campos (não dropar) |
+| Medalhas/gamificação | `UserMedal` | Desativar |
+| Login de professor | Role `professor` + dashboard | Professor vira **cadastro** (nome, turma, disciplina), não usuário com login |
+
+### O que FICA intacto
+
+Multi-tenant, hierarquia de papéis (superadmin → seduc → semed → diretor/vice → coordenador → supervisores), escolas, turmas, `DocumentExtractor`, e o trio do RAG (`AIService`, `PromptBuilder`, `RAGController`).
+
+### O que MUDA / NASCE
+
+1. **`Document` reaproveitado:** adicionar `uploaded_by` (coordenador), `professor_id` (referência ao cadastro), `class_id`, `discipline`, rótulo livre de período (ex: "1º bimestre 2026") no lugar de `period_id` obrigatório.
+2. **Tela de upload do coordenador (coração novo):** drag-and-drop multi-arquivo. A IA lê o documento e **infere** professor/turma/disciplina/período do cabeçalho, casando com cadastros existentes; coordenador só confirma. Ampliar `DocumentExtractor` para PDF (hoje só .docx).
+3. **Correção assistida:** ao confirmar upload, IA gera análise baseada em critérios/rubrica configuráveis pela SEMED (nova tabela por tenant). Coordenador edita e salva. Substitui o `reviewDocument` punitivo.
+4. **`ContextBuilder` reescrito nas estatísticas:** sai "enviados/atrasados/taxa de entrega", entra "corrigidos/pendentes, metodologias identificadas, temas por turma". Daqui saem os diagnósticos em tempo real para a hierarquia.
+
+### Fases de implementação
+
+1. **Fase 1 — Upload inteligente** (~3-4 dias): migração do `Document`, professores viram cadastro, tela drag-and-drop com inferência de metadados. Sistema vira o repositório central.
+2. **Fase 2 — Correção assistida** (~1-2 dias): rubrica da SEMED + análise automática + edição pelo coordenador. Nasce a devolutiva que compra a adesão.
+3. **Fase 3 — Diagnóstico da rede** (~1-2 dias): ajuste do `ContextBuilder`/dashboards para as novas métricas. Nasce o valor para a hierarquia.
+
+### Princípios da decisão (não violar)
+
+- **O upload tem que ser mais simples que colar no ChatGPT** — zero formulário; metadados inferidos pela IA, coordenador apenas confirma.
+- **A devolutiva imediata ao coordenador (correção assistida) vem ANTES do dashboard do gestor** — é ela que compra os uploads que alimentam os relatórios.
+- **Sem dado de "quem entregou no prazo"** — o sistema passa a mostrar o que foi corrigido, não o que foi entregue. Expectativa alinhada com a SEMED antes do pivô.
+- Fluxo antigo permanece no código, desativado, reativável por escola se necessário.
