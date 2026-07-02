@@ -35,7 +35,7 @@ class DashboardController extends Controller
         $directorCount = User::where('role', 'director')->count();
         $semedCount = User::where('role', 'semed')->count();
 
-        $schools = School::withCount(['users', 'classes'])->get();
+        $schools = School::withCount(['users', 'classes'])->with('director')->get();
 
         return view('dashboard.admin', compact(
             'schoolCount',
@@ -72,7 +72,7 @@ class DashboardController extends Controller
         $coordinatorCount = User::where('tenant_id', $tenantId)->where('role', 'coordinator')->count();
         $directorCount = User::where('tenant_id', $tenantId)->where('role', 'director')->count();
 
-        $schools = School::where('tenant_id', $tenantId)->withCount(['users', 'classes'])->get();
+        $schools = School::where('tenant_id', $tenantId)->withCount(['users', 'classes'])->with('director')->get();
 
         $totalPlannings = Period::where('tenant_id', $tenantId)->count();
         $totalDocs = Document::where('tenant_id', $tenantId)->count();
@@ -307,7 +307,7 @@ class DashboardController extends Controller
         $mySchoolRank = 1;
         $mySchoolData = ['school_name' => $school->name ?? 'N/A', 'avg_score' => 100.0, 'total_docs' => 0];
 
-        if ($user->role === 'director') {
+        if (in_array($user->role, ['director', 'vice_director'])) {
             $schoolsStats = School::where('tenant_id', $user->tenant_id)->get()->map(function($s) {
                 $docs = Document::whereHas('user', function($q) use ($s) {
                     $q->where('school_id', $s->id);

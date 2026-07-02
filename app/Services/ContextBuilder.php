@@ -39,8 +39,8 @@ class ContextBuilder
                 'nome' => $school->name,
                 'endereco' => $school->address ?? 'Não informado',
                 'codigo_inep' => $school->inep_code ?? 'N/A',
-                'diretor' => $school->director_name ?? 'Não informado',
-                'telefone_diretor' => $school->director_phone ?? 'Não informado'
+                'diretor' => $school->director->name ?? 'Não informado',
+                'telefone_diretor' => $school->director->whatsapp ?? 'Não informado'
             ],
             'coordenadores' => $this->extractCoordinatorsInfo($coordinators),
             'estatisticas' => [
@@ -283,12 +283,13 @@ class ContextBuilder
         $list = is_array($schools) ? $schools : $schools->all();
         return array_map(function ($school) {
             $schoolData = is_array($school) ? $school : $school->toArray();
+            $director = $school instanceof School ? $school->director : null;
             return [
                 'nome' => $schoolData['name'],
                 'endereco' => $schoolData['address'] ?? 'Não informado',
                 'codigo_inep' => $schoolData['inep_code'] ?? 'N/A',
-                'diretor' => $schoolData['director_name'] ?? 'Não informado',
-                'telefone_diretor' => $schoolData['director_phone'] ?? 'Não informado'
+                'diretor' => $director->name ?? 'Não informado',
+                'telefone_diretor' => $director->whatsapp ?? 'Não informado'
             ];
         }, $list);
     }

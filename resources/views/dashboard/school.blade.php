@@ -56,7 +56,7 @@
 
                 <div class="space-y-2">
                     <span class="px-3 py-1 bg-indigo-500/10 text-indigo-300 rounded-full border border-indigo-500/20 text-xs font-semibold tracking-wide capitalize">
-                        {{ $user->role === 'director' ? 'Diretor Escolar' : 'Coordenador Pedagógico' }}
+                        {{ match($user->role) { 'director' => 'Diretor Escolar', 'vice_director' => 'Vice-Diretor Escolar', default => 'Coordenador Pedagógico' } }}
                     </span>
                     <h3 class="text-2xl font-bold tracking-tight mt-1">{{ $user->name }}</h3>
                     <p class="text-slate-400 text-sm max-w-xl flex items-center gap-1.5 justify-center md:justify-start">
@@ -128,8 +128,8 @@
                 </div>
             </div>
 
-            <!-- GAMIFICATION (Apenas para Diretores) -->
-            @if($user->role === 'director')
+            <!-- GAMIFICATION (Apenas para Diretores/Vice-Diretores) -->
+            @if($user->role === 'director' || $user->role === 'vice_director')
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Ranking de Escolas -->
                     <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden p-6 space-y-4">
@@ -296,7 +296,7 @@
                     </table>
                 </div>
             </div>
-        @elseif($tab === 'coordinators' && $user->role === 'director')
+        @elseif($tab === 'coordinators' && ($user->role === 'director' || $user->role === 'vice_director'))
             <!-- ================= TAB: GESTÃO DE COORDENADORES ================= -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Cadastro Coordenador -->

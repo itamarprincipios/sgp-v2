@@ -65,7 +65,7 @@ class User extends Authenticatable
             'superadmin' => '/superadmin/dashboard',
             'admin' => '/admin/dashboard',
             'semed' => '/semed/dashboard',
-            'director', 'coordinator' => '/school/dashboard',
+            'director', 'vice_director', 'coordinator' => '/school/dashboard',
             'professor' => '/professor/dashboard',
             'supervisor_edfis' => '/supervisor-edfis/dashboard',
             'supervisor_monitor' => '/supervisor-monitor/dashboard',

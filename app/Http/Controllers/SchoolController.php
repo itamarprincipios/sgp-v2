@@ -591,7 +591,7 @@ class SchoolController extends Controller
     public function storeCoordinator(Request $request)
     {
         $user = auth()->user();
-        if ($user->role !== 'director') {
+        if (!in_array($user->role, ['director', 'vice_director'])) {
             abort(403, 'Acesso não autorizado.');
         }
         
@@ -637,7 +637,7 @@ class SchoolController extends Controller
     public function editCoordinator(Request $request)
     {
         $user = auth()->user();
-        if ($user->role !== 'director') {
+        if (!in_array($user->role, ['director', 'vice_director'])) {
             abort(403, 'Acesso não autorizado.');
         }
 
@@ -664,7 +664,7 @@ class SchoolController extends Controller
     public function updateCoordinator(Request $request)
     {
         $user = auth()->user();
-        if ($user->role !== 'director') {
+        if (!in_array($user->role, ['director', 'vice_director'])) {
             abort(403, 'Acesso não autorizado.');
         }
 
@@ -708,7 +708,7 @@ class SchoolController extends Controller
     public function resetCoordinatorPassword(Request $request)
     {
         $user = auth()->user();
-        if ($user->role !== 'director') {
+        if (!in_array($user->role, ['director', 'vice_director'])) {
             abort(403, 'Acesso não autorizado.');
         }
         
@@ -739,7 +739,7 @@ class SchoolController extends Controller
     public function deleteCoordinator(Request $request)
     {
         $user = auth()->user();
-        if ($user->role !== 'director') {
+        if (!in_array($user->role, ['director', 'vice_director'])) {
             abort(403, 'Acesso não autorizado.');
         }
         

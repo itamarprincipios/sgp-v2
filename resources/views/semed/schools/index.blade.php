@@ -40,6 +40,7 @@
                             <th class="px-6 py-4">Código INEP</th>
                             <th class="px-6 py-4">Endereço</th>
                             <th class="px-6 py-4">Diretor(a)</th>
+                            <th class="px-6 py-4">Vice-Diretor(a)</th>
                             <th class="px-6 py-4 text-center">Profissionais</th>
                             <th class="px-6 py-4 text-right">Ações</th>
                         </tr>
@@ -52,7 +53,8 @@
                                 </td>
                                 <td class="px-6 py-4 font-mono text-xs text-slate-500">{{ $school->inep_code ?? '—' }}</td>
                                 <td class="px-6 py-4 text-slate-600">{{ $school->address ?? '—' }}</td>
-                                <td class="px-6 py-4 text-slate-600">{{ $school->director_name ?? '—' }}</td>
+                                <td class="px-6 py-4 text-slate-600">{{ $school->director->name ?? '—' }}</td>
+                                <td class="px-6 py-4 text-slate-600">{{ $school->viceDirector->name ?? '—' }}</td>
                                 <td class="px-6 py-4 text-center font-semibold text-slate-700">{{ $school->users_count }}</td>
                                 <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
                                     <a href="{{ route('semed.schools.edit', $school) }}" class="inline-flex items-center px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 transition duration-150">
@@ -72,7 +74,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-12 text-center text-slate-400 font-medium">
+                                <td colspan="7" class="px-6 py-12 text-center text-slate-400 font-medium">
                                     Nenhuma escola cadastrada até o momento.
                                 </td>
                             </tr>

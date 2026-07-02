@@ -6,6 +6,7 @@ use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class School extends Model
 {
@@ -16,8 +17,6 @@ class School extends Model
         'name',
         'inep_code',
         'address',
-        'director_name',
-        'director_phone',
     ];
 
     protected static function boot()
@@ -61,5 +60,21 @@ class School extends Model
     public function periods(): HasMany
     {
         return $this->hasMany(Period::class);
+    }
+
+    /**
+     * Get the current director assigned to this school.
+     */
+    public function director(): HasOne
+    {
+        return $this->hasOne(User::class)->where('role', 'director');
+    }
+
+    /**
+     * Get the current vice-director assigned to this school, if any.
+     */
+    public function viceDirector(): HasOne
+    {
+        return $this->hasOne(User::class)->where('role', 'vice_director');
     }
 }

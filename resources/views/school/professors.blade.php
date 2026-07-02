@@ -106,7 +106,7 @@
                     <h2 class="text-center text-sm font-semibold text-slate-700 mt-1">RELAÇÃO DE PROFESSORES DA UNIDADE ESCOLAR</h2>
                     <div class="grid grid-cols-2 text-xs text-slate-600 mt-4 gap-2 font-medium">
                         <div><strong>Escola:</strong> {{ $school->name ?? 'N/A' }}</div>
-                        <div><strong>Diretor(a):</strong> {{ $school->director_name ?? 'N/A' }}</div>
+                        <div><strong>Diretor(a):</strong> {{ $school->director->name ?? 'N/A' }}</div>
                         <div><strong>Coordenador(a):</strong> {{ $user->name }}</div>
                         <div><strong>Emitido em:</strong> {{ now()->format('d/m/Y H:i') }}</div>
                     </div>

@@ -34,8 +34,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Escola Municipal Exemplo 1',
             'inep_code' => '12345678',
             'address' => 'Rua das Flores, 123',
-            'director_name' => 'Diretora Maria Silva',
-            'director_phone' => '95991112222',
         ]);
 
         School::create([
@@ -44,8 +42,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Escola Municipal Exemplo 2',
             'inep_code' => '87654321',
             'address' => 'Av. Central, 456',
-            'director_name' => 'Diretor Carlos Souza',
-            'director_phone' => '95992223333',
         ]);
 
         // 3. Inserir Usuários (Com senhas criptografadas usando Hash::make)

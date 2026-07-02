@@ -99,9 +99,9 @@
                                 <td class="px-6 py-4 font-semibold text-slate-900">{{ $school->name }}</td>
                                 <td class="px-6 py-4 font-mono text-slate-500">{{ $school->inep_code ?? '-' }}</td>
                                 <td class="px-6 py-4">
-                                    <div class="font-medium text-slate-800">{{ $school->director_name ?? 'Não definido' }}</div>
-                                    @if($school->director_phone)
-                                        <div class="text-xs text-slate-400 mt-0.5">{{ $school->director_phone }}</div>
+                                    <div class="font-medium text-slate-800">{{ $school->director->name ?? 'Não definido' }}</div>
+                                    @if($school->director?->whatsapp)
+                                        <div class="text-xs text-slate-400 mt-0.5">{{ $school->director->whatsapp }}</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-center font-semibold text-slate-800">{{ $school->classes_count }}</td>

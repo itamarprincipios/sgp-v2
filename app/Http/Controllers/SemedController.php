@@ -38,6 +38,7 @@ class SemedController extends Controller
     public function schools(): View
     {
         $schools = School::withCount(['users', 'classes'])
+            ->with(['director', 'viceDirector'])
             ->orderBy('name')
             ->paginate(10);
 
@@ -61,8 +62,6 @@ class SemedController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'inep_code' => ['nullable', 'string', 'max:20', 'unique:schools,inep_code'],
             'address' => ['nullable', 'string', 'max:255'],
-            'director_name' => ['nullable', 'string', 'max:255'],
-            'director_phone' => ['nullable', 'string', 'max:20'],
         ]);
 
         $validated['tenant_id'] = auth()->user()->tenant_id;
@@ -89,8 +88,6 @@ class SemedController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'inep_code' => ['nullable', 'string', 'max:20', Rule::unique('schools', 'inep_code')->ignore($school->id)],
             'address' => ['nullable', 'string', 'max:255'],
-            'director_name' => ['nullable', 'string', 'max:255'],
-            'director_phone' => ['nullable', 'string', 'max:20'],
         ]);
 
         $school->update($validated);
@@ -244,6 +241,144 @@ class SemedController extends Controller
         $user->delete();
 
         return redirect()->route('semed.directors')->with('success', 'Diretor(a) excluído(a) com sucesso!');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Vice-Directors
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * List vice-directors registered for the SEMED's tenant.
+     */
+    public function viceDirectors(): View
+    {
+        $viceDirectors = User::where('role', 'vice_director')
+            ->with('school')
+            ->orderBy('name')
+            ->paginate(10);
+
+        $schools = School::orderBy('name')->get();
+
+        return view('semed.vice_directors.index', compact('viceDirectors', 'schools'));
+    }
+
+    /**
+     * Show the form for registering a new vice-director.
+     */
+    public function viceDirectorsCreate(): View
+    {
+        $schools = School::orderBy('name')->get();
+
+        return view('semed.vice_directors.create', compact('schools'));
+    }
+
+    /**
+     * Store a newly registered vice-director, linked to a single school.
+     */
+    public function viceDirectorsStore(Request $request): RedirectResponse
+    {
+        $tenantId = auth()->user()->tenant_id;
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'school_id' => ['required', Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
+        ]);
+
+        $tempPassword = TempPassword::generate();
+
+        $viceDirector = User::create([
+            'tenant_id' => $tenantId,
+            'school_id' => $validated['school_id'],
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'whatsapp' => $validated['whatsapp'] ?? null,
+            'password' => Hash::make($tempPassword),
+            'role' => 'vice_director',
+        ]);
+
+        DB::table('user_schools')->insert([
+            'user_id' => $viceDirector->id,
+            'school_id' => $validated['school_id'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('semed.vice-directors')
+            ->with('success', "Vice-Diretor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} (informe ao vice-diretor e oriente a troca no primeiro acesso).");
+    }
+
+    /**
+     * Show the form for editing a vice-director.
+     */
+    public function viceDirectorsEdit(User $user): View
+    {
+        abort_unless($user->role === 'vice_director', 404);
+
+        $schools = School::orderBy('name')->get();
+
+        return view('semed.vice_directors.edit', compact('user', 'schools'));
+    }
+
+    /**
+     * Update a vice-director's details, including their school assignment.
+     */
+    public function viceDirectorsUpdate(Request $request, User $user): RedirectResponse
+    {
+        abort_unless($user->role === 'vice_director', 404);
+
+        $tenantId = auth()->user()->tenant_id;
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'school_id' => ['required', Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
+        ]);
+
+        $user->update($validated);
+
+        DB::table('user_schools')->where('user_id', $user->id)->delete();
+        DB::table('user_schools')->insert([
+            'user_id' => $user->id,
+            'school_id' => $validated['school_id'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('semed.vice-directors')->with('success', "Dados de {$user->name} atualizados com sucesso!");
+    }
+
+    /**
+     * Reset a vice-director's password to a new random temporary password.
+     */
+    public function viceDirectorsResetPassword(User $user): RedirectResponse
+    {
+        abort_unless($user->role === 'vice_director', 404);
+
+        $tempPassword = TempPassword::generate();
+
+        $user->update([
+            'password' => Hash::make($tempPassword),
+        ]);
+
+        return redirect()->route('semed.vice-directors')
+            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} (informe ao vice-diretor e oriente a troca no primeiro acesso).");
+    }
+
+    /**
+     * Delete a vice-director.
+     */
+    public function viceDirectorsDelete(User $user): RedirectResponse
+    {
+        abort_unless($user->role === 'vice_director', 404);
+
+        $user->delete();
+
+        return redirect()->route('semed.vice-directors')->with('success', 'Vice-Diretor(a) excluído(a) com sucesso!');
     }
 
     /*

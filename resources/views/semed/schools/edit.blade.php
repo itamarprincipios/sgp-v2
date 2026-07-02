@@ -51,29 +51,22 @@
                         @enderror
                     </div>
 
-                    <div>
+                    <div class="md:col-span-2">
                         <label for="address" class="block text-sm font-semibold text-slate-700 mb-2">Endereço (opcional)</label>
                         <input type="text" name="address" id="address" value="{{ old('address', $school->address) }}" class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 text-sm py-2.5 transition @error('address') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
                         @error('address')
                             <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
                         @enderror
                     </div>
+                </div>
 
-                    <div>
-                        <label for="director_name" class="block text-sm font-semibold text-slate-700 mb-2">Diretor(a) - nome de exibição (opcional)</label>
-                        <input type="text" name="director_name" id="director_name" value="{{ old('director_name', $school->director_name) }}" class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 text-sm py-2.5 transition @error('director_name') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
-                        @error('director_name')
-                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="director_phone" class="block text-sm font-semibold text-slate-700 mb-2">Telefone do(a) Diretor(a) (opcional)</label>
-                        <input type="text" name="director_phone" id="director_phone" value="{{ old('director_phone', $school->director_phone) }}" class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 text-sm py-2.5 transition @error('director_phone') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
-                        @error('director_phone')
-                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
+                <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-lg text-indigo-800 text-xs flex items-start gap-2">
+                    <svg class="w-4 h-4 text-indigo-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>
+                        Diretor(a) e Vice-Diretor(a) são cadastrados separadamente, em "Diretores" e "Vice-Diretores" no menu, e podem ser alterados sem precisar editar a escola.
+                    </span>
                 </div>
 
                 <div class="pt-6 border-t border-slate-100 flex justify-end gap-3 bg-slate-50/20 -mx-6 -mb-6 p-6">

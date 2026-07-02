@@ -69,6 +69,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/semed/diretores/{user}/reset-password', [\App\Http\Controllers\SemedController::class, 'directorsResetPassword'])->name('semed.directors.reset-password');
         Route::delete('/semed/diretores/{user}', [\App\Http\Controllers\SemedController::class, 'directorsDelete'])->name('semed.directors.delete');
 
+        // Vice-Directors
+        Route::get('/semed/vice-diretores', [\App\Http\Controllers\SemedController::class, 'viceDirectors'])->name('semed.vice-directors');
+        Route::get('/semed/vice-diretores/criar', [\App\Http\Controllers\SemedController::class, 'viceDirectorsCreate'])->name('semed.vice-directors.create');
+        Route::post('/semed/vice-diretores', [\App\Http\Controllers\SemedController::class, 'viceDirectorsStore'])->name('semed.vice-directors.store');
+        Route::get('/semed/vice-diretores/{user}/editar', [\App\Http\Controllers\SemedController::class, 'viceDirectorsEdit'])->name('semed.vice-directors.edit');
+        Route::put('/semed/vice-diretores/{user}', [\App\Http\Controllers\SemedController::class, 'viceDirectorsUpdate'])->name('semed.vice-directors.update');
+        Route::post('/semed/vice-diretores/{user}/reset-password', [\App\Http\Controllers\SemedController::class, 'viceDirectorsResetPassword'])->name('semed.vice-directors.reset-password');
+        Route::delete('/semed/vice-diretores/{user}', [\App\Http\Controllers\SemedController::class, 'viceDirectorsDelete'])->name('semed.vice-directors.delete');
+
         // Supervisors
         Route::get('/semed/supervisores', [\App\Http\Controllers\SemedController::class, 'supervisors'])->name('semed.supervisors');
         Route::get('/semed/supervisores/criar', [\App\Http\Controllers\SemedController::class, 'supervisorsCreate'])->name('semed.supervisors.create');
@@ -79,7 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/semed/supervisores/{user}', [\App\Http\Controllers\SemedController::class, 'supervisorsDelete'])->name('semed.supervisors.delete');
     });
     
-    Route::middleware('role:director,coordinator')->group(function () {
+    Route::middleware('role:director,vice_director,coordinator')->group(function () {
         Route::get('/school/dashboard', [DashboardController::class, 'school'])->name('school.dashboard');
         
         // Planning
@@ -117,8 +126,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/school/photo/upload', [SchoolController::class, 'uploadPhoto'])->name('school.photo.upload');
         Route::post('/school/uploads/viewed', [SchoolController::class, 'markUploadsAsViewed'])->name('school.uploads.viewed');
 
-        // Coordinator management (Director only)
-        Route::middleware('role:director')->group(function () {
+        // Coordinator management (Director / Vice-Director only)
+        Route::middleware('role:director,vice_director')->group(function () {
             Route::post('/school/coordinator', [SchoolController::class, 'storeCoordinator'])->name('school.coordinator.store');
             Route::get('/school/coordinator/edit', [SchoolController::class, 'editCoordinator'])->name('school.coordinator.edit');
             Route::put('/school/coordinator', [SchoolController::class, 'updateCoordinator'])->name('school.coordinator.update');
