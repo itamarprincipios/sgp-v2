@@ -30,8 +30,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('tenants', function (Blueprint $table) {
-            $table->dropColumn(['plan', 'billing_type', 'ai_monthly_limit']);
-        });
+        // Sem rollback: as colunas foram criadas manualmente em produção
+        // (spec §2.3) e podem conter dados comerciais reais. Remover só via
+        // SQL manual e consciente no phpMyAdmin.
     }
 };

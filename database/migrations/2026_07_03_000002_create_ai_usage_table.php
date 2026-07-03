@@ -23,6 +23,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('ai_usage');
+        // Sem rollback: tabela criada manualmente em produção (spec §2.3),
+        // contém histórico de uso de IA. Remover só via SQL manual.
     }
 };
