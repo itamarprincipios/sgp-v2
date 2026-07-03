@@ -165,11 +165,11 @@
                 Gestão Escolar
             </div>
             
-            <a href="{{ route('school.plannings') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('school/plannings*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
+            <a href="{{ route('school.corrections') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('school/correcoes*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
-                <span>Cronogramas (Prazos)</span>
+                <span>Correções de Planejamentos</span>
             </a>
 
             <a href="{{ route('school.professors') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('school/professors*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
@@ -199,20 +199,8 @@
                 Controle & Relatórios
             </div>
 
-            <a href="{{ route('school.dashboard', ['tab' => 'uploads']) }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->query('tab') === 'uploads' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                </svg>
-                <span>Envios de Planejamentos</span>
-            </a>
-
-            <a href="{{ route('school.reports', ['type' => 'pendencies']) }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('school/reports*') && request()->query('type') === 'pendencies' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                </svg>
-                <span>Pendências de Professores</span>
-            </a>
-
+            {{-- Pivô: "Envios de Planejamentos" e "Pendências de Professores" removidos do menu
+                 (fluxo de envio pelo professor desativado — AGENTS.md seção 14). Rotas continuam ativas. --}}
             <a href="{{ route('school.reports') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition duration-150 {{ request()->is('school/reports*') && request()->query('type') !== 'pendencies' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>

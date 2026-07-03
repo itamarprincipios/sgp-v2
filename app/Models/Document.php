@@ -14,8 +14,13 @@ class Document extends Model
     protected $fillable = [
         'tenant_id',
         'user_id',
+        'uploaded_by',
+        'school_id',
         'period_id',
+        'class_id',
         'title',
+        'discipline',
+        'reference_label',
         'type',
         'file_path',
         'content_text',
@@ -55,5 +60,29 @@ class Document extends Model
     public function period(): BelongsTo
     {
         return $this->belongsTo(Period::class);
+    }
+
+    /**
+     * Get the coordinator who uploaded the document (correction flow).
+     */
+    public function uploadedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'uploaded_by');
+    }
+
+    /**
+     * Get the school this document belongs to (correction flow).
+     */
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    /**
+     * Get the class this document refers to (correction flow).
+     */
+    public function schoolClass(): BelongsTo
+    {
+        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 }

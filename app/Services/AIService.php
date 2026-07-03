@@ -29,31 +29,73 @@ class AIService
      * Envia uma pergunta para a Gemini API (Google) e retorna a resposta.
      *
      * @param string $prompt O prompt a ser enviado
+     * @param bool $jsonMode Se true, força a resposta em JSON (responseMimeType)
      * @return string A resposta da IA
      * @throws Exception Em caso de erro na API
      */
-    public function query(string $prompt): string
+    public function query(string $prompt, bool $jsonMode = false): string
     {
         // Sanitizar o prompt para evitar problemas com JSON
         $prompt = mb_convert_encoding($prompt, 'UTF-8', 'UTF-8');
         $prompt = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $prompt);
 
+        return $this->generateContent([
+            ['text' => $prompt]
+        ], $jsonMode);
+    }
+
+    /**
+     * Envia um prompt acompanhado de um arquivo (inline base64) para a Gemini API.
+     * Usado para extrair texto de PDFs sem depender de libs de parsing no servidor.
+     *
+     * @param string $prompt Instrução sobre o que fazer com o arquivo
+     * @param string $filePath Caminho completo do arquivo
+     * @param string $mimeType MIME type (ex: application/pdf)
+     * @return string A resposta da IA
+     * @throws Exception Em caso de erro na API ou arquivo inacessível
+     */
+    public function queryWithFile(string $prompt, string $filePath, string $mimeType): string
+    {
+        if (!file_exists($filePath)) {
+            throw new Exception("Arquivo não encontrado: {$filePath}");
+        }
+
+        return $this->generateContent([
+            ['inline_data' => [
+                'mime_type' => $mimeType,
+                'data' => base64_encode(file_get_contents($filePath)),
+            ]],
+            ['text' => $prompt],
+        ], false, 8192, 90);
+    }
+
+    /**
+     * Chamada base ao endpoint generateContent da Gemini API.
+     */
+    private function generateContent(array $parts, bool $jsonMode = false, ?int $maxTokens = null, int $timeout = 30): string
+    {
         $url = "https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent";
+
+        $generationConfig = [
+            'temperature' => $this->temperature,
+            'maxOutputTokens' => $maxTokens ?? $this->maxTokens,
+        ];
+
+        if ($jsonMode) {
+            $generationConfig['responseMimeType'] = 'application/json';
+        }
 
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json; charset=utf-8',
                 'x-goog-api-key' => $this->apiKey,
             ])
-            ->timeout(30)
+            ->timeout($timeout)
             ->post($url, [
                 'contents' => [
-                    ['role' => 'user', 'parts' => [['text' => $prompt]]]
+                    ['role' => 'user', 'parts' => $parts]
                 ],
-                'generationConfig' => [
-                    'temperature' => $this->temperature,
-                    'maxOutputTokens' => $this->maxTokens,
-                ],
+                'generationConfig' => $generationConfig,
             ]);
 
             if ($response->failed()) {

@@ -27,11 +27,32 @@ class DocumentExtractor
         
         if ($extension === 'docx') {
             return $this->extractFromDocx($filePath);
+        } elseif ($extension === 'pdf') {
+            return $this->extractFromPdf($filePath);
         } elseif ($extension === 'doc') {
             return "[Arquivo .doc antigo - Por favor, converta para .docx para extração de conteúdo]";
         } else {
             throw new Exception("Formato não suportado: $extension");
         }
+    }
+
+    /**
+     * Extrai texto de PDF via Gemini multimodal (inline base64).
+     * O shared hosting não permite instalar libs de parsing de PDF,
+     * então a própria IA transcreve o conteúdo (funciona inclusive com escaneados).
+     *
+     * @param string $filePath Caminho do arquivo .pdf
+     * @return string Texto extraído
+     */
+    private function extractFromPdf(string $filePath): string
+    {
+        $ai = app(AIService::class);
+
+        $prompt = "Transcreva TODO o texto deste documento PDF, na ordem em que aparece, "
+            . "incluindo cabeçalhos, tabelas (como texto corrido) e rodapés. "
+            . "Não resuma, não comente, não adicione nada — retorne apenas o texto transcrito.";
+
+        return trim($ai->queryWithFile($prompt, $filePath, 'application/pdf'));
     }
     
     /**

@@ -118,6 +118,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Document Review
         Route::post('/school/document/review', [SchoolController::class, 'reviewDocument'])->name('school.document.review');
 
+        // Correções (pivô "Plataforma de Correção" — AGENTS.md seção 14)
+        Route::get('/school/correcoes', [\App\Http\Controllers\CorrectionController::class, 'index'])->name('school.corrections');
+        Route::post('/school/correcoes/upload', [\App\Http\Controllers\CorrectionController::class, 'store'])->name('school.corrections.upload');
+        Route::post('/school/correcoes/confirmar', [\App\Http\Controllers\CorrectionController::class, 'confirm'])->name('school.corrections.confirm');
+        Route::delete('/school/correcoes', [\App\Http\Controllers\CorrectionController::class, 'destroy'])->name('school.corrections.delete');
+
         // Bimesters
         Route::post('/school/planning/bimester', [SchoolController::class, 'associateToBimester'])->name('school.planning.bimester');
 
