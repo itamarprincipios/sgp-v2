@@ -48,6 +48,14 @@ class RAGController extends Controller
                 ], 403);
             }
 
+            // Interruptor de IA por tenant (spec §3): desliga só a IA sem bloquear o resto
+            if ($user->tenant && !$user->tenant->ai_enabled) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'A assistente de IA está desativada para a sua conta. Fale com o suporte.',
+                ], 403);
+            }
+
             $question = $request->input('question');
             $filters = $request->input('filters', []);
 

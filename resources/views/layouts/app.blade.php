@@ -117,6 +117,13 @@
 
             <!-- Content Area -->
             <div class="flex-1 flex flex-col md:pl-64">
+                @if(!empty($subscriptionReadOnly))
+                    <div class="bg-amber-500 text-slate-900 text-sm font-semibold px-4 py-2.5 flex flex-wrap items-center justify-center gap-2 text-center">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span>Assinatura vencida — modo somente leitura.</span>
+                        <a href="https://wa.me/5595991248941" target="_blank" class="underline font-bold hover:text-slate-700">Fale conosco para renovar</a>
+                    </div>
+                @endif
                 <!-- Topbar -->
                 <header class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white border-b border-slate-200/80 shadow-sm shadow-slate-100/50 px-4 md:px-8">
                     <!-- Mobile Hamburger -->
