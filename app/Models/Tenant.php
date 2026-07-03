@@ -13,8 +13,11 @@ class Tenant extends Model
     protected $fillable = [
         'name',
         'slug',
+        'plan',
+        'billing_type',
         'is_active',
         'ai_enabled',
+        'ai_monthly_limit',
         'max_schools_limit',
         'expires_at',
     ];
@@ -24,6 +27,18 @@ class Tenant extends Model
         'ai_enabled' => 'boolean',
         'expires_at' => 'datetime',
     ];
+
+    /**
+     * Assinatura bloqueada (modo somente leitura): desativado manualmente
+     * ou mensalidade vencida. Vitalício (expires_at null) nunca bloqueia.
+     */
+    public function isBlocked(): bool
+    {
+        if (!$this->is_active) {
+            return true;
+        }
+        return $this->expires_at !== null && $this->expires_at->isPast();
+    }
 
     /**
      * Get the schools belonging to this tenant.
