@@ -9,6 +9,8 @@ use App\Services\DocumentExtractor;
 use App\Services\MetadataInference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * Fluxo de correção de planejamentos — pivô "Plataforma de Correção" (AGENTS.md seção 14).
@@ -136,6 +138,7 @@ class CorrectionController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:planejamento,relatorio,outro'],
             'professor_id' => ['nullable', 'exists:users,id'],
+            'new_professor_name' => ['nullable', 'string', 'max:255'],
             'class_id' => ['nullable', 'exists:classes,id'],
             'discipline' => ['nullable', 'string', 'max:100'],
             'reference_label' => ['nullable', 'string', 'max:100'],
@@ -148,18 +151,33 @@ class CorrectionController extends Controller
         }
 
         $schoolId = $document->school_id;
-        if ($request->professor_id) {
-            $professor = User::findOrFail($request->professor_id);
+        $professorId = $request->professor_id;
+
+        if ($professorId) {
+            $professor = User::findOrFail($professorId);
             if (!in_array($professor->school_id, $schoolIds)) {
                 return response()->json(['success' => false, 'message' => 'Professor de outra escola.'], 422);
             }
             $schoolId = $professor->school_id;
+        } elseif ($request->filled('new_professor_name')) {
+            // Cadastro leve do professor a partir do que a IA extraiu do documento
+            // (sem e-mail/login). Do próximo upload em diante ele casa sozinho.
+            $professor = User::create([
+                'tenant_id' => $document->tenant_id,
+                'school_id' => $schoolId,
+                'name' => trim($request->new_professor_name),
+                'email' => null,
+                'password' => Hash::make(Str::random(32)),
+                'role' => 'professor',
+                'class_id' => $request->class_id,
+            ]);
+            $professorId = $professor->id;
         }
 
         $document->update([
             'title' => $request->title,
             'type' => $request->type,
-            'user_id' => $request->professor_id,
+            'user_id' => $professorId,
             'class_id' => $request->class_id,
             'discipline' => $request->discipline,
             'reference_label' => $request->reference_label,

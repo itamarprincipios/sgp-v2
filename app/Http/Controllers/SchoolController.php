@@ -357,22 +357,50 @@ class SchoolController extends Controller
     /**
      * List school professors.
      */
+    /**
+     * Visão de professores como cards (nome + turma + nº de documentos).
+     * O cadastro deixou de ser formulário: o professor é criado a partir do
+     * documento no fluxo de correção. Clicar num card abre seus documentos.
+     */
     public function professors()
     {
         $user = auth()->user();
         $schoolIds = $user->getAssignedSchoolIds();
-        
-        $schools = School::whereIn('id', $schoolIds)->get();
-        $school = $schools->first();
-        
-        $classes = SchoolClass::whereIn('school_id', $schoolIds)->get();
-        
+
         $professors = User::whereIn('school_id', $schoolIds)
             ->where('role', 'professor')
-            ->with(['schoolClass', 'monitorClass'])
+            ->with('schoolClass')
+            ->withCount(['documents as documents_count' => function ($query) {
+                $query->whereIn('status', ['aguardando_confirmacao', 'em_correcao', 'corrigido']);
+            }])
+            ->orderBy('name')
             ->get();
-            
-        return view('school.professors', compact('professors', 'classes', 'schools', 'school', 'user'));
+
+        return view('school.professors', compact('professors'));
+    }
+
+    /**
+     * Documentos de um professor específico (visão a partir do card).
+     */
+    public function professorDocuments(Request $request)
+    {
+        $user = auth()->user();
+        $schoolIds = $user->getAssignedSchoolIds();
+
+        $request->validate(['id' => ['required', 'exists:users,id']]);
+
+        $professor = User::whereIn('school_id', $schoolIds)
+            ->where('role', 'professor')
+            ->with('schoolClass')
+            ->findOrFail($request->id);
+
+        $documents = \App\Models\Document::where('user_id', $professor->id)
+            ->whereIn('status', ['aguardando_confirmacao', 'em_correcao', 'corrigido'])
+            ->with('schoolClass')
+            ->orderByDesc('id')
+            ->get();
+
+        return view('school.professor_documents', compact('professor', 'documents'));
     }
 
     /**

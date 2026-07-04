@@ -83,10 +83,15 @@
                                 <label class="text-xs font-semibold text-slate-600">Professor(a)</label>
                                 <select x-model="doc.professor_id" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">— não identificado —</option>
+                                    <option value="__new__">➕ Criar novo professor</option>
                                     @foreach($professors as $professor)
                                         <option value="{{ $professor->id }}">{{ $professor->name }}</option>
                                     @endforeach
                                 </select>
+                                <template x-if="doc.professor_id === '__new__'">
+                                    <input type="text" x-model="doc.new_professor_name" placeholder="Nome do professor"
+                                           class="mt-2 w-full text-sm rounded-lg border-indigo-300 bg-indigo-50 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                                </template>
                             </div>
                             <div>
                                 <label class="text-xs font-semibold text-slate-600">Turma</label>
@@ -198,6 +203,7 @@
                     'reference_label' => $d->reference_label,
                     'professor_name_detected' => null,
                     'class_name_detected' => null,
+                    'new_professor_name' => '',
                     'busy' => false,
                 ])->values()),
                 csrf: document.querySelector('meta[name="csrf-token"]').content,
@@ -235,9 +241,13 @@
                         }
                         this.removeFromQueue(key);
                         const d = data.document;
+                        const hasProf = !!d.professor_id;
+                        // Se a IA leu um nome mas não casou com o cadastro, já
+                        // deixa "criar novo" pronto com o nome detectado.
                         this.pending.push({
                             ...d,
-                            professor_id: d.professor_id ? String(d.professor_id) : '',
+                            professor_id: hasProf ? String(d.professor_id) : (d.professor_name_detected ? '__new__' : ''),
+                            new_professor_name: (!hasProf && d.professor_name_detected) ? d.professor_name_detected : '',
                             class_id: d.class_id ? String(d.class_id) : '',
                             busy: false,
                         });
@@ -253,6 +263,10 @@
 
                 async confirmDoc(doc) {
                     if (!doc.title || !doc.title.trim()) { alert('Informe um título para o documento.'); return; }
+                    const creatingProf = doc.professor_id === '__new__';
+                    if (creatingProf && (!doc.new_professor_name || !doc.new_professor_name.trim())) {
+                        alert('Informe o nome do professor a criar (ou escolha um existente).'); return;
+                    }
                     doc.busy = true;
                     try {
                         const res = await fetch('{{ route('school.corrections.confirm') }}', {
@@ -262,7 +276,8 @@
                                 id: doc.id,
                                 title: doc.title,
                                 type: doc.type,
-                                professor_id: doc.professor_id || null,
+                                professor_id: creatingProf ? null : (doc.professor_id || null),
+                                new_professor_name: creatingProf ? doc.new_professor_name.trim() : null,
                                 class_id: doc.class_id || null,
                                 discipline: doc.discipline || null,
                                 reference_label: doc.reference_label || null,

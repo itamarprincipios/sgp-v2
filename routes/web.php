@@ -111,6 +111,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
 
         // Professors
         Route::get('/school/professors', [SchoolController::class, 'professors'])->name('school.professors');
+        Route::get('/school/professor/documentos', [SchoolController::class, 'professorDocuments'])->name('school.professor.documents');
         Route::post('/school/professor', [SchoolController::class, 'storeProfessor'])->name('school.professor.store');
         Route::get('/school/professor/edit', [SchoolController::class, 'editProfessor'])->name('school.professor.edit');
         Route::put('/school/professor', [SchoolController::class, 'updateProfessor'])->name('school.professor.update');
