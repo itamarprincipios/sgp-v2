@@ -147,6 +147,8 @@ class RAGController extends Controller
                 'response_time_ms' => $responseTimeMs
             ], 200, [], JSON_UNESCAPED_UNICODE);
 
+        } catch (\App\Exceptions\AiQuotaExceededException $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 429);
         } catch (Exception $e) {
             Log::error("Erro no RAGController@query: " . $e->getMessage());
             return response()->json([

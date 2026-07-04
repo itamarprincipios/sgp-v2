@@ -74,6 +74,9 @@ class AIService
      */
     private function generateContent(array $parts, bool $jsonMode = false, ?int $maxTokens = null, int $timeout = 30): string
     {
+        $tenant = auth()->user()?->tenant;
+        AiQuota::assertAvailable($tenant);
+
         $url = "https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent";
 
         $generationConfig = [
@@ -112,6 +115,8 @@ class AIService
                 }
                 throw new Exception("Resposta inválida da Gemini API: " . $response->body());
             }
+
+            AiQuota::record($tenant?->id);
 
             return $content;
         } catch (Exception $e) {
