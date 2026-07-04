@@ -93,6 +93,40 @@ Ver spec `docs/superpowers/specs/2026-07-03-camada-comercial-design.md` §2.3.
 ALTER TABLE users MODIFY email VARCHAR(255) NULL;
 ```
 
+### 4b. Limpeza de professores duplicados (gerados pelo bug corrigido no commit `d3a3640` — rodar UMA vez, na ordem)
+
+```sql
+-- 1º) Reapontar documentos para o professor mais antigo de cada nome/escola
+--     (OBRIGATÓRIO antes do DELETE: documents.user_id tem ON DELETE CASCADE)
+UPDATE documents d
+JOIN users u ON u.id = d.user_id
+JOIN (
+    SELECT MIN(id) AS keep_id, name, school_id
+    FROM users WHERE role = 'professor'
+    GROUP BY name, school_id
+) k ON k.name = u.name AND k.school_id = u.school_id
+SET d.user_id = k.keep_id
+WHERE u.role = 'professor' AND d.user_id <> k.keep_id;
+
+-- 2º) Aproveitar turma de alguma duplicata se o mantido não tiver
+UPDATE users keep
+JOIN (
+    SELECT MIN(id) AS keep_id, MAX(class_id) AS class_id
+    FROM users WHERE role = 'professor'
+    GROUP BY name, school_id HAVING COUNT(*) > 1
+) k ON keep.id = k.keep_id
+SET keep.class_id = COALESCE(keep.class_id, k.class_id);
+
+-- 3º) Excluir as duplicatas (mantém o id mais antigo)
+DELETE u FROM users u
+JOIN (
+    SELECT MIN(id) AS keep_id, name, school_id
+    FROM users WHERE role = 'professor'
+    GROUP BY name, school_id HAVING COUNT(*) > 1
+) k ON k.name = u.name AND k.school_id = u.school_id
+WHERE u.role = 'professor' AND u.id <> k.keep_id;
+```
+
 ### 5. Fase 2 — parecer da IANNE (VERIFICAR se já foi executado; commit `da07786` diz "requer SQL")
 
 ```sql
