@@ -19,11 +19,21 @@ class School extends Model
         'address',
     ];
 
+    /**
+     * Quando true, o evento created NÃO cria as 30 turmas padrão (1º-5º Ano A-F).
+     * Usado pelo TenantProvisioner para clientes de outras etapas de ensino.
+     */
+    public static bool $skipDefaultClasses = false;
+
     protected static function boot()
     {
         parent::boot();
 
         static::created(function ($school) {
+            if (static::$skipDefaultClasses) {
+                return;
+            }
+
             $years = ['1º Ano', '2º Ano', '3º Ano', '4º Ano', '5º Ano'];
             $letters = ['A', 'B', 'C', 'D', 'E', 'F'];
 
