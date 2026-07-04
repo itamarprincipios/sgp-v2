@@ -38,4 +38,10 @@ return [
         'temperature' => env('GEMINI_TEMPERATURE', 0.3),
     ],
 
+    'anthropic' => [
+        'key' => env('ANTHROPIC_API_KEY'),
+        'model' => env('ANTHROPIC_MODEL', 'claude-opus-4-8'),
+        'max_tokens' => env('ANTHROPIC_MAX_TOKENS', 1024),
+    ],
+
 ];

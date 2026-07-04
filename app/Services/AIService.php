@@ -6,30 +6,38 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Integração com a API da Claude (Anthropic) — endpoint Messages.
+ * Mantém a mesma interface pública que o restante do SGP já consome
+ * (query, queryWithFile), então RAGController/MetadataInference/DocumentExtractor
+ * não mudam. HTTP direto (sem SDK) para não adicionar dependência de composer
+ * no shared hosting.
+ */
 class AIService
 {
     private $apiKey;
     private $model;
     private $maxTokens;
-    private $temperature;
+
+    private const ENDPOINT = 'https://api.anthropic.com/v1/messages';
+    private const VERSION = '2023-06-01';
 
     public function __construct()
     {
-        $this->apiKey = config('services.gemini.key');
-        $this->model = config('services.gemini.model', 'gemini-2.0-flash');
-        $this->maxTokens = (int) config('services.gemini.max_tokens', 1000);
-        $this->temperature = (float) config('services.gemini.temperature', 0.3);
+        $this->apiKey = config('services.anthropic.key');
+        $this->model = config('services.anthropic.model', 'claude-opus-4-8');
+        $this->maxTokens = (int) config('services.anthropic.max_tokens', 1024);
 
-        if (empty($this->apiKey) || $this->apiKey === 'sua-chave-aqui') {
-            throw new Exception('GEMINI_API_KEY não configurada no arquivo .env');
+        if (empty($this->apiKey)) {
+            throw new Exception('ANTHROPIC_API_KEY não configurada no arquivo .env');
         }
     }
 
     /**
-     * Envia uma pergunta para a Gemini API (Google) e retorna a resposta.
+     * Envia uma pergunta em texto para a Claude e retorna a resposta.
      *
      * @param string $prompt O prompt a ser enviado
-     * @param bool $jsonMode Se true, força a resposta em JSON (responseMimeType)
+     * @param bool $jsonMode Se true, pede JSON puro e remove cercas de código da resposta
      * @return string A resposta da IA
      * @throws Exception Em caso de erro na API
      */
@@ -39,13 +47,17 @@ class AIService
         $prompt = mb_convert_encoding($prompt, 'UTF-8', 'UTF-8');
         $prompt = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $prompt);
 
+        if ($jsonMode) {
+            $prompt .= "\n\nResponda APENAS com o objeto JSON pedido — sem texto antes ou depois e sem blocos de código markdown.";
+        }
+
         return $this->generateContent([
-            ['text' => $prompt]
+            ['type' => 'text', 'text' => $prompt],
         ], $jsonMode);
     }
 
     /**
-     * Envia um prompt acompanhado de um arquivo (inline base64) para a Gemini API.
+     * Envia um prompt acompanhado de um arquivo (PDF via base64) para a Claude.
      * Usado para extrair texto de PDFs sem depender de libs de parsing no servidor.
      *
      * @param string $prompt Instrução sobre o que fazer com o arquivo
@@ -60,68 +72,85 @@ class AIService
             throw new Exception("Arquivo não encontrado: {$filePath}");
         }
 
+        // base64_encode não insere quebras de linha (a API exige data sem \n).
+        $data = base64_encode(file_get_contents($filePath));
+
         return $this->generateContent([
-            ['inline_data' => [
-                'mime_type' => $mimeType,
-                'data' => base64_encode(file_get_contents($filePath)),
+            ['type' => 'document', 'source' => [
+                'type' => 'base64',
+                'media_type' => $mimeType,
+                'data' => $data,
             ]],
-            ['text' => $prompt],
+            ['type' => 'text', 'text' => $prompt],
         ], false, 8192, 90);
     }
 
     /**
-     * Chamada base ao endpoint generateContent da Gemini API.
+     * Chamada base ao endpoint Messages da Claude.
+     *
+     * @param array $content Blocos de conteúdo do turno do usuário (text / document)
      */
-    private function generateContent(array $parts, bool $jsonMode = false, ?int $maxTokens = null, int $timeout = 30): string
+    private function generateContent(array $content, bool $jsonMode = false, ?int $maxTokens = null, int $timeout = 30): string
     {
         $tenant = auth()->user()?->tenant;
         AiQuota::assertAvailable($tenant);
 
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/{$this->model}:generateContent";
-
-        $generationConfig = [
-            'temperature' => $this->temperature,
-            'maxOutputTokens' => $maxTokens ?? $this->maxTokens,
-        ];
-
-        if ($jsonMode) {
-            $generationConfig['responseMimeType'] = 'application/json';
-        }
-
         try {
             $response = Http::withHeaders([
-                'Content-Type' => 'application/json; charset=utf-8',
-                'x-goog-api-key' => $this->apiKey,
+                'x-api-key' => $this->apiKey,
+                'anthropic-version' => self::VERSION,
+                'content-type' => 'application/json',
             ])
             ->timeout($timeout)
-            ->post($url, [
-                'contents' => [
-                    ['role' => 'user', 'parts' => $parts]
+            ->post(self::ENDPOINT, [
+                'model' => $this->model,
+                'max_tokens' => $maxTokens ?? $this->maxTokens,
+                'messages' => [
+                    ['role' => 'user', 'content' => $content],
                 ],
-                'generationConfig' => $generationConfig,
             ]);
 
             if ($response->failed()) {
                 $errorMsg = $response->json('error.message', $response->body());
-                Log::error("Gemini API Error (HTTP {$response->status()}): {$errorMsg}");
-                throw new Exception("Gemini API Error (HTTP {$response->status()}): {$errorMsg}");
+                Log::error("Claude API Error (HTTP {$response->status()}): {$errorMsg}");
+                throw new Exception("Claude API Error (HTTP {$response->status()}): {$errorMsg}");
             }
 
-            $content = $response->json('candidates.0.content.parts.0.text');
-            if (is_null($content)) {
-                $blockReason = $response->json('promptFeedback.blockReason');
-                if ($blockReason) {
-                    throw new Exception("Resposta bloqueada pela Gemini API: {$blockReason}");
+            // A resposta traz content[] com blocos; juntamos o texto de todos os blocos type=text.
+            $text = '';
+            foreach ($response->json('content', []) as $block) {
+                if (($block['type'] ?? null) === 'text') {
+                    $text .= $block['text'];
                 }
-                throw new Exception("Resposta inválida da Gemini API: " . $response->body());
+            }
+
+            if ($text === '') {
+                $stopReason = $response->json('stop_reason');
+                if ($stopReason === 'refusal') {
+                    throw new Exception('A Claude recusou responder a esta solicitação.');
+                }
+                throw new Exception('Resposta vazia da Claude API: ' . $response->body());
             }
 
             AiQuota::record($tenant?->id);
 
-            return $content;
+            return $jsonMode ? $this->stripJsonFences($text) : $text;
         } catch (Exception $e) {
-            Log::error("Erro na consulta à Gemini API: " . $e->getMessage());
+            Log::error('Erro na consulta à Claude API: ' . $e->getMessage());
             throw $e;
         }
+    }
+
+    /**
+     * Remove cercas de código markdown (```json ... ```) que o modelo às vezes
+     * coloca em volta do JSON, para o json_decode do chamador não falhar.
+     */
+    private function stripJsonFences(string $text): string
+    {
+        $text = trim($text);
+        $text = preg_replace('/^```(?:json)?\s*/i', '', $text);
+        $text = preg_replace('/\s*```$/', '', $text);
+
+        return trim($text);
     }
 }
