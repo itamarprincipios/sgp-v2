@@ -61,7 +61,7 @@
                                         @if($doc->analysis)
                                             <button @click="analysisTitle = @js($doc->title); analysisText = @js($doc->analysis); analysisOpen = true" class="text-xs font-bold text-violet-600 hover:text-violet-800">Rever análise</button>
                                         @endif
-                                        <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
+                                        <a href="{{ $doc->viewer_url }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
                                     </div>
                                 </td>
                             </tr>

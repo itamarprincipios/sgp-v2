@@ -66,6 +66,23 @@ class Document extends Model
     }
 
     /**
+     * URL para abrir o documento no navegador: PDF abre direto (o browser
+     * renderiza); .docx abre no visualizador do Google Docs, senão o clique
+     * apenas baixa o arquivo.
+     */
+    public function getViewerUrlAttribute(): string
+    {
+        $url = asset('uploads/' . $this->file_path);
+        $ext = strtolower(pathinfo($this->file_path, PATHINFO_EXTENSION));
+
+        if ($ext === 'pdf') {
+            return $url;
+        }
+
+        return 'https://docs.google.com/viewer?url=' . urlencode($url);
+    }
+
+    /**
      * Get the coordinator who uploaded the document (correction flow).
      */
     public function uploadedBy(): BelongsTo

@@ -178,7 +178,7 @@
                                             @if($doc->analysis)
                                                 <button @click="approveDoc({{ $doc->id }})" class="text-xs font-bold text-emerald-600 hover:text-emerald-800">Aprovar</button>
                                             @endif
-                                            <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
+                                            <a href="{{ $doc->viewer_url }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
                                             @if($doc->status === 'em_correcao')
                                                 <button @click="deleteConfirmed({{ $doc->id }})" class="text-xs font-bold text-rose-500 hover:text-rose-700">Excluir</button>
                                             @endif
