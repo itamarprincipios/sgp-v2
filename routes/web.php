@@ -37,6 +37,8 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::get('/superadmin/tenants/{tenant}/edit', [SuperAdminController::class, 'tenantsEdit'])->name('superadmin.tenants.edit');
         Route::put('/superadmin/tenants/{tenant}', [SuperAdminController::class, 'tenantsUpdate'])->name('superadmin.tenants.update');
         Route::patch('/superadmin/tenants/{tenant}/toggle', [SuperAdminController::class, 'tenantsToggleStatus'])->name('superadmin.tenants.toggle');
+        Route::get('/superadmin/vendas/nova', [SuperAdminController::class, 'saleCreate'])->name('superadmin.sale.create');
+        Route::post('/superadmin/vendas', [SuperAdminController::class, 'saleStore'])->name('superadmin.sale.store');
         Route::get('/superadmin/security', [SuperAdminController::class, 'security'])->name('superadmin.security');
         Route::put('/superadmin/security/password', [SuperAdminController::class, 'updatePassword'])->name('superadmin.security.password');
         Route::get('/superadmin/seduc/create', [SuperAdminController::class, 'seducCreate'])->name('superadmin.seduc.create');

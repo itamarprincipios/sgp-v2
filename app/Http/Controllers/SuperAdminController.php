@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use App\Models\School;
 use App\Models\User;
 use App\Models\AiQuery;
+use App\Services\TenantProvisioner;
 use App\Support\TempPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -59,6 +60,9 @@ class SuperAdminController extends Controller
             'is_active' => ['boolean'],
             'ai_enabled' => ['boolean'],
             'expires_at' => ['nullable', 'date'],
+            'plan' => ['nullable', 'in:coordenador,escola,semed'],
+            'billing_type' => ['nullable', 'in:mensal,vitalicio'],
+            'ai_monthly_limit' => ['nullable', 'integer', 'min:1'],
         ]);
 
         // Default booleans if they are not in request
@@ -90,6 +94,9 @@ class SuperAdminController extends Controller
             'is_active' => ['boolean'],
             'ai_enabled' => ['boolean'],
             'expires_at' => ['nullable', 'date'],
+            'plan' => ['nullable', 'in:coordenador,escola,semed'],
+            'billing_type' => ['nullable', 'in:mensal,vitalicio'],
+            'ai_monthly_limit' => ['nullable', 'integer', 'min:1'],
         ]);
 
         // Handle checkboxes in Laravel form request
@@ -113,6 +120,41 @@ class SuperAdminController extends Controller
 
         $status = $tenant->is_active ? 'ativado' : 'desativado';
         return back()->with('success', "O município {$tenant->name} foi {$status} com sucesso!");
+    }
+
+    /** Assistente "Nova venda" (spec §4.2) */
+    public function saleCreate()
+    {
+        return view('superadmin.sale_create');
+    }
+
+    public function saleStore(Request $request, TenantProvisioner $provisioner)
+    {
+        $validated = $request->validate([
+            'tenant_name' => ['required', 'string', 'max:255'],
+            'plan' => ['required', 'in:coordenador,escola,semed'],
+            'billing_type' => ['required', 'in:mensal,vitalicio'],
+            'expires_at' => ['required_if:billing_type,mensal', 'nullable', 'date'],
+            'create_default_classes' => ['nullable', 'boolean'],
+            'school_name' => ['required_unless:plan,semed', 'nullable', 'string', 'max:255'],
+            'coordinator_name' => ['required_if:plan,coordenador', 'nullable', 'string', 'max:255'],
+            'coordinator_email' => ['required_if:plan,coordenador', 'nullable', 'email', 'unique:users,email'],
+            'director_name' => ['required_if:plan,escola', 'nullable', 'string', 'max:255'],
+            'director_email' => ['required_if:plan,escola', 'nullable', 'email', 'unique:users,email'],
+            'vice_name' => ['nullable', 'string', 'max:255'],
+            'vice_email' => ['nullable', 'email', 'unique:users,email'],
+            'semed_name' => ['required_if:plan,semed', 'nullable', 'string', 'max:255'],
+            'semed_email' => ['required_if:plan,semed', 'nullable', 'email', 'unique:users,email'],
+        ]);
+
+        $validated['create_default_classes'] = $request->boolean('create_default_classes');
+
+        $result = $provisioner->provision($validated);
+
+        return view('superadmin.sale_result', [
+            'tenant' => $result['tenant'],
+            'credentials' => $result['credentials'],
+        ]);
     }
 
     /**

@@ -64,6 +64,41 @@
                             <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <!-- Plano -->
+                    <div>
+                        <label for="plan" class="block text-sm font-semibold text-slate-700 mb-2">Plano</label>
+                        <select name="plan" id="plan" class="w-full rounded-lg border-slate-200 focus:border-violet-500 focus:ring focus:ring-violet-500/20 text-sm py-2.5 transition @error('plan') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
+                            <option value="coordenador" {{ old('plan', $tenant->plan) === 'coordenador' ? 'selected' : '' }}>Coordenador (individual)</option>
+                            <option value="escola" {{ old('plan', $tenant->plan) === 'escola' ? 'selected' : '' }}>Escola</option>
+                            <option value="semed" {{ old('plan', $tenant->plan) === 'semed' ? 'selected' : '' }}>SEMED (rede)</option>
+                        </select>
+                        @error('plan')
+                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Cobrança -->
+                    <div>
+                        <label for="billing_type" class="block text-sm font-semibold text-slate-700 mb-2">Tipo de Cobrança</label>
+                        <select name="billing_type" id="billing_type" class="w-full rounded-lg border-slate-200 focus:border-violet-500 focus:ring focus:ring-violet-500/20 text-sm py-2.5 transition @error('billing_type') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
+                            <option value="" {{ old('billing_type', $tenant->billing_type) === null ? 'selected' : '' }}></option>
+                            <option value="mensal" {{ old('billing_type', $tenant->billing_type) === 'mensal' ? 'selected' : '' }}>Mensal</option>
+                            <option value="vitalicio" {{ old('billing_type', $tenant->billing_type) === 'vitalicio' ? 'selected' : '' }}>Vitalício</option>
+                        </select>
+                        @error('billing_type')
+                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Limite mensal de IA -->
+                    <div>
+                        <label for="ai_monthly_limit" class="block text-sm font-semibold text-slate-700 mb-2">Limite Mensal de Consultas IA</label>
+                        <input type="number" name="ai_monthly_limit" id="ai_monthly_limit" min="1" value="{{ old('ai_monthly_limit', $tenant->ai_monthly_limit) }}" placeholder="vazio = ilimitado" class="w-full rounded-lg border-slate-200 focus:border-violet-500 focus:ring focus:ring-violet-500/20 text-sm py-2.5 transition @error('ai_monthly_limit') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
+                        @error('ai_monthly_limit')
+                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-lg text-indigo-800 text-xs flex items-start gap-2">
