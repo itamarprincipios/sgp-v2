@@ -107,6 +107,14 @@ class CorrectionController extends Controller
             $document->refresh();
         }
 
+        // Diagnóstico para o coordenador: distingue "IA indisponível" de "não identifiquei".
+        $aiError = null;
+        if (!$extraction['success'] || empty($document->content_text)) {
+            $aiError = 'Não consegui extrair o texto do arquivo. Se for um PDF digitalizado (imagem) ou protegido, a leitura automática não funciona — preencha os campos manualmente.';
+        } elseif ($inferred && !empty($inferred['error'])) {
+            $aiError = 'A IANNE está indisponível no momento (' . $inferred['error'] . '). Preencha os campos manualmente.';
+        }
+
         return response()->json([
             'success' => true,
             'extraction_ok' => $extraction['success'],
@@ -121,6 +129,7 @@ class CorrectionController extends Controller
                 'reference_label' => $document->reference_label,
                 'professor_name_detected' => $inferred['professor_name_detected'] ?? null,
                 'class_name_detected' => $inferred['class_name_detected'] ?? null,
+                'ai_error' => $aiError,
             ],
         ]);
     }

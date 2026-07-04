@@ -82,6 +82,7 @@ PROMPT;
             'reference_label' => null,
             'type' => 'planejamento',
             'title' => null,
+            'error' => null,
         ];
 
         try {
@@ -90,7 +91,7 @@ PROMPT;
 
             if (!is_array($data)) {
                 Log::warning('MetadataInference: resposta não é JSON válido', ['response' => mb_substr($response, 0, 500)]);
-                return $defaults;
+                return array_merge($defaults, ['error' => 'A IANNE retornou uma resposta em formato inválido.']);
             }
 
             $result = array_merge($defaults, array_intersect_key($data, $defaults));
@@ -110,7 +111,7 @@ PROMPT;
             return $result;
         } catch (Exception $e) {
             Log::error('MetadataInference: falha na inferência — ' . $e->getMessage());
-            return $defaults;
+            return array_merge($defaults, ['error' => $e->getMessage()]);
         }
     }
 }

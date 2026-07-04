@@ -66,7 +66,10 @@
                         <div class="flex items-start justify-between gap-3">
                             <div class="min-w-0">
                                 <p class="text-xs text-slate-400 truncate" x-text="doc.file_name"></p>
-                                <template x-if="doc.professor_name_detected && !doc.professor_id">
+                                <template x-if="doc.ai_error">
+                                    <p class="text-xs text-rose-600 mt-1" x-text="doc.ai_error"></p>
+                                </template>
+                                <template x-if="!doc.ai_error && doc.professor_name_detected && !doc.professor_id">
                                     <p class="text-xs text-amber-600 mt-1">
                                         A IA detectou "<span x-text="doc.professor_name_detected"></span>" mas não encontrou esse professor no cadastro — selecione manualmente.
                                     </p>
