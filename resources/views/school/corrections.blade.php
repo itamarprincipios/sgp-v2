@@ -174,6 +174,7 @@
                                     </td>
                                     <td class="px-4 py-3 text-right">
                                         <div class="flex items-center justify-end gap-3">
+                                            <button @click='openAnalysis(@js($doc->id), @js($doc->title), @js($doc->reference_label ?? ""), @js($doc->analysis ?? ""))' class="text-xs font-bold text-violet-600 hover:text-violet-800">{{ $doc->analysis ? 'Ver análise' : 'Analisar' }}</button>
                                             <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
                                             @if($doc->status === 'em_correcao')
                                                 <button @click="deleteConfirmed({{ $doc->id }})" class="text-xs font-bold text-rose-500 hover:text-rose-700">Excluir</button>
@@ -186,6 +187,53 @@
                     </table>
                 </div>
             @endif
+        </div>
+
+        <style>[x-cloak]{display:none!important}</style>
+
+        <!-- Modal de análise da IANNE (Fase 2 — correção assistida) -->
+        <div x-show="analysisOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-slate-900/60" @click="closeAnalysis()"></div>
+            <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 sticky top-0 bg-white">
+                    <h3 class="font-bold text-slate-900 text-sm">Análise da IANNE — <span class="text-slate-600" x-text="analysisDoc.title"></span></h3>
+                    <button @click="closeAnalysis()" class="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
+                </div>
+                <div class="p-6 space-y-5">
+                    <p class="text-xs text-slate-500">Confirme os dados abaixo — a IANNE usa isso para checar a vigência e a carga horária — e gere o parecer.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600">Período de vigência</label>
+                            <input type="text" x-model="analysisDoc.vigencia" placeholder="Ex: 04/05 a 29/05/2026" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600">Nº de aulas previstas</label>
+                            <input type="text" x-model="analysisDoc.aulas" placeholder="Ex: 20" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-600">Observações (opcional)</label>
+                            <input type="text" x-model="analysisDoc.observacoes" placeholder="Algo a destacar" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button @click="runAnalysis()" :disabled="analysisBusy" class="px-5 py-2 bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold rounded-lg shadow transition disabled:opacity-50">
+                            <span x-show="!analysisBusy" x-text="analysisDoc.report ? 'Refazer análise' : 'Analisar com a IANNE'"></span>
+                            <span x-show="analysisBusy">Analisando com a IANNE...</span>
+                        </button>
+                        <span x-show="analysisBusy" class="text-xs text-slate-500">Pode levar alguns segundos.</span>
+                    </div>
+                    <template x-if="analysisDoc.report">
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-600">Parecer (edite antes de salvar, se quiser)</label>
+                            <textarea x-model="analysisDoc.report" rows="18" class="w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                            <div class="flex items-center justify-end gap-3">
+                                <button @click="closeAnalysis()" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-slate-700">Fechar</button>
+                                <button @click="saveAnalysisEdit()" :disabled="analysisBusy" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg shadow transition disabled:opacity-50">Salvar parecer</button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -337,6 +385,63 @@
                     });
                     const data = await res.json();
                     if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao excluir.');
+                },
+
+                // ===== Análise da IANNE (Fase 2) =====
+                analysisOpen: false,
+                analysisBusy: false,
+                analysisDoc: { id: null, title: '', vigencia: '', aulas: '', observacoes: '', report: '' },
+
+                openAnalysis(id, title, vigencia, existing) {
+                    this.analysisDoc = { id, title, vigencia: vigencia || '', aulas: '', observacoes: '', report: existing || '' };
+                    this.analysisOpen = true;
+                },
+
+                closeAnalysis() {
+                    this.analysisOpen = false;
+                },
+
+                async runAnalysis() {
+                    this.analysisBusy = true;
+                    try {
+                        const res = await fetch('{{ route('school.corrections.analyze') }}', {
+                            method: 'POST',
+                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                id: this.analysisDoc.id,
+                                vigencia: this.analysisDoc.vigencia || null,
+                                aulas: this.analysisDoc.aulas || null,
+                                observacoes: this.analysisDoc.observacoes || null,
+                            }),
+                        });
+                        const data = await res.json();
+                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha na análise.');
+                        this.analysisDoc.report = data.analysis;
+                    } catch (e) {
+                        alert(e.message);
+                    } finally {
+                        this.analysisBusy = false;
+                    }
+                },
+
+                async saveAnalysisEdit() {
+                    if (!this.analysisDoc.report || !this.analysisDoc.report.trim()) { alert('Nada para salvar.'); return; }
+                    this.analysisBusy = true;
+                    try {
+                        const res = await fetch('{{ route('school.corrections.analysis.save') }}', {
+                            method: 'POST',
+                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id: this.analysisDoc.id, analysis: this.analysisDoc.report }),
+                        });
+                        const data = await res.json();
+                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao salvar.');
+                        this.analysisOpen = false;
+                        window.location.reload();
+                    } catch (e) {
+                        alert(e.message);
+                    } finally {
+                        this.analysisBusy = false;
+                    }
                 },
             };
         }

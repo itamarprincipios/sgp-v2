@@ -7,6 +7,7 @@ use App\Models\SchoolClass;
 use App\Models\User;
 use App\Services\DocumentExtractor;
 use App\Services\MetadataInference;
+use App\Services\PlanAnalyzer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -193,6 +194,74 @@ class CorrectionController extends Controller
             'school_id' => $schoolId,
             'status' => 'em_correcao',
         ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * Gera o parecer da IANNE para um documento (Fase 2 — correção assistida).
+     * Recebe as respostas da caixa de diálogo (vigência, nº de aulas, observações).
+     */
+    public function analyze(Request $request, PlanAnalyzer $analyzer)
+    {
+        $user = auth()->user();
+        $schoolIds = $user->getAssignedSchoolIds();
+
+        $request->validate([
+            'id' => ['required', 'exists:documents,id'],
+            'vigencia' => ['nullable', 'string', 'max:100'],
+            'aulas' => ['nullable', 'string', 'max:50'],
+            'observacoes' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        $document = Document::with(['user:id,name', 'schoolClass:id,name'])->findOrFail($request->id);
+
+        if (!in_array($document->school_id, $schoolIds)) {
+            return response()->json(['success' => false, 'message' => 'Acesso negado.'], 403);
+        }
+        if (empty($document->content_text)) {
+            return response()->json(['success' => false, 'message' => 'Este documento não tem texto extraído para analisar.'], 422);
+        }
+
+        try {
+            $analysis = $analyzer->analyze($document, [
+                'vigencia' => $request->vigencia,
+                'aulas' => $request->aulas,
+                'observacoes' => $request->observacoes,
+                // 'dcrr' => ... (Etapa B: material de referência da SEMED)
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'A IANNE não conseguiu analisar agora: ' . $e->getMessage(),
+            ], 502);
+        }
+
+        $document->update(['analysis' => $analysis, 'analyzed_at' => now()]);
+
+        return response()->json(['success' => true, 'analysis' => $analysis]);
+    }
+
+    /**
+     * Salva o parecer editado pelo coordenador.
+     */
+    public function saveAnalysis(Request $request)
+    {
+        $user = auth()->user();
+        $schoolIds = $user->getAssignedSchoolIds();
+
+        $request->validate([
+            'id' => ['required', 'exists:documents,id'],
+            'analysis' => ['required', 'string'],
+        ]);
+
+        $document = Document::findOrFail($request->id);
+
+        if (!in_array($document->school_id, $schoolIds)) {
+            return response()->json(['success' => false, 'message' => 'Acesso negado.'], 403);
+        }
+
+        $document->update(['analysis' => $request->analysis, 'analyzed_at' => now()]);
 
         return response()->json(['success' => true]);
     }

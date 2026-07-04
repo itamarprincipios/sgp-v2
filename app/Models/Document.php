@@ -21,6 +21,8 @@ class Document extends Model
         'title',
         'discipline',
         'reference_label',
+        'analysis',
+        'analyzed_at',
         'type',
         'file_path',
         'content_text',
@@ -38,6 +40,7 @@ class Document extends Model
 
     protected $casts = [
         'content_extracted_at' => 'datetime',
+        'analyzed_at' => 'datetime',
         'score_base' => 'decimal:2',
         'penalty_delay' => 'decimal:2',
         'penalty_resubmission' => 'decimal:2',

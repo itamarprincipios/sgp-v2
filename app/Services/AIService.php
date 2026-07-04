@@ -41,7 +41,7 @@ class AIService
      * @return string A resposta da IA
      * @throws Exception Em caso de erro na API
      */
-    public function query(string $prompt, bool $jsonMode = false): string
+    public function query(string $prompt, bool $jsonMode = false, ?int $maxTokens = null, int $timeout = 30): string
     {
         // Sanitizar o prompt para evitar problemas com JSON
         $prompt = mb_convert_encoding($prompt, 'UTF-8', 'UTF-8');
@@ -53,7 +53,7 @@ class AIService
 
         return $this->generateContent([
             ['type' => 'text', 'text' => $prompt],
-        ], $jsonMode);
+        ], $jsonMode, $maxTokens, $timeout);
     }
 
     /**
