@@ -37,7 +37,12 @@ class PlanAnalyzer
             : "MATERIAL DO DCRR: NÃO fornecido. No item de alinhamento com o DCRR, escreva exatamente que não foi possível verificar por falta do documento de referência — NÃO invente habilidades, códigos ou alinhamentos do DCRR.\n";
 
         $prompt = <<<PROMPT
-Você é um(a) coordenador(a) pedagógico(a) experiente da rede municipal de Roraima avaliando um planejamento de ensino. Seja honesto(a), específico(a) e construtivo(a). Baseie-se SOMENTE no texto do plano e no material de referência fornecido. NÃO invente habilidades, códigos da BNCC nem alinhamentos que não estejam comprovados; quando algo não constar no plano, escreva "não consta".
+Você é um(a) coordenador(a) pedagógico(a) experiente da rede municipal de Roraima avaliando um PLANEJAMENTO QUINZENAL. Seja honesto(a), específico(a) e construtivo(a). Baseie-se SOMENTE no texto do plano e no material de referência fornecido. NÃO invente habilidades, códigos da BNCC nem alinhamentos que não estejam comprovados; quando algo não constar no plano, escreva "não consta".
+
+REGRAS DE CALENDÁRIO (obrigatórias):
+- O planejamento quinzenal cobre 10 DIAS LETIVOS, de segunda a sexta-feira, ao longo de duas semanas.
+- Sábados e domingos NÃO são dias letivos. NUNCA aponte "falta de planejamento" para fim de semana.
+- Ao verificar a cobertura da vigência, conte apenas os dias úteis (segunda a sexta) dentro do período.
 
 DADOS INFORMADOS PELO COORDENADOR:
 - Professor(a): {$professor}
@@ -51,20 +56,22 @@ DADOS INFORMADOS PELO COORDENADOR:
 TEXTO DO PLANEJAMENTO:
 {$plan}
 
-Produza um PARECER em português, em markdown, avaliando cada item abaixo. Em cada item, diga o que está adequado e o que precisa melhorar, citando trechos do plano quando útil:
+CRITÉRIOS A VERIFICAR (checklist interno — não os copie como seções do parecer):
+identificação completa do cabeçalho; vigência × dias letivos × nº de aulas; habilidades BNCC (códigos existem e pertencem ao ano/componente); CRUZAMENTO objetos de conhecimento × habilidades (cada habilidade citada deve ter objeto de conhecimento correspondente e vice-versa — aponte pares incompatíveis usando o material do DCRR); alinhamento ao DCRR; objetivos claros e mensuráveis; metodologia variada, adequada à faixa etária e DIVIDIDA EM MOMENTOS (acolhida/introdução, desenvolvimento, fechamento); avaliação com instrumentos e critérios definidos (incluindo formativa); inclusão e adaptações; coerência geral entre as partes.
 
-1. **Identificação** — o cabeçalho está completo (escola, professor, ano/turma, componente, período, carga horária)?
-2. **Vigência e carga horária** — as datas informadas são coerentes com o bimestre e com o nº de aulas previstas?
-3. **Habilidades BNCC** — os códigos citados existem e são adequados ao ano e ao componente? Liste as habilidades que identificar.
-4. **Objetos de conhecimento** — os conteúdos correspondem às habilidades declaradas?
-5. **Alinhamento com o DCRR** — conforme a regra do material de referência acima.
-6. **Objetivos de aprendizagem** — estão claros e mensuráveis, coerentes com as habilidades?
-7. **Metodologias** — estão descritas, são variadas e adequadas à faixa etária?
-8. **Avaliação** — há instrumentos e critérios definidos? Contempla avaliação formativa?
-9. **Inclusão e adaptações** — considera diversidade e alunos com deficiência?
-10. **Coerência geral** — objetivos, habilidades, conteúdos, metodologia e avaliação conversam entre si?
+FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio da análise):
 
-Ao final, escreva uma seção "## Parecer geral" com: (a) pontos fortes; (b) o que precisa ser ajustado antes de aprovar; (c) a situação geral em uma frase.
+1. "## ⚠️ Erros graves" — inclua esta seção SOMENTE se houver ao menos um destes problemas (caso contrário, omita a seção por completo):
+   - erro grave de metodologia (atividade incompatível com o ano/faixa etária ou erro conceitual);
+   - AUSÊNCIA de forma/instrumento de avaliação;
+   - metodologia NÃO dividida em momentos;
+   - habilidade BNCC inexistente ou de outro ano/componente.
+
+2. "## Pontos a melhorar" — liste APENAS o que precisa ser corrigido ou está faltando, em itens objetivos, citando trechos do plano quando útil. NÃO descreva o que está adequado. Critério sem ressalvas não deve ser mencionado.
+
+3. "## Pontos positivos" — curto e objetivo, ao final.
+
+4. Última linha: "**Situação geral:** " + uma única frase (ex: apto com pequenos ajustes / precisa de correções antes de aprovar / adequado).
 PROMPT;
 
         // maxTokens alto (o parecer é longo) e timeout generoso.
