@@ -15,10 +15,10 @@ class AIService
 
     public function __construct()
     {
-        $this->apiKey = env('GEMINI_API_KEY');
-        $this->model = env('GEMINI_MODEL', 'gemini-1.5-flash');
-        $this->maxTokens = (int) env('GEMINI_MAX_TOKENS', 1000);
-        $this->temperature = (float) env('GEMINI_TEMPERATURE', 0.3);
+        $this->apiKey = config('services.gemini.key');
+        $this->model = config('services.gemini.model', 'gemini-2.0-flash');
+        $this->maxTokens = (int) config('services.gemini.max_tokens', 1000);
+        $this->temperature = (float) config('services.gemini.temperature', 0.3);
 
         if (empty($this->apiKey) || $this->apiKey === 'sua-chave-aqui') {
             throw new Exception('GEMINI_API_KEY não configurada no arquivo .env');

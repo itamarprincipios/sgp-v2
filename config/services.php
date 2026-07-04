@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'model' => env('GEMINI_MODEL', 'gemini-2.0-flash'),
+        'max_tokens' => env('GEMINI_MAX_TOKENS', 1000),
+        'temperature' => env('GEMINI_TEMPERATURE', 0.3),
+    ],
+
 ];
