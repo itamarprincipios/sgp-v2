@@ -170,18 +170,35 @@ class CorrectionController extends Controller
             }
             $schoolId = $professor->school_id;
         } elseif ($request->filled('new_professor_name')) {
-            // Cadastro leve do professor a partir do que a IA extraiu do documento
-            // (sem e-mail/login). Do próximo upload em diante ele casa sozinho.
-            $professor = User::create([
-                'tenant_id' => $document->tenant_id,
-                'school_id' => $schoolId,
-                'name' => trim($request->new_professor_name),
-                'email' => null,
-                'password' => Hash::make(Str::random(32)),
-                'role' => 'professor',
-                'class_id' => $request->class_id,
-            ]);
+            $name = trim(preg_replace('/\s+/', ' ', $request->new_professor_name));
+
+            // Reaproveita cadastro existente com o mesmo nome na(s) escola(s) do
+            // coordenador (a collation *_ci do MySQL ignora maiúsculas/acentos),
+            // senão cada confirmação de um lote criaria um professor duplicado.
+            $professor = User::whereIn('school_id', $schoolIds)
+                ->where('role', 'professor')
+                ->where('name', $name)
+                ->orderBy('id')
+                ->first();
+
+            if (!$professor) {
+                // Cadastro leve do professor a partir do que a IA extraiu do documento
+                // (sem e-mail/login). Do próximo upload em diante ele casa sozinho.
+                $professor = User::create([
+                    'tenant_id' => $document->tenant_id,
+                    'school_id' => $schoolId,
+                    'name' => $name,
+                    'email' => null,
+                    'password' => Hash::make(Str::random(32)),
+                    'role' => 'professor',
+                    'class_id' => $request->class_id,
+                ]);
+            } elseif (!$professor->class_id && $request->class_id) {
+                $professor->update(['class_id' => $request->class_id]);
+            }
+
             $professorId = $professor->id;
+            $schoolId = $professor->school_id ?? $schoolId;
         }
 
         $document->update([
