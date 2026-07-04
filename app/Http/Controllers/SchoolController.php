@@ -553,19 +553,31 @@ class SchoolController extends Controller
     }
 
     /**
+     * Página "Segurança da Conta": troca de senha do próprio usuário
+     * (diretor, vice-diretor ou coordenador). Espelha o fluxo da SEMED.
+     */
+    public function security()
+    {
+        return view('school.security');
+    }
+
+    /**
      * Change user password.
      */
     public function changePassword(Request $request)
     {
         $request->validate([
+            'current_password' => ['required', 'current_password'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.current_password' => 'A senha atual informada está incorreta.',
         ]);
 
         auth()->user()->update([
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('school.dashboard')->with('success', 'Senha alterada com sucesso!');
+        return redirect()->route('school.security')->with('success', 'Senha alterada com sucesso!');
     }
 
     /**

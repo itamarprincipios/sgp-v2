@@ -130,6 +130,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::post('/school/planning/bimester', [SchoolController::class, 'associateToBimester'])->name('school.planning.bimester');
 
         // Photo/Password/Notification settings
+        Route::get('/school/seguranca', [SchoolController::class, 'security'])->name('school.security');
         Route::post('/school/password/change', [SchoolController::class, 'changePassword'])->name('school.password.change');
         Route::post('/school/photo/upload', [SchoolController::class, 'uploadPhoto'])->name('school.photo.upload');
         Route::post('/school/uploads/viewed', [SchoolController::class, 'markUploadsAsViewed'])->name('school.uploads.viewed');
