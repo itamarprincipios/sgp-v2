@@ -228,7 +228,10 @@ class CorrectionController extends Controller
                 'vigencia' => $request->vigencia,
                 'aulas' => $request->aulas,
                 'observacoes' => $request->observacoes,
-                // 'dcrr' => ... (Etapa B: material de referência da SEMED)
+                'dcrr' => app(\App\Services\DcrrLibrary::class)->excerptFor(
+                    $document->discipline,
+                    $document->schoolClass->name ?? null
+                ),
             ]);
         } catch (\Throwable $e) {
             return response()->json([

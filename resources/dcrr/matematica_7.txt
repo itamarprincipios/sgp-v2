@@ -1,0 +1,662 @@
+[DCRR — Documento Curricular de Roraima]
+[Seção: MATEMÁTICA — 7º ANO | páginas 371-375 do documento original]
+
+371 
+  
+ 
+repetições de um 
+experimento 
+(frequências de 
+ocorrências e 
+probabilidade 
+frequentista). 
+determinado experimento. Apresente os 
+conceitos de evento e e spaço amostral. 
+Mostre que podemos expressar o cálculo 
+de probabilidade por um número 
+racional, na forma fracionária, decimal 
+ou percentual. Proponha atividades para 
+os alunos realizarem o cálculo de 
+probabilidade de um evento aleatório, 
+expressando-a por número racional 
+(forma fracionária, decimal e percentual) 
+e comparar esse número com a 
+probabilidade obtida por meio de 
+experimentos sucessivos. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Leitura e 
+interpretação de 
+tabelas e gráficos (de 
+colunas ou barras 
+simples ou múltiplas) 
+referentes a variáveis 
+categóricas e variáveis 
+numéricas 
+(EF06MA31) Identificar as variáveis e suas frequências 
+e os elementos constitutivos (título, eixos, legendas, 
+fontes e datas) em diferentes tipos de gráfico. 
+O estudo estatístico permeia diversas 
+situações do nosso cotidiano, como o 
+censo realizado pelo IBGE, pesquisas de 
+mercado, pesquisas de intensão de voto, 
+pesquisas sociais e uma série de 
+aplicações nas mais diversas áreas do 
+conhecimento. Aproveite o início da 
+discussão para apresentar diferentes tipos 
+de gráficos (de colunas ou barras simples 
+ou múltiplas), os elementos constitutivos 
+(título, eixos, legendas, fontes e datas) e 
+os conceitos de variável e frequência. Os 
+estudos tornam-se mais atrativos quan do 
+o aluno utiliza  mídias digitais. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Leitura e 
+interpretação de 
+tabelas e gráficos (de 
+colunas ou barras 
+simples ou múltiplas) 
+referentes a variáveis 
+categóricas e variáveis 
+numéricas 
+(EF06MA32) Interpretar e resolver situações  que 
+envolvam dados de pesquisas sobre contextos 
+ambientais, sustentabilidade, trânsito, consumo 
+responsável, entre outros, apresentadas pela mídia em 
+tabelas e em diferentes tipos de gráficos e redigir textos 
+escritos com o objetivo de sintetizar conclusões. 
+Proponha que os alunos pesquisem 
+reportagens em jornais, revistas ou 
+internet, nas quais apareçam 
+representação gráfica de dados 
+estatísticos em situações que envolvam 
+contextos ambientais, sustentabilidade, 
+trânsito, consumo responsável, entre 
+outros. Aproveite o material coletado 
+para enfatizar a importância de 
+interpretar e analisar os resultados para 
+construir argumentos consistentes e 
+tomada de decisão e peça que os alunos 
+façam exposição do material coletado na 
+sala de aula ou no mural da escola. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Coleta de dados, 
+organização e registro 
+Construção de 
+diferentes tipos de 
+gráficos para 
+representá-los e 
+interpretação das 
+informações. 
+(EF06MA33) Planejar e coletar dados de pesquisa 
+referente a práticas sociais escolhidas pel os alunos e 
+fazer uso de planilhas eletrônicas para registro, 
+representação e interpretação das informações, em 
+tabelas, vários tipos de gráficos e texto. 
+Como proposta de trabalho, estimule os 
+alunos a se organizem em grupos para 
+coletar dados sobre temas  diversos que 
+despertem maior interesse do grupo. Em 
+seguida, solicite a tabulação e construção 
+de gráficos. 
+ 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Diferentes tipos de 
+representação de 
+informações: gráficos 
+e fluxogramas 
+(EF06MA34) Interpretar e desenvolver fluxogramas 
+simples, identificando as relações entre os objetos 
+representados (por exemplo, posição de cidades 
+considerando as estradas que as unem, hierarquia dos 
+funcionários de uma empresa etc.). 
+Para aprofundar sobre os diferentes tipos 
+de representação de informações, mostre 
+a importância do uso do fluxograma 
+como ferramenta de análise 
+organizacional e a sua aplicabilidade, 
+como por exemplo: posição de cidades 
+considerando as estradas que as unem, 
+hierarquia d os funcionários de uma 
+empresa. 
+ORGANIZADOR CURRICULAR- 7º ANO 
+MATEMÁTICA
+
+372 
+  
+Unidades 
+Temáticas 
+Objetos De 
+Conhecimento Habilidades Orientações 
+Didáticas/Metodológicas 
+NÚMEROS Múltiplos e divisores de 
+um número natural 
+(EF07MA01) Resolver e elaborar problemas com 
+números naturais, envolvendo as noções de divisor e 
+de múltiplo, podendo incluir máximo divisor comum 
+ou mínimo múltiplo comum, por meio de estratégias 
+diversas, sem a aplicação de algoritmos, 
+Aplique as características e propriedades 
+dos números naturais: significado de 
+múltiplos, divis ores, mínimo múltiplo 
+comum (MMC) e máximo divisor 
+comum (MDC), resolvendo situações 
+problemas que envolvam o MMC e 
+MDC entre dois ou mais números 
+naturais, aplicando estratégias diversas. 
+NÚMEROS 
+Cálculo de porcentagens 
+e de acréscimos e 
+decréscimos simples 
+(EF07MA02) Resolver e elaborar problemas que 
+envolvam porcentagens, como os que lidam com 
+acréscimos e decréscimos simples, utilizando 
+estratégias pessoais, cálculo mental e calculadora, no 
+contexto de educação financeira, entre outros.  
+ 
+Reconheça sit uações no contexto da 
+educação financeira, que estão 
+relacionadas ao orçamento doméstico 
+familiar (por exemplo: despesas de água, 
+energia, alimentação, etc.), proponha aos 
+alunos que observem as despesas gastas 
+em dois ou mais meses consecutivos e 
+efetuem cálculos relativos ao acréscimo 
+ou decréscimos das despesas analisadas. 
+Resolva situações-problema que envolva 
+porcentagem, utilizando estratégias de 
+cálculo mental ou com o uso de 
+calculadoras, e relacione -as com os 
+números na forma decimal e fracionária. 
+NÚMEROS 
+Números inteiros: usos, 
+história, ordenação, 
+associação com pontos 
+da reta numérica e 
+operações. 
+(EF07MA03) Comparar e ordenar números inteiros 
+em diferentes contextos, incluindo o histórico, 
+associá-los a pontos da reta numérica e utilizá -los em 
+situações que envolvam adição e subtração.  
+Aponte a presença de  números inteiros 
+em diferentes contextos, associando 
+questões práticas, e realize operações 
+utilizando reta, gráficos e tabela com 
+valores positivos e negativos. 
+NÚMEROS 
+Números inteiros: usos, 
+história, ordenação, 
+associação com pontos 
+da reta numérica e 
+operações. 
+(EF07MA04) Resolver e elaborar problemas que 
+envolvam operações com números inteiros. 
+ 
+Apresente de modo significativo as 
+operações com situações problemas que 
+envolvam o conjunt o dos números 
+inteiros. 
+NÚMEROS 
+Fração e seus 
+significados: como parte 
+de inteiros, resultado da 
+divisão, razão e 
+operador. 
+(EF07MA05) Resolver um mesmo problema 
+utilizando diferentes algoritmos. 
+Trabalhe com comparações como forma 
+de identificar a razão de um algoritmo 
+NÚMEROS 
+Fração e seus 
+significados: como parte 
+de inteiros, resultado da 
+divisão, razão e 
+operador. 
+(EF07MA06) Reconhecer que as resoluções de um 
+grupo de problemas, que têm a mesma estrutura, 
+podem ser obtidas utilizando os mesmos 
+procedimentos. 
+Proponha situações envolvendo frações, 
+visando que o aluno reconheça padrões, e 
+resolva problemas com a mesma 
+estrutura utilizando procedimentos 
+iguais. 
+NÚMEROS 
+Fração e seus 
+significados: como parte 
+de inteiros, resultado da 
+divisão, razão e 
+operador. 
+(EF07MA07) Representar por meio de um 
+fluxograma os passos utilizados para resolver um 
+grupo de problemas. 
+Proponha meios práticos de acordo com 
+a fração específica: parte pelo todo, razão 
+e outros. 
+NÚMEROS 
+Fração e seus 
+significados: como parte 
+de inteiros, resultado da 
+divisão, razão e 
+operador. 
+(EF07MA08) Comparar e ordenar frações associadas 
+às ideias de partes de inteiros, resultado da divisão, 
+razão e operador, comparar e ordenar frações 
+associadas às ideias de partes de inteiros, resultado da 
+divisão, razão e operador, mostrando na prática com 
+material concreto como poderá ser feito. 
+ 
+  
+Elabore com os alunos estratégias que 
+envolvam frações com denominadores 
+diferentes e para numeradores iguais.
+
+373 
+  
+NÚMEROS 
+Fração e seus 
+significados: como parte 
+de inteiros, resultado da 
+divisão, razão e 
+operador. 
+(EF07MA09) Utilizar, na resolução de problemas, a 
+associação entre razão e fração, como a fração 2/3 
+para expressar a razão de duas partes de uma grandeza 
+para três partes da mesma ou três partes de out ra 
+grandeza. 
+Trabalhe as medidas especificas e 
+relacionadas a razão e proporção 
+podendo utilizar os problemas de 
+grandezas. 
+NÚMEROS 
+Números racionais na 
+representação 
+fracionária e na 
+decimal: usos, 
+ordenação e associação 
+com pontos da reta 
+numérica e operações. 
+(EF07MA10) Comparar e ordenar números racionais 
+em diferentes contextos e associá -los a pontos da reta 
+numérica, propondo resolução de problemas 
+relacionados ao dia a dia do aluno. 
+ 
+Utilize os números positivos e negativos 
+comparando na reta numérica das frações 
+equivalentes. 
+NÚMEROS 
+Números racionais na 
+representação 
+fracionária e na 
+decimal: usos, 
+ordenação e associação 
+com pontos da reta 
+numérica e operações. 
+(EF07MA11) Compreender e utilizar a multiplicação 
+e a divisão de números racionais, a relação entre elas e 
+suas propriedades operatórias. 
+Apresente as propriedades da 
+multiplicação e divisão de números 
+racionais com o uso da representação da 
+reta numérica. 
+NÚMEROS 
+Números racionais na 
+representação 
+fracionária e na 
+decimal: usos, 
+ordenação e associação 
+com pontos da reta 
+numérica e operações. 
+(EF07MA12) Resolver e elaborar problemas que 
+envolvam as operações com números racionais. 
+Inicie uma conversa com os alunos, 
+buscado trocar informações sobre 
+operações com racionais. 
+ÁLGEBRA Linguagem algébrica: 
+variável e incógnita 
+(EF07MA13) Compreender a ideia de variável, 
+representada por letra ou símbolo, para expressar 
+relação entre duas grandezas, diferenciando -a da ideia 
+de incógnita. 
+Trabalhe esta habilidade utilizando 
+situações-problema tais como a 
+―matemática das balanças‖, problemas do 
+dia-a-dia, dentre outros, já Introduzindo o 
+uso de letras para encontrar valores 
+desconhecidos. 
+ÁLGEBRA Linguagem algébrica: 
+variável e incógnita 
+(EF07MA14) Classificar sequências em recursivas e 
+não recursivas, reconhecendo que o conceito de 
+recursão está presente não apenas na matemática, mas 
+também nas artes e na literatura. 
+Desenvolva com os alunos esta 
+habilidade criando senhas, explorando as 
+notas musicais, a arte abstrata ou não 
+abstrata. 
+ÁLGEBRA Linguagem algébrica: 
+variável e incógnita 
+(EF07MA15) Utilizar a simbologia algébrica para 
+expressar regularidades encontradas em sequências 
+numéricas. 
+Através do conceito de recursão , explore 
+sequências numéricas criando fórmulas 
+para essas sequências algébricas.  
+ÁLGEBRA 
+Equivalência de 
+expressões algébricas: 
+identificação da 
+regularidade de uma 
+sequência numérica 
+(EF07MA16) Reconhecer se duas expressões 
+algébricas obtidas para descrever a regularidade de 
+uma mesma sequência numérica são ou não 
+equivalentes, (quando ambas representam a mesma 
+quantidade); 
+Estimule os alunos a identificarem a 
+regularidade de uma sequência numérica. 
+ÁLGEBRA 
+Problemas envolvendo 
+grandezas diretamente 
+proporcionais e 
+grandezas inversamente 
+proporcionais 
+(EF07MA17) Resolver  e elaborar problemas que 
+envolvam variação de proporcionalidade direta e de 
+proporcionalidade inversa entre duas grandezas, 
+utilizando sentença algébrica para expressar a relação 
+entre elas. 
+Crie diferent es estratégias para que o 
+aluno c ompreenda o signif icado de 
+grandezas diretamente proporcionais e 
+grandezas inversamente proporcionais. 
+ÁLGEBRA Equações polinomiais do 
+1º grau 
+(EF07MA18) Resolver e elaborar problemas que 
+possam ser representados por equações polinomiais de 
+1º grau, redutíveis à forma ax + b = c, fazendo uso das 
+propriedades da igualdade. 
+Determine a solução de uma equação do 
+1º grau com uma incógnita, de acordo 
+com o conjunto universo dado.
+
+374 
+  
+GEOMETRIA 
+Transformações 
+geométricas de 
+polígonos no plano 
+cartesiano: 
+multiplicação das 
+coordenadas por um 
+número inteiro e 
+obtenção de simétricos 
+em relação aos eixos e à 
+origem 
+(EF07MA19) Realizar transformações de polígonos 
+representados no plano cartesiano, decorrentes da 
+multiplicação das coordenadas de seus vértices por 
+um número inteiro. 
+Realize atividades envolvendo 
+localização de polígonos no plano 
+cartesiano  
+GEOMETRIA 
+Transformações 
+geométricas de 
+polígonos no plano 
+cartesiano: 
+multiplicação das 
+coordenadas por um 
+número inteiro e 
+obtenção de simétricos 
+em relação aos eixos e à 
+origem 
+(EF07MA20) Reconhecer e representar, no plano 
+cartesiano, o simétrico de figuras em relação aos eixos 
+e à origem. 
+Compare duas figuras, em que uma é 
+resultante da reflexão, translação ou 
+rotação da outra, como também a 
+descoberta das medidas que perman ecem 
+invariantes nessas transformações.  
+Utilize softwares que explorem situações 
+problemas envolvendo transformações de 
+figuras. 
+GEOMETRIA Simetrias de translação, 
+rotação e reflexão. 
+(EF07MA21) Reconhecer e construir figuras obtidas 
+por simetrias de translação, rotação e reflexão, usando 
+instrumentos de desenho ou softwares de geometria 
+dinâmica e vincular esse estudo a representações 
+planas de obras de arte, elementos arquitetônicos, 
+entre outros. 
+Represente figuras geométricas 
+utilizando as formas d e simetria, 
+translação rotação e reflexão. 
+GEOMETRIA A circunferência como 
+lugar geométrico 
+(EF07MA22) Construir circunferências, utilizando 
+compasso, reconhecê -las como lugar geométrico e 
+utilizá-las para fazer composições artísticas e resolver 
+problemas que envolvam objetos equidistantes. 
+Represente, na circunferência , o modelo 
+de figura geométrica e sua posição. 
+GEOMETRIA 
+Relações entre os 
+ângulos formados por 
+retas paralelas 
+intersectadas por uma 
+transversal 
+(EF07MA23) Verificar relações entre os ângu los 
+formados por retas paralelas cortadas por uma 
+transversal, com e sem uso de softwares de geometria 
+dinâmica, relacionando os ângulos colaterais internos 
+e colaterais externos, alternos internos e alternos 
+externos, a partir das propriedades dos ângulos  
+adjacentes, correspondentes e opostos pelos vértices. 
+Utilize réguas, compasso s e softwares 
+para a verificação das relações entre os 
+ângulos formados por retas paralela s 
+cortadas por uma transversal. 
+GEOMETRIA 
+Triângulos: construção, 
+condição de existência e 
+soma das medidas dos 
+ângulos internos. 
+(EF07MA24) Construir triângulos, usando régua e 
+compasso, reconhecer a condição de existência do 
+triângulo quanto à medida dos lados e verificar que a 
+soma das medidas dos ângulos internos de um 
+triângulo é 180°. 
+ 
+GEOMETRIA 
+Triângulos: construção, 
+condição de existência e 
+soma das medidas dos 
+ângulos internos. 
+(EF07MA25) Reconhecer a rigidez geométrica dos 
+triângulos e suas aplicações, como na construção de 
+estruturas arquitetônicas (telhados, estruturas 
+metálicas e outras) ou nas artes plásticas. 
+Oriente os estudantes a construir com 
+palitos uma figura com três lados, outra 
+com quatro lados e uma outra com cinco 
+lados. Permita que os alunos tirem suas 
+próprias conclusões. Solicite -os a  
+buscarem no cotidiano construções 
+triangulares. 
+GEOMETRIA 
+Triângulos: construção, 
+condição de existência e 
+soma das medidas dos 
+ângulos internos. 
+(EF07MA26) Descrever, por escrito e por meio de um 
+fluxograma, um algoritmo para a construção de um 
+triângulo qualque r, conhecidas as medidas dos três 
+lados. 
+Para elaborar um fluxograma você pode 
+utilizar softwares ou materiais como post 
+it, bloco de notas, um flipchart e pincéis 
+atômicos.  
+GEOMETRIA 
+Polígonos regulares: 
+quadrado e triângulo 
+equilátero 
+(EF07MA27) Calcular medidas de ângulos internos 
+de polígonos regulares, sem o uso de fórmulas, e 
+estabelecer relações entre ângulos internos e externos 
+de polígonos, preferencialmente vinculadas à 
+construção de mosaicos e de ladrilhamentos. 
+Aplique a definição de pol ígonos e suas 
+características como ângulos internam e 
+externo.
+
+375 
+  
+GEOMETRIA 
+Polígonos regulares: 
+quadrado e triângulo 
+equilátero 
+(EF07MA28) Descrever, por escrito e por meio de um 
+fluxograma, um algoritmo para a construção de um 
+polígono regular (como quadra do e triângulo 
+equilátero), conhecida a medida de seu lado. 
+Construa polígonos regulares através de 
+lados, possibilitando exemplos de figuras 
+como quadrado, triângulo equilátero 
+ 
+GRANDEZAS E 
+MEDIDAS 
+Problemas envolvendo 
+medições 
+(EF07MA29) Resolver e elab orar problemas que 
+envolvam medidas de grandezas inseridas em 
+contextos oriundos de situações cotidianas ou de 
+outras áreas do conhecimento, reconhecendo que toda 
+medida empírica é aproximada. 
+As grandezas se mostram presentes nas 
+mais diversas atividades exercidas pelas 
+pessoas diariamente, seja na conta de luz, 
+água e telefone, área de um terreno, o 
+volume e a massa de um objeto, entre 
+outros. Situações como estas nos levam a 
+perceber a influência das grandezas e 
+medidas em nossas atividades diárias, 
+este conteúdo tem significado amplo no 
+contexto social. 
+GRANDEZAS E 
+MEDIDAS 
+Cálculo de volume de 
+blocos retangulares, 
+utilizando unidades de 
+medida convencionais 
+mais usuais 
+(EF07MA30) Resolver e elaborar problemas de 
+cálculo de medida do volume de blocos ret angulares, 
+envolvendo as unidades usuais (metro cúbico, 
+decímetro cúbico e centímetro cúbico). 
+ 
+GRANDEZAS E 
+MEDIDAS 
+Equivalência de área de 
+figuras planas: cálculo de 
+áreas de figuras que 
+podem ser decompostas 
+por outras, cujas áreas 
+podem ser facilmente 
+determinadas como 
+triângulos e quadriláteros 
+(EF07MA31) Estabelecer expressões de cálculo de 
+área de triângulos e de quadriláteros. 
+Trabalhe inicialmente somente com as 
+dos quadriláteros e triângulos. Defina as 
+figuras, suas propriedades e deduza as 
+fórmulas, por meio de quadriculados, de 
+recortes, de desenhos, de decomposição e 
+composição das figuras. Mostre a 
+equivalência de áreas por meio das peças 
+do tangram. 
+GRANDEZAS E 
+MEDIDAS 
+Equivalência de área de 
+figuras planas: cálculo de 
+áreas de figuras que 
+podem ser decompostas 
+por outras, cujas áreas 
+podem ser facilmente 
+determinadas como 
+triângulos e quadriláteros 
+(EF07MA32) Resolver e elaborar problemas de 
+cálculo de medida de área de figuras planas que 
+podem ser decompostas por quadrados, retângulos 
+e/ou triângulos, utilizando a equivalência entre áreas. 
+Apresente situações problemas  que 
+envolvam o cálculo de área. 
+GRANDEZAS E 
+MEDIDAS 
+Medida do comprimento 
+da circunferência 
+(EF07MA33) Estabelecer o número π como a razão 
+entre a medida de uma circunferênci a e seu diâmetro, 
+para compreender e resolver problemas, inclusive os 
+de natureza histórica. 
+Utilize a razão do comprimento de uma 
+circunferência com padrão do número π. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Experimentos aleatórios: 
+espaço amostral e 
+estimativa de 
+probabilidade por meio de 
+frequência de ocorrências 
+(EF07MA34) Planejar e realizar experimentos 
+aleatórios ou simulações que envolvem cálculo de 
+probabilidades ou estimativas por meio de frequência 
+de ocorrências. 
+Utilize a pesquisa de dados para realizar 
+a estimativa como exemplo de 
+frequência.  
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Estatística: média e 
+amplitude de um conjunto 
+de dados 
+(EF07MA35) Compreender, em contextos 
+significativos, o significado de média estatística como 
+indicador da tendência de uma pesquisa, calcular seu 
+valor e relacioná -lo, intuitivamente, com a amplitude 
+do conjunto de dados, utilizando média aritmética 
+simples e ponderada. 
+Calcule a média aritmética ponderada em 
+situações nas quais se atribuem pesos aos 
+números considerados na si tuação, com 
+ou sem o uso de tecnologias digitais. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Pesquisa amostral e 
+pesquisa censitária 
+Planejamento de pesquisa, 
+coleta e organização dos 
+dados, construção de 
+tabelas e gráficos e 
+interpretação das 
+informações 
+(EF07MA36) Planejar e realizar pesquisa envolvendo 
+tema da realidade social, identificando a necessidade 
+de ser censitária ou de usar amostra, e interpretar os 
+dados para comunicá-los por meio de relatório escrito, 
+tabelas e gráficos, com o apoio de planilhas 
+eletrônicas. 
+Estimule os alunos a interpretarem 
+informações organizadas em diferentes 
+linguagens.

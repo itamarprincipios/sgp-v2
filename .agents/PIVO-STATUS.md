@@ -29,7 +29,7 @@
 - [x] Provedor de IA trocado de Gemini para **Claude (Anthropic)** — commit `a15894e`. `AIService` lê via `config()`.
 - [x] Professor auto-criado a partir do documento (`new_professor_name` no confirm; `users.email` agora é NULLABLE — professor sem login tem email NULL, decisão de design, NÃO usar placeholder) — commits `0610649`, migration `2026_07_04_000001`
 - [x] Card de correção mostra motivo quando a IANNE falha (`ai_error`) — commit `b87bfe1`
-- [ ] Etapa B pendente: material de referência da SEMED (DCRR) como insumo do parecer (ver TODO no `CorrectionController::analyze`)
+- [x] **Etapa B concluída (04/07/2026): DCRR integrado ao parecer.** O DCRR completo (586 páginas, PDF oficial fornecido pelo Itamar) foi fatiado em **69 arquivos** por componente/ano em `resources/dcrr/*.txt`. O serviço `DcrrLibrary::excerptFor(discipline, className)` seleciona a seção certa (ex: `matematica_3.txt` para Matemática do 3º ano; núcleo comum de 5 componentes para polivalente; `educacao_infantil.txt` para turmas Pré/Maternal) com teto de 36k chars, e o `CorrectionController::analyze` injeta no contexto `dcrr` do `PlanAnalyzer`. Sem turma/ano identificável → `null` → parecer declara "não verificado" (nunca inventa). O PDF original NÃO está no repo (5,9MB); só o texto fatiado.
 
 ## Fase 3 (não iniciada)
 Reescrever estatísticas do `ContextBuilder` e dashboards (sai "enviados/atrasados", entra "corrigidos/metodologias/temas").

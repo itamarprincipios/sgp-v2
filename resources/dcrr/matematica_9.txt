@@ -1,0 +1,931 @@
+[DCRR — Documento Curricular de Roraima]
+[Seção: MATEMÁTICA — 9º ANO | páginas 381-394 do documento original]
+
+381 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+amplitude. de planilha eletrônica ou calculadora para 
+cálculo de média, mediana, moda e 
+avaliar seus significados relacionados 
+com a dispersão dos dados , v ariância e 
+desvio padrão. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Pesquisas censitária 
+ou amostral 
+Planejamento e 
+execução de pesquisa 
+amostral 
+(EF08MA26) Selecionar razões, de diferentes naturezas 
+(física, ética ou econômica), que justificam a realização 
+de pesquisas amostrais e não censitárias, e reconhecer 
+que a seleção da amostra pode ser feita de diferentes 
+maneiras (amostra casual simples, sistemática  e 
+estratificada). 
+Reflita criticamente com os alunos, 
+razões que justificam a realização de 
+pesquisas relacionadas à saúde, 
+populações, orçamentos, questões 
+econômicas, dentre outras, como recurso 
+para a construção de argumentação e 
+intervenção na realidade. Esclareça que a 
+pesquisa pode ser realizada de forma 
+censitária ou amostral. Proponha aos 
+alunos que se organizem em grupos para 
+realizar um levantamento de dados, 
+utilizando uma técnica de amostragem 
+adequada, cujo tema desperte maior 
+interesse na cla sse, apresente os dados 
+em tabelas e gráficos e analise os 
+resultados obtidos referentes as medidas 
+de tendência central 
+ORGANIZADOR CURRICULAR- 9º ANO 
+MATEMÁTICA 
+Unidades 
+Temáticas 
+Objetos De 
+Conhecimento Habilidades Orientações 
+Didáticas/Metodológicas 
+NÚMEROS 
+Necessidade dos 
+números reais para 
+medir qualquer 
+segmento de reta 
+Números irracionais: 
+reconhecimento e 
+ (EF09MA01) Reconhecer que, uma vez fixada uma 
+unidade de comprimento, existem segmentos de reta 
+cujo comprimento não é expresso por número racional 
+(como as medidas de diagonais de um polígono e 
+alturas de um triângulo, quando se toma a medida de 
+cada lado como unidade) e classificando números reais 
+O estudo desses números pode ser 
+introduzido por meio de situações -
+problema que evidenciem a necessidade 
+de outros números além dos racionais. 
+Uma situação é a de encontrar números 
+que tenham representação decimal
+
+382 
+  
+localização de alguns 
+na reta numérica 
+em racionais e irracionais infinita, e não periódica. Outra é o 
+problema clássico de encontrar o 
+comprimento da diagonal de um 
+quadrado, tomando o lado como unidade, 
+que conduz ao número raiz quadrada de 
+dois. Nesse caso, pode -se informar (ou 
+indicar a prova) da irracionalidade de raiz 
+quadrada de dois, por não ser uma razão 
+de inteiros.  
+O problema das raízes quadradas de 
+inteiros positivos que não são quadrados 
+perfeitos, raiz quadrada de três, raiz 
+quadrada de cinco etc., poderia seguir -se 
+ao caso pa rticular de   outro irracional 
+que pode ser explorado é o número π. 
+que de longa história e de ocorrência 
+muito frequente na Matemática, o 
+número π nessa fase do aprendizado 
+aparece como a razão entre o 
+comprimento de uma circunferência e o 
+seu diâmetro. E ssa razão, sabe -se, não 
+depende do tamanho da circunferência 
+em virtude do fato de que duas 
+circunferências quaisquer são figuras 
+semelhantes. 
+NÚMEROS 
+Necessidade dos 
+números reais para 
+medir qualquer 
+segmento de reta 
+Números irracionais: 
+reconhecimento e 
+localização de alguns 
+na reta numérica 
+(EF09MA02) Reconhecer um número irracional como 
+um número real cuja representação decimal é infinita e 
+não periódica, e estimar a localização de alguns deles na 
+reta numérica, com ênfase nas raízes qu adradas não 
+exatas e o valor de pi(π) 
+NÚMEROS 
+Potências com 
+expoentes negativos e 
+fracionários 
+(EF09MA03) Efetuar cálculos com números reais, 
+inclusive potências com expoentes fracionários, 
+utilizando as propriedades da potenciação, com 
+aplicação no cotidiano. 
+Mapear o conhecimento prévio dos 
+alunos através de retomada da literatura a 
+respeito do ensino de potenciação, para 
+apresentar cálculos de potência com 
+expoentes negativos e fracionários. 
+NÚMEROS 
+Números reais: 
+notação científica e 
+problemas 
+(EF09MA04) Resolver e elaborar problemas com 
+números reais, inclusive em notação científica, 
+envolvendo diferentes operações, compreendendo que a 
+notação científica permite simplificar e operar números 
+muito grandes e/ou muito pequenos 
+A análise, interpret ação, formulação e 
+resolução de situações -problema, 
+estimula a compreensão de diferentes 
+significados das operações, envolvendo 
+números reais, reconhecendo que 
+diferentes situações-problema podem ser 
+resolvidas por uma única operação e que 
+eventualmente di ferentes operações 
+podem resolver um mesmo problema. 
+NÚMEROS 
+Porcentagens: 
+problemas que 
+envolvem cálculo de 
+percentuais sucessivos 
+(EF09MA05) Resolver e elaborar problemas que 
+envolvam porcentagens, com a ideia de aplicação de 
+percentuais sucessivos e a determinação das taxas 
+percentuais, preferencialmente com o uso de 
+tecnologias digitais, no contexto da educação financeira, 
+relacionando com informações de porcentagem, 
+organizadas em gráficos e tabelas levando em conta o 
+cotidiano do aluno. 
+ 
+Essa habilid ade constitui uma excelente 
+oportunidade para as aplicações dos 
+conceitos da Matemática Financeira e 
+também para ampliar e aprofundar esses 
+conceitos, como por exemplo, resolver 
+problemas envolvendo porcentagem, 
+compreendendo a taxa percentual como 
+uma forma de representar uma razão com 
+denominador igual a 100. 
+ÁLGEBRA 
+Funções: 
+representações 
+numérica, algébrica e 
+gráfica 
+(EF09MA06) Compreender as funções como relações 
+de dependência unívoca entre duas variáveis e suas 
+representações numérica, algébrica e gráfica e utilizar 
+esse conceito para analisar situações que envolvam 
+relações funcionais entre duas variáveis. 
+Deve-se destacar que o domínio está 
+associado aos valores que x pode assumir 
+e o conjunto imagem está associado aos 
+valores de y que corresponde m a algum 
+x, ressaltando a importância de os alunos 
+compreenderem o conceito de zero ou 
+raiz de uma função, pois facilitará o 
+estudo das demais funções. 
+ÁLGEBRA Razão entre grandezas 
+de espécies diferentes 
+(EF09MA07) Resolver problemas que envolvam a 
+razão entre duas grandezas de espécies diferentes, como 
+velocidade e densidade demográfica. 
+Caracterize a interdependência entre duas 
+grandezas, a que pode variar livremente 
+(variável independente), daquela que tem 
+o valor determinado pelo valor da outra 
+(variável dependente). 
+√2 
+√2
+
+383 
+  
+ÁLGEBRA 
+Grandezas 
+diretamente 
+proporcionais e 
+grandezas 
+inversamente 
+proporcionais 
+(EF09MA08) Resolver e elaborar problemas que 
+envolvam relações de proporcionalidade direta e inversa 
+entre duas ou mais grandezas, inclusive escalas, divi são 
+em partes proporcionais e taxa de variação, em 
+contextos socioculturais, ambientais e de outras áreas. 
+Podemos usar a ideia de 
+proporcionalidade presente no raciocínio 
+lógico das semelhanças entre conceitos 
+novos e apreendidos, como frações, 
+razões e p roporções deverão ser 
+destacados. 
+ÁLGEBRA 
+Expressões algébricas: 
+fatoração e produtos 
+notáveis 
+Resolução de equações 
+polinomiais do 2º grau 
+por meio de fatorações 
+(EF09MA09) Compreender os processos de fatoração 
+de expressões algébricas, com base em suas relações 
+com os produtos notáveis, para resolver e elaborar 
+problemas que possam ser representados por equações 
+polinomiais do 2º grau. 
+Apresente aos alunos  a fatoração de 
+polinômios a partir da área de figuras 
+planas (quadrados ou retângulos). 
+GEOMETRIA 
+Demonstrações de 
+relações entre os 
+ângulos formados por 
+retas paralelas 
+intersectadas por uma 
+transversal 
+(EF09MA10) Demonstrar relações simples entre os 
+ângulos formados por retas paralelas cortadas por uma 
+transversal. 
+Promova a  identificação de uma  ret a 
+transversal, o reconhecimento dos 
+ângulos determinados por duas retas 
+paralelas cortadas por uma transversal, e 
+a representação dos ângulos 
+determinados por duas retas paralelas 
+cortadas por uma transversal, com ou 
+sem o uso de tecnologias digitais. 
+A Identificação de dois ângulos 
+correspondentes, ângulos opostos pelo 
+vértice, ângulos alternos (internos ou 
+externos) ângulos colaterais (internos ou 
+externos) e a solução de  problemas 
+envolvendo ângulos determinados por 
+retas paralelas cortadas por uma ou ma is 
+transversais são fundamentais para que o 
+aluno atinja essa habilidade. 
+GEOMETRIA 
+Relações entre arcos e 
+ângulos na 
+circunferência de um 
+círculo 
+(EF09MA11) Resolver problemas por meio do 
+estabelecimento de relações entre arcos, ângulos 
+centrais e ângulo s inscritos na circunferência, fazendo 
+uso, inclusive, de softwares de geometria dinâmica, 
+relacionando a medida do ângulo central e inscrito com 
+a medida do arco correspondente (em graus e radianos) 
+Representar arcos de uma circunferência, 
+bem como os pon tos que representam as 
+extremidades dos arcos. Identificar um 
+angulo central, relacionar a medida do 
+angulo central com a medida do arco 
+correspondente (em graus e radianos), 
+reconhecer ângulos inscritos e relacionar 
+a medida de um ângulo inscrito com a 
+medida do ângulo central 
+correspondente. 
+ 
+GEOMETRIA Semelhança de 
+triângulos 
+(EF09MA12) Reconhecer as condições necessárias e 
+suficientes para que dois triângulos sejam semelhantes a 
+partir da igualdade das medidas dos ângulos e da 
+proporcionalidade entre as medidas lineares 
+correspondentes. 
+Dois triângulos são semelhantes caso três 
+ângulos correspondentes sejam 
+congruentes e 3 lados correspondentes 
+possuam a mesma razão de 
+proporcionalidade. Porém, é possível 
+verificar a semelhança nos triângulos de 
+uma fo rma mais simples: observando se 
+eles se enquadram em um dos casos de 
+semelhança de triângulos (LLL, LAL, 
+ALA, LAAo). 
+GEOMETRIA 
+Relações métricas no 
+triângulo retângulo 
+Teorema de Pitágoras: 
+verificações 
+experimentais e 
+demonstração 
+Retas paralelas 
+cortadas por 
+transversais: teoremas 
+de proporcionalidade 
+e verificações 
+experimentais 
+(EF09MA13) Demonstrar relações métricas do 
+triângulo retângulo, entre elas o teorema de Pitágoras, 
+utilizando, inclusive, a semelhança de triângulos. 
+O reconhecer a hipotenusa e  os catetos 
+em um triângulo retângulo, o 
+reconhecimento das relações métricas no 
+triângulo retângulo por meio da 
+semelhança de triângulos e do teorema de 
+Pitágoras, com ou sem o uso de 
+tecnologias digitais, aplicação das 
+relações métricas no triângulo retâ ngulo 
+e resolução de problemas envolvendo as 
+relações métricas, pois são fatores 
+essenciais para obter essas habilidades
+
+384 
+  
+GEOMETRIA 
+Relações métricas no 
+triângulo retângulo 
+Teorema de Pitágoras: 
+verificações 
+experimentais e 
+demonstração 
+Retas paralelas 
+cortadas por 
+transversais: teoremas 
+de proporcionalidade 
+e verificações 
+experimentais 
+(EF09MA14) Resolver e elaborar problemas de 
+aplicação do teorema de Pitágoras ou das relações de 
+proporcionalidade envolvendo retas paralelas cortadas 
+por secantes. 
+ 
+GEOMETRIA Polígonos regulares 
+(EF09MA15) Descrever, por escrito e por meio de um 
+fluxograma, um algoritmo para a construção de um 
+polígono regular cuja medida do lado é conhecida, 
+utilizando régua e compasso, como também softwares. 
+Descrever os polígonos regulares através 
+da   semelhança de triângulos e da 
+decomposição de figuras, observando 
+regularidades sem o uso de fórmulas. 
+GEOMETRIA Distância entre pontos 
+no plano cartesiano 
+(EF09MA16) Determinar o ponto médio de um 
+segmento de reta e a distância entre dois pontos 
+quaisquer, dadas as coordenadas desses pontos no plano 
+cartesiano, sem o uso de fórmulas, e utilizar esse 
+conhecimento para calcular, por exemplo, medidas de 
+perímetros e áreas de figuras planas construídas no 
+plano. 
+Devemos retomar o con ceito de ponto 
+médio, diferença entre área e perímetro 
+de figuras planas 
+GEOMETRIA Vistas ortogonais de 
+figuras espaciais 
+(EF09MA17) Reconhecer vistas ortogonais de figuras 
+espaciais e aplicar esse conhecimento para desenhar 
+objetos em perspectiva (representação de objetos 
+tridimensionais nas duas dimensões do papel ou da tela 
+do pintor) 
+Utilizando vídeos, animações e obras de 
+arte podemos definir perspectiva como a 
+arte de representar em um papel de duas 
+dimensões (bidimensional), um objeto de 
+três dimensões (tridimensional). Essa 
+técnica de representação pictórica se 
+desenvolveu a partir do século XV, por 
+artistas italianos. Nela, quanto mais 
+distante o objeto estiver do observador, 
+menor será a representação da sua figura 
+e mais distante da base i nferior da tela, 
+que corresponde ao primeiro plano de 
+representação. A linha do horizonte 
+corresponde à altura dos olhos do 
+observador. Chamamos horizonte, o 
+lugar em que os objetos se ―perdem‖ ao 
+se afastar progressivamente do 
+observador. 
+GRANDEZAS E 
+MEDIDAS 
+Unidades de medida 
+para medir distâncias 
+muito grandes e muito 
+pequenas 
+Unidades de medida 
+utilizadas na 
+informática 
+(EF09MA18) Reconhecer e empregar unidades usadas 
+para expressar medidas muito grandes ou muito 
+pequenas, tais como distância entre pla netas e sistemas 
+solares, tamanho de vírus ou de células, capacidade de 
+armazenamento de computadores, entre outros, através 
+da notação científica. 
+Através de experimentos, explore a ideia 
+de grandeza. Convém ainda efetuar a 
+transformação de um número muit o 
+grande e/ou muito pequeno em notação 
+científica e vice -versa, para resolver 
+problemas em que a notação científica 
+esteja contextualizada em situações do 
+cotidiano ou plicadas a outras áreas do 
+conhecimento. 
+GRANDEZAS E 
+MEDIDAS 
+Volume de prismas e 
+cilindros 
+(EF09MA19) Resolver e elaborar problemas que 
+envolvam medidas de volumes de prismas e de cilindros 
+retos, inclusive com uso de expressões de cálculo, em 
+situações cotidianas, demostrando por meio de 
+experimentos, os procedimentos que facilitam a 
+conceituação do volume e os caminhos para resolução 
+dos problemas geométricos com enfoque nesse 
+conceito. 
+Aborde o conceito de volume de um 
+sólido, demonstre por meio de 
+experimentos com ou sem o uso de 
+tecnologias.
+
+385 
+  
+ 
+  
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Análise de 
+probabilidade de 
+eventos aleatórios: 
+eventos dependentes e 
+independentes 
+(EF09MA20) Reconhecer, em experimentos aleatórios, 
+eventos independentes e dependentes e calcular a 
+probabilidade de sua ocorrência, nos dois casos. 
+Utilizando informações contidas em  
+enunciados de situações -problema, 
+otimize raciocínio combinatório, 
+analisando os eventos e fazendo 
+comparações entre eles. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Análise de gráficos 
+divulgados pela mídia: 
+elementos que podem 
+induzir a erros de leitura 
+ou de interpretação 
+(EF09MA21) Analisar e identificar, em gráficos 
+divulgados pela mídia, os elementos que podem induzir, 
+às vezes propositadamente, erros de leitura, como 
+escalas inapropriadas, legendas não explicitadas 
+corretamente, omissão de informações importantes  
+(fontes e datas), entre outros. 
+Utilizando gráficos de jorn ais e revistas 
+realizar leitura , interpretaç ão, análise e 
+identificação de elementos que podem 
+induzir, às vezes propositadamente, erros 
+de leitura, como escalas inapropriadas, 
+legendas não explic itadas corretamente, 
+omissão de informações importantes 
+(fontes e datas), entre outros. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Leitura, interpretação e 
+representação de dados 
+de pesquisa expressos 
+em tabelas de dupla 
+entrada, gráficos de 
+colunas simples e 
+agrupadas, gráficos de 
+barras e de setores e 
+gráficos pictóricos 
+(EF09MA22) Escolher e construir o gráfico mais 
+adequado (colunas, setores, linhas), com ou sem uso de 
+planilhas eletrônicas, para apresentar um determinado 
+conjunto de dados, destacando aspectos como as 
+medidas de tendência central. 
+Representar dados estatísticos 
+organizados em tabelas e/ou gráficos 
+(linha, barras, setores), com ou sem o uso 
+de tecnologias. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Planejamento e 
+execução de pesquisa 
+amostral e apresentação 
+de relatório 
+(EF09MA23) Planejar e executar pesquisa amostral 
+envolvendo tema da realidade social e comunicar os 
+resultados por meio de relatório contendo avaliação de 
+medidas de tendência central e da amplitude, tabelas e 
+gráficos adequados, construídos com o ap oio de 
+planilhas eletrônicas. 
+São fatores de atenção para alcançar essa 
+habilidade: aplicar os conceitos de média 
+aritmética simples e média aritmética 
+ponderada na resolução de problemas, 
+compreender o conceito de moda e 
+mediana, utilizando -os adequadamente 
+em situações contextuais e relacionar as 
+medidas de tendência central (média, 
+mediana e moda) em situações 
+contextuais
+
+386
+
+387 
+  
+4.8 CIÊNCIAS 
+4.8.1 INTRODUÇÃO: ÁREA CIÊNCIAS DA NATUREZA 
+O presente documento traz ao Estado de Roraima, referências para a implementação do 
+currículo da área Ciências da Natureza para o Ensino Fundamental , a partir  da Base Nacional 
+Comum Curricular - BNCC. Tem caráter normativo , consolida o compromisso com o 
+letramento científico do al uno, a fim de que este seja capaz de compreender e interpretar 
+o mundo (natural, social e tecnológico), e consiga ainda desenvolver as habilidades e 
+competências necessárias para transformá-lo. 
+4.8.2 BREVE HISTÓRICO DA ÁREA DE CIÊNCIAS DA 
+NATUREZA 
+Ao longo da hi stória da educação no Brasil , o ensino de Ciências passou por vários 
+formatos, inserções, retrocessos e avanços, sempre com o intuito de satisfazer e incrementar as 
+lacunas sociais, culturais e econômicas contextuais de cada época.  De forma que só em 1890 , 
+com a Reforma Benjamin Constant, ainda na República Velha, o ensino de Ciências foi incluído 
+no sistema educacional brasileiro, nas duas últimas séries do ensino secundário.  
+Contudo, por ocasião da Reforma Epitácio Pessoa em 1901, o ensino de Ciências f oi 
+retirado do currículo escolar. Com a criação da Associação Brasileira de Educação (ABE), ele  
+volta a figurar na educação brasileira como preceitos higienistas, e dessa forma, o ensino de 
+Ciências se manteve vivo na educação brasileira, de forma fragmen tada e empobrecida, restrito 
+à área da saúde pessoal e tendo como intuito consertar as deformidades e os problemas da 
+população brasileira (BAYERL, 2014). 
+A partir de 1930, o ensino de Ciências continuou nos curs os primários e secundárias 
+sobre os princípios do higienismo, mas com modificações na nomenclatura. Na década de 1950, 
+no mundo pós Segunda Guerra Mundial, os avanços científicos e tecnológicos evidenciaram a 
+necessidade de um novo olhar para o conheciment o científico e seu papel no sistema 
+educacional brasileiro , passando a integrar o ensino de Ciências ao desenvolvimento da 
+sociedade.   
+Quando a Lei 4.024, foi promulgada em 1961, estabelecendo as Diretrizes e Bases da 
+Educação, e ampliando a obrigatorieda de do ensino da disciplina de Ciências a todas as séries, 
+do então curso ginasial, o cenário escolar era dominado pelo ensino tradicional, ainda que 
+esforços de renovação estivessem em processo. Com o golpe militar, em 1964, a escola passou a 
+atuar com a f inalidade de formar trabalhador, visando à formação de mão de obra barata para 
+promover o desenvolvimento do país . Contudo, as propostas acerca do ensino de Ciências são 
+influenciadas por projetos curriculares desenvolvidos por países como a Inglaterra e o s Estados 
+Unidos, focando não só na formação de mão de obra ma s também nos jovens que almejavam o 
+ingresso em cursos superiores (BAYERL, 2014). Somente a partir de 1971, com a Lei nº 5.692, 
+o componente  Ciências passou a ter caráter obrigatório nas oito séries do ensino primário, à 
+época denominado ―primeiro grau‖.  
+Os Parâmetros Curriculares Nacionais, um referencial de qualidade para a Educação 
+Básica no Brasil, apresentou a proposta do ensino de Ciências a partir da LDB (Lei 9394/96). A 
+proposta dos PCN‘s para área de Ciências da Natureza no Ensino Fundamental foi  mostrar a 
+Ciência como um conhecimento que colabora para a compreensão do mundo e suas 
+transformações, para reconhecer o homem como parte do universo e como indivíduo (BRASIL, 
+1997). Considerando o Ensino Fundamental como nível de escolarização obrigatório no Brasil, 
+os parâmetros curriculares referenciam o ensino de Ciências não como um ensino propedêutico, 
+voltado para aprendizagem efetiva em momento futuro. Segundo o documento, ―A criança não é
+
+388 
+  
+cidadã do futuro, mas já é cidadã hoje, e, nesse sentido, conhecer Ciência é ampliar a sua 
+possibilidade presente de participação social e viabilizar sua capacidade plena  de participação 
+social no futuro‖. Ibdem. 
+Os PCN´s abordaram a superação do ensino de Ciências tradicional que se baseia na 
+mera transmissão de conhecimentos acumulados pela humanidade, por meio de aulas 
+expositivas e passe a considerar  o aluno passou como protagonista no ensino de ciências. No 
+ensino tradicional, o conhecimento científico era considerado um saber neutro, isento, e a 
+verdade científica tinha caráter inquestionável. A qualidade do curso era definida pela 
+quantidade de conteúdos ministrados.  
+Prevista na Constituição Federal (1988), na LDB (1996), e no PNE (2014), a BNCC tem 
+o intuito de alinhar o Brasil aos melhores e mais qualificados sistemas educacionais do mundo. 
+Instituída legalmente na LDB pela Lei 13.415/2017, a Base Nacional Comum Cu rricular, é 
+resultado de um extenso processo de elaboração que perdura desde 2015 sendo submetida aos 
+mais variados mecanismos de discussão, participação de especialistas e consultas públicas 
+(BRASIL, 2017). 
+O compromisso com a forma ção humana integral e a construção de uma sociedade 
+justa, democrática e inclusiva justificam a definição das competências gerais da educação 
+básica. 
+ 
+4.8.3 COMPETÊNCIAS GERAIS DA EDUCAÇÃO BÁSICA 
+1. Valorizar e utilizar os conhecimentos historicamente construídos sobre o mundo 
+físico, social, cultural e digital para entender e explicar a realidade, continuar aprendendo e 
+colaborar para a construção de uma sociedade justa, democrática e inclusiva. 
+2. Exercitar a curiosidade intelectual e recorrer à abord agem própria das ciências, 
+incluindo a investigação, a reflexão, a análise crítica, a imaginação e a criatividade, para 
+investigar causas, elaborar e testar hipóteses, formular e resolver problemas e criar soluções 
+(inclusive tecnológicas) com base nos conhecimentos das diferentes áreas. 
+3. Valorizar e fruir as diversas manifestações artísticas e culturais, das locais às 
+mundiais, e também participar de práticas diversificadas da produção artístico-cultural. 
+4.  Utilizar diferentes linguagens – verbal (oral  ou visual -motora, como Libras, e 
+escrita), corporal, visual, sonora e digital –, bem como conhecimentos das linguagens artística, 
+matemática e científica, para se expressar e partilhar informações, experiências, ideias e 
+sentimentos em diferentes contextos e produzir sentidos que levem ao entendimento mútuo. 
+5. Compreender, utilizar e criar tecnologias digitais de informação e comunicação de 
+forma crítica, significativa, reflexiva e ética nas diversas práticas sociais (incluindo as escolares) 
+para se comun icar, acessar e disseminar informações, produzir conhecimentos, resolver 
+problemas e exercer protagonismo e autoria na vida pessoal e coletiva. 
+6. Valorizar a diversidade de saberes e vivências culturais e apropriar -se de 
+conhecimentos e experiências que l he possibilitem entender as relações próprias do mundo do 
+trabalho e fazer escolhas alinhadas ao exercício da cidadania e ao seu projeto de vida, com 
+liberdade, autonomia, consciência crítica e responsabilidade. 
+7. Argumentar com base em fatos, dados e inf ormações confiáveis, para formular, 
+negociar e defender ideias, pontos de vista e decisões comuns que respeitem e promovam os 
+direitos humanos, a consciência socioambiental e o consumo responsável em âmbito local, 
+regional e global, com posicionamento étic o em relação ao cuidado de si mesmo, dos outros e 
+do planeta.
+
+389 
+  
+8. Conhecer-se, apreciar-se e cuidar de sua saúde física e emocional, compreendendo-se 
+na diversidade humana e reconhecendo suas emoções e as dos outros, com autocrítica e 
+capacidade para lidar com elas. 
+9. Exercitar a empatia, o diálogo, a resolução de conflitos e a cooperação, fazendo -se 
+respeitar e promovendo o respeito ao outro e aos direitos humanos, com acolhimento e 
+valorização da diversidade de indivíduos e de grupos sociais, seus saberes , identidades, culturas 
+e potencialidades, sem preconceitos de qualquer natureza. 
+10. Agir pessoal e coletivamente com autonomia, responsabilidade, flexibilidade, 
+resiliência e determinação, tomando decisões com base em princípios éticos, democráticos, 
+inclusivos, sustentáveis e solidários. 
+4.8.4 COMPETÊNCIAS DA ÁREA DE CIÊNCIAS DA NATUREZA 
+O documento curricular do Estado de Roraima traz em seu escopo o foco no 
+desenvolvimento de competências, e tem o intuito de nivelar o currículo do Estado aos preceitos 
+da BNCC relativo ao ensino básico brasileiro, adequando os aspectos regionais específicos do 
+Estado de Roraima sem desprezar os critérios avaliativos  das mais relevantes organizações 
+internacionais tais como: 
+Organização para a Cooperação e Desenvolvimento Econômico (OCDE), que 
+coordena o Programa Internacional de Avaliação de Alunos (Pisa ) na sigla em 
+inglês)11, e da Organização das Nações Unidas para a Educação, a Ciência e a 
+Cultura (Unesco, na sigla em inglês), que instituiu o Laboratório Latino -
+americano de Avaliação da Qualidade da Educação para a América Latina 
+(LLECE, na sigla em espanhol). (BRASIL, 2017) 
+ 
+Assim como em todos os componentes curriculares , na BNCC do Ensino Fundamental, 
+as aprendizagens essenciais em Ciências se e struturam por meio do desenvolvimento de 
+habilidades e atitudes tendo como foco as competências gerais e específicas da área.  
+O conceito de competência, adotado pela BNCC, marca a discussão pedagógica e social 
+das últimas décadas e pode ser inferido no te xto da LDB, especialmente quando se estabelecem 
+as finalidades gerais do Ensino Fundamental e do Ensino Médio (Artigos 32 e 35). Com base 
+nas competências estabelecidas pela BNCC, o aprendizado da Ciência envolve diversas 
+habilidades, pensamentos e ações d e diferentes linguagens, em especial a oral e a escrita. É 
+imprescindível aos alunos a utilização de: 
+ 
+Linguagens – verbal (oral ou visual -motora, como Libras, e escrita), corporal, 
+visual, sonora e digital –, bem como conhecimentos das linguagens artística, 
+matemática e científica, para se expressar e partilhar informações, experiências, 
+ideias e sentimentos em dife rentes contextos e produzir sentidos que levem ao 
+entendimento mútuo (BRASIL, 2017, p.9). 
+ 
+  Ainda, o domínio conceitual das ciências da natureza demanda dos alunos 
+interações sistemáticas e habilidades que envolvem, por exemplo, a o bservação, o 
+estabelecimento de critérios e comparações, o registro de dados, a formulação de hipóteses, 
+análise e controle de variáveis, a elaboração de argumentações, a avaliação de dados, de fontes 
+de informação, entre outras.  
+Os conhecimentos e habili dades se desenvolvem ao longo dos nove anos do ensino 
+fundamental de forma progressiva, em atividades que promovem aspectos essenciais para o 
+desenvolvimento dos sujeitos em interação. 
+Na medida em que os alunos avançam na escolaridade, os problemas e situ ações 
+propostos, inicialmente de maneira mais superficial, sejam eles ligados ao cotidiano imediato da
+
+390 
+  
+criança ou a temáticas mais abrangentes, vão se tornando cada vez mais complexos, ampliando 
+suas vivências em processos de investigação; na apropriação e  uso das linguagens; no 
+estabelecimento de relações entre Ciência, Tecnologia e Sociedade , bem como, nas tomadas de 
+decisões. Assim, a abordagem dos conhecimentos desse componente curricular ocorre de forma 
+progressiva, tanto em níveis de aprofundamento qu anto em ampliação do conhecimento dos 
+alunos nas dimensões conceituais, procedimentais e conceituais. 
+Nesse sentido, já nos anos iniciais , as Ciências da Natureza fornecem ferramentas 
+cognitivas, sociais e culturais para que as crianças e jovens possam compreender desde 
+fenômenos de seu ambiente natural, que fazem parte de seu cotidiano, até temáticas sociais que 
+envolvem conhecimentos das Ciências da Natureza, de forma crítica. Não é suficiente, portanto, 
+que as crianças e jovens sejam expostos aos conhecimentos científicos historicamente 
+produzidos, mas que tenham a oportunidade de se inserir em processos sistemáticos de interação 
+e aprendi zagem desses conhecimentos, com ampla possibilidade de refletir sobre suas 
+aplicações e implicações na sociedade e no ambiente, de modo que ao longo do ensino 
+fundamental, o aluno possa se posicionar diante de questões científicas, tecnológicas, 
+socioambientais e socioeconômicas do mundo do trabalho.  
+O componente curricular de Ciências da Natureza no Ensino Fundamental contempla 
+conhecimentos que concorrem para a formação integral do aluno, envolvendo diversos campos 
+do saber científico. Não se trata de fragmentar conteúdos em certos domínios, mas de considerar 
+a organização desses em eixos que permitem aproximações, articulações e apropriações 
+conceituais e práticas, a partir dos quais, saberes são mobilizados e articulados.  
+O aluno precisa conhecer sua h istória biológica e os processos de manutenção da vida . 
+Carece de conhecimentos sobre o mundo material no qual está inserido, sobre os recursos 
+disponíveis na natureza, os fenômenos, as causas e os processos de modificações naturais desses 
+recursos, compreender a exploração e a transformação que o ser humano faz com esses recursos, 
+assim como os impactos ambientais causados por essas ações; precisa conhecer a diversidade da 
+vida no planeta e ainda as características do próprio planeta, sua posição no sistem a solar e no 
+Universo, os movimentos e as forças que atuam na manutenção e transformação desses 
+sistemas, no âmbito de um contexto econômico, social e cultural. 
+A apropriação dos conhecimentos, habilidades e formação de atitudes e valores, 
+preconizamO compromisso com a formação humana integral e a construção de uma sociedade 
+justa, democrática e inclusiva justificam a definição das competências gerais da educação 
+básica. 
+De acordo com a Base Nacional Comum Curricular (BNCC) este documento curricular 
+apresenta uma estrutura conceitual de Ciências da Natureza para o Ensino Fundamental 
+ancorada na proposição de uma educação em Ciência que proporcione ao educando o 
+desenvolvimento do letramento científico, que pode ser entendido de acordo com o Programa 
+Internacional de Avaliação de Estudantes PISA no Brasil, como: 
+[...] a capacidade de se envolver com as questões relacionadas com a Ciência e com a 
+ideia da Ciência, como um cidadão reflexivo. São elas: Matéria e Energia, Vida e Evolução e 
+Terra e Universo.  
+Com o  objetivo de integra r os  saberes dentro da área Ciências da Natureza, a Base 
+Nacional Comum Curricular estabelece oito COMPETÊNCIAS ESPECÍFICAS no ensino de 
+Ciências para o Ensino Fundamental, que são: 
+1. Compreender as Ciências da Natureza como empreendim ento humano, e o 
+conhecimento científico como provisório, cultural e histórico. 
+2. Compreender conceitos fundamentais e estruturas explicativas das Ciências da 
+Natureza, bem como dominar processos, práticas e procedimentos da investigação científica, de
+
+391 
+  
+modo a sentir segurança no debate de questões científicas, tecnológicas, socioambientais e do 
+mundo do trabalho, continuar aprendendo e colaborar para a construção de uma sociedade justa, 
+democrática e inclusiva. 
+3. Analisar, compreender e explicar caracterí sticas, fenômenos e processos relativos ao 
+mundo natural, social e tecnológico (incluindo o digital), como também as relações que se 
+estabelecem entre eles, exercitando a curiosidade para fazer perguntas, buscar respostas e criar 
+soluções (inclusive tecnológicas) com base nos conhecimentos das Ciências da Natureza. 
+4. Avaliar aplicações e implicações políticas, socioambientais e culturais da ciência e de 
+suas tecnologias para propor alternativas aos desafios do mundo contemporâneo, incluindo 
+aqueles relativos ao mundo do trabalho. 
+5. Construir argumentos com base em dados, evidências e informações confiáveis e 
+negociar e defender ideias e pontos de vista que promovam a consciência socioambiental e o 
+respeito a si próprio e ao outro, acolhendo e valorizando a diversidade de indivíduos e de grupos 
+sociais, sem preconceitos de qualquer natureza. 
+6. Utilizar diferentes linguagens e tecnologias digitais de informação e comunicação 
+para se comunicar, acessar e disseminar informações, produzir conhecimentos e resolv er 
+problemas das Ciências da Natureza de forma crítica, significativa, reflexiva e ética. 
+7. Conhecer, apreciar e cuidar de si, do seu corpo e bem -estar, compreendendo-se na 
+diversidade humana, fazendo-se respeitar e respeitando o outro, recorrendo aos con hecimentos 
+das Ciências da Natureza e às suas tecnologias. 
+8. Agir pessoal e coletivamente com respeito, autonomia, responsabilidade, 
+flexibilidade, resiliência e determinação, recorrendo aos conhecimentos das Ciências da 
+Natureza para tomar decisões frent e a questões científico -tecnológicas e socioambientais e a 
+respeito da saúde individual e coletiva, com base em princípios éticos, democráticos, 
+sustentáveis e solidários. 
+O desenvolvimento das competências específicas contempla as aprendizagens essenciais 
+do componente curricular de Ciências consolidando o letramento científico a partir das 
+dimensões conceituais, procedimentais e atitudinais. Para a formação integral prevista na 
+formação das competências gerais da BNCC, as competências específicas são impr escindíveis. 
+É neste sentido que se pensa o currículo de Ciências da Natureza.    
+ 
+4.8.5 CURRÍCULO DE CIÊNCIAS DA NATUREZA 
+As teorias científicas, por sua complexidade e alto nível de abstração, não são passíveis 
+de comunicação direta aos alunos de Ensino Fundamental. São grandes sínteses, distantes das 
+ideias de senso comum. Seu ensino sempre requer adequação e seleção de conteúdo, pois não é 
+possível ensinar o conjunto de conhecimentos científicos acumulados. 
+Para pensar sobre o currículo e sobre o ensino de Ciências Naturais , o conhecimento 
+científico é fundamental, mas não suficiente. É essencial considerar o desenvolviment o 
+cognitivo dos estudantes, relacionado a suas experiências, sua idade, sua identidade cultural e 
+social, e os diferentes significados e valores que as Ciências Naturais podem ter para eles.  
+Dizer que o aluno é sujeito de sua aprendizagem significa afirma r que é dele o 
+movimento de ressignificar o mundo, isto é, de construir explicações, mediado pela interação 
+com o professor e outros estudantes e pelos instrumentos culturais próprios do conhecimento 
+científico. Mas esse movimento não é espontâneo; é const ruído com a intervenção fundamental 
+do professor.
+
+392 
+  
+4.8.6 O COMPONENTE CURRICULAR CIÊNCIAS 
+Do entendimento da estrutura atômica da matéria até a formação da Biosfera se percorre 
+um caminho longo de muitas informações, especificidades, curiosidades e interações no  ensino 
+da Ciência. Essa longa trilha sistemática e curiosa abre caminhos para a compreensão do mundo 
+e seu desenvolvimento. O que hoje é verdade, amanhã poderá não ser e é isso que torna o estudo 
+de Ciência especial e fundamental, pois ela faz parte da no ssa vida, da nossa história, do nosso 
+desenvolvimento e do nosso futuro. 
+Diariamente são evidenciados problemas e/ou veiculados temas que desafiam nossa 
+compreensão, mas que reconhecemos serem importantes. Como então participar das escolhas 
+que nos são pos tas e/ou impostas, se não um bom discernimento a respeito dos mesmos, de 
+compreendermos o conceito científico e tecnológico envolvido e os fatores que influenciam nas 
+alterações e transformações de determinada realidade? Assim, devemos aproveitar o 
+conhecimento do estudante sobre o mundo natural e, a partir desse ponto, estabelecer relações 
+entre conhecimentos e criar as condições para produzir novos conhecimentos. Que o 
+conhecimento praticado da área de Ciências e a capacidade adaptativa e interativa do se r 
+humano possam estabelecer relações para fundamentar o conhecimento científico e tecnológico. 
+Inicialmente, precisamos romper com o caráter fragmentado do estudo de Ciências no 
+Ensino Fundamental no qual conceitos da física, da química, da biologia e das geociências, são 
+trabalhados de forma isolada, como a energia que parece não ter ligação com os seres vivos, e 
+esses por sua vez, parecem não ter qualquer relação com elementos químicos e biológicos. 
+Dentro dessa lógica é um sistema dinâmico, alicerçado em  transformações da matéria e energia 
+e que a vida também se organiza através desses processos. 
+Nos anos iniciais , o estudo de Ciências é caracterizado por um processo de letramento 
+científico, envolvendo um trabalho de natureza conceitual em torno de "noçõ es" que estão 
+relacionadas à construção dos conceitos científicos. A partir da vivência, das observações dos 
+fenômenos naturais, da experimentação, dos estabelecimentos de comparações, da identificação 
+de diferenças e relações, a criança começa a usar os s entidos para explorar e observar, analisar 
+dados, processar informações, usar métodos como desenhar para representar ideias, 
+compartilhar observações, enfim desenvolver múltiplas linguagens. 
+Nesse sentido, o processo de ensino -aprendizagem de Ciências dos anos iniciais se 
+formaliza de uma maneira diferente do que ocorre nos anos finais do Ensino Fundamental. Os 
+anos finais são caracterizados pela construção do conhecimento científico -escolar mais 
+formalizado. Nessa etapa de escolarização o estudante já tem uma visão mais ampliada, uma 
+maior vivência e capacidade cognitiva que lhe permitem avançar na exploração de fenômenos, 
+de situações -problemas e/ou temas de maior abstração e que requerem o aprendizado de 
+conceitos científicos que possibilitam a compreensã o das diversas situações ou fenômenos em 
+foco. Estratégias que fomentam a intuição, identificação e escolha, além de problematização, 
+leitura de imagem e associação de ideias, são ferramentas necessárias para o ensino nessa fase, 
+assim como, a observação, o estabelecimento de situações problemas, a experimentação e 
+análise de dados. Esses recursos possibilitarão o desenvolvimento e uso das múltiplas 
+linguagens na leitura e interpretação de dados, dispostos em gráficos e tabelas, textos científicos 
+e informativos, na construção de relatórios, na escrita e na oralidade. 
+Portanto, o componente Ciências, estruturado de uma forma coerente, estabelecendo 
+articulações entre letramento científico com os demais componentes curriculares, de forma 
+contextualizada e int erdisciplinar, e ainda abordando a parte diversificada do contexto social e 
+cultural, é fundamental para uma aprendizagem significativa. As interações sistemáticas nesse
+
+393 
+  
+âmbito, além de dar sentido à apropriação de conhecimentos científicos, podem contribu ir 
+expressivamente para a compreensão do mundo e da realidade. 
+Na medida em que os alunos avançam na escolaridade, os problemas e situações 
+propostos, inicialmente de maneira mais superficial, sejam eles ligados ao cotidiano imediato da 
+criança ou a temáti cas mais abrangentes, vão se tornando cada vez mais complexos, ampliando 
+suas vivências em processos de investigação; na apropriação e uso das linguagens; no 
+estabelecimento de relações entre: Ciência, Tecnologia e Sociedade; bem como, nas tomadas de 
+decisões. Assim, a abordagem dos conhecimentos desse componente curricular ocorre de forma 
+progressiva, tanto em níveis de aprofundamento quanto em ampliação do conhecimento dos 
+alunos nas dimensões atitudinais, procedimentais e conceituais. 
+A apropriação dos c onhecimentos, habilidades e formação de atitudes e valores, 
+preconiza o desenvolvimento integrado dos saberes da área das Ciências da Natureza, 
+articulados com as demais áreas. Assim, a organização criteriosa dos objetos de conhecimentos 
+nessa etapa de ens ino, é fundamental para desenvolver uma formação integral e progressiva no 
+ensino das Ciências. 
+De acordo com a Base Nacional Comum Curricular (BNCC) este documento curricular 
+apresenta uma estrutura conceitual de Ciências da Natureza para o Ensino Fundame ntal 
+ancorada na proposição de uma educação em Ciência que proporcione ao educando o 
+desenvolvimento do letramento científico, que pode ser entendido de acordo com a equipe do 
+Programa Internacional de Avaliação de Estudantes - PISA no Brasil.  
+ 
+A capacidade de se envolver com as questões relacionadas com a Ciência e 
+com a ideia da Ciência, como um cidadão reflexivo. Uma pessoa letrada 
+cientificamente, portanto, está disposta a participar em discurs o 
+fundamentado sobre Ciência e T ecnologia, o que exige as competências para: 
+1 - Explicar fenômenos cientificamente: reconhecer, oferecer e avaliar 
+explicações para fenômenos naturais e tecnológicos. 2 - Avaliar e planejar 
+investigações científicas: descrever e avaliar investigações científicas e 
+propor f ormas de abordar questões cientificamente. 3 - Interpretar dados e 
+evidências cientificamente: analisar e avaliar os dados, afirmações e 
+argumentos, tirando conclusões científicas apropriadas. (PISA, 2015). 
+ 
+O objetivo da educação em Ciências é a formação efetiva do letramento científico, com 
+temas que favorecem a compreensão do ambiente natural, social, no contexto dos valores que 
+fundamentam a sociedade e a tecnologia, desenvolvendo a capacidade de aprender e  
+compreender o mundo quer pelos avanços tecnológicos que têm marcado a sociedade, quer 
+pelas relações que se estabelecem entre esses conhecimentos e aspectos da economia, da 
+cultura, do mundo do trabalho.  
+O componente curricular Ciências está organizado e m três unidades temáticas que se 
+repetem ao longo de todo Ensino Fundamental. São elas: Matéria e energia, Vida e evolução e 
+Terra e Universo.  
+A unidade temática Matéria e  Energia  concentra suas atenções no estudo das 
+interações e transformações da matér ia, e nos tipos de energia, suas fontes e formas de 
+utilização presentes no cotidiano. Nesta unidade temática, é possível contextualizar os 
+conhecimentos científicos a partir da realidade local, contemplando, por exemplo, a 
+biodiversidade e o ecossistema r oraimense no desenvolvimento das habilidades que abordam 
+elementos que fazem parte do ciclo da matéria e do ciclo da energia. 
+Em Vida e Evolução,  a proposta é o estudo das questões relacionadas aos seres vivos, 
+em especial o ser humano, suas característic as, necessidades e interações, destacando a vida 
+como um fenômeno natural e social que sofre influências, mas que também interfere no
+
+394 
+  
+ambiente à sua volta. Esta unidade temática permite o estudo dos conceitos relacionados à 
+biodiversidade e ecologia por me io da análise das especificidades e peculiaridades do bioma 
+roraimense, sem comprometer as aprendizagens essenciais previstas na BNCC.   
+As características do planeta Terra, sua composição e condições para desenvolvimento 
+da vida, bem como seu lugar no Sistema Solar, são objetos de estudo da unidade temática Terra 
+e Universo, eixo no qual se busca a compreensão do papel desempenhado pela espécie humana 
+na evolução histórica da humanidade. 
+Estes agrupamentos permitem que os conceitos sejam compreendidos de f orma 
+integrada e não compartimentada. Tanto que, as unidades temáticas são trabalhadas por meio de 
+habilidades organizadas ao longo do ensino fundamental relacionando o grau de complexidade 
+dos conhecimentos ao nível de desenvolvimento do aluno. Além de respeitar os níveis de ensino 
+busca-se garantir a transição de etapas como forma de assegurar a progressão de aprendizagem.    
+ 
+4.8.7 AVALIAÇÃO 
+Avaliação é um elemento do processo de ensino e aprendizagem que deve ser 
+considerado em direta associação com os demais. Como está discutido no documento de 
+Introdução aos Parâmetros Curriculares Nacionais, a avaliação informa ao professor o que foi 
+aprendido pelo estudante . I nforma ao estudante quais são seus avanços, dificuldades e 
+possibilidades, encaminha o professor para a reflexão sobre a eficácia de sua prática educativa e, 
+desse modo, orienta o s ajustes de sua intervenção pedagógica para que o estudante aprenda. 
+Possibilita também à equipe escolar definir prioridades em suas ações educativas. Longe de ser 
+apenas um momento final do processo de ensino, a avaliação se inicia quando os estudantes 
+põem em jogo seus conhecimentos prévios e continua a se evidenciar durante toda a situação 
+escolar. 
+Assim, o que constitui a avaliação ao final de um período de trabalho é o resultado tanto 
+de um acompanhamento contínuo e sistemático pelo professor como de momentos específicos 
+de formalização, ou seja, a demonstração de que as metas de formação de cada etapa foram 
+alcançadas. Coerentemente com as competências gerais e específicas para o ensino de Ciências, 
+a concepção de avaliação deve considerar o desenvolvimento das capacidades dos estudantes 
+com relação à aprendizagem não só de conceitos, mas também das habilidades e competências 
+adquiridas.  
+Dessa forma, é fundamental q ue se utilizem métodos diferenciados para avaliar 
+diferentes aprendizagens. Para que a avaliação seja feita em clima afetivo e cognitivo propício 
+para o processo de ensino e aprendizagem, os critérios de avaliação necessitam estar explícitos e 
+claros tanto  para o professor como para os estudantes , desta forma o currículo garantirá a 
+promoção da equidade e a qualidade das aprendizagens dos estudantes roraimenses. 
+ 
+4.8.8 ORGANIZADOR CURRICULAR

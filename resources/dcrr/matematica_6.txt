@@ -1,0 +1,661 @@
+[DCRR — Documento Curricular de Roraima]
+[Seção: MATEMÁTICA — 6º ANO | páginas 365-370 do documento original]
+
+365 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ORGANIZADOR CURRICULAR- 6º ANO 
+MATEMÁTICA
+
+366 
+  
+Unidades 
+Temáticas 
+Objetos De 
+Conhecimento Habilidades Orientações 
+Didáticas/Metodológicas 
+NÚMEROS 
+Sistema de numeração 
+decimal: 
+características, leitura, 
+escrita e comparação 
+de números naturais e 
+de números racionais 
+representados na 
+forma decimal. 
+(EF06MA01) Comparar, ordenar, ler e escrever 
+números naturais e números racionais cuja 
+representação decimal é finita, fazen do uso da reta 
+numérica. 
+Utilize números naturais e racionais em 
+diferentes formas, através da 
+identificação e ordenação em situações 
+de contagem, fazendo sua representação 
+na reta numérica. 
+NÚMEROS 
+Sistema de numeração 
+decimal: 
+características, leitura, 
+escrita e comparação 
+de números naturais e 
+de números racionais 
+representados na 
+forma decimal 
+(EF06MA02) Reconhecer o sistema de numeração 
+decimal, como o que prevaleceu no mundo ocidental, e 
+destacar semelhanças e diferenças com outros sistemas, 
+de modo a sistematizar suas principais características 
+(base, valor posicional e função do zero), utilizando, 
+inclusive, a composição e decomposição de números 
+naturais e números racionais em sua representação 
+decimal, estabelecendo a relação de ordem entre os 
+números naturais de qualquer grandeza. 
+Apresente as diferentes representações do 
+sistema de numeração decimal, 
+compreendendo suas necessidades 
+práticas que levaram à criação dos 
+números, relacionando o 
+desenvolvimento dos sistemas de 
+numeração com a história da 
+humanidade, reconhecendo os métodos 
+primitivos de contagem e as situações 
+que motivaram sua criação e evolução no 
+sistema de numeração decimal (SND), 
+ampliando e aprimorando a compreensão 
+das regras dos sistemas de numeração 
+decimal. 
+NÚMEROS 
+Operações (adição, 
+subtração, 
+multiplicação, divisão 
+e potenciação) com 
+números naturais 
+Divisão euclidiana 
+(EF06MA03) Resolver e elaborar problemas que 
+envolvam cálculos (mentais ou escritos, exatos ou 
+aproximados) com números naturais, por meio de 
+estratégias vari adas, com compreensão dos processos 
+neles envolvidos com e sem uso de calculadora. 
+Utilize os conhecimentos prévios dos 
+alunos sobre as operações fundamentais 
+envolvendo números naturais. Proponha 
+situações problemas para resolver com o 
+uso ou não de calculadoras. Dinamize o 
+processo de ensino e aprendizagem que 
+propiciem o raciocínio lógico diante da 
+resolução de atividades que experiencie 
+mais de uma operação. 
+ 
+NÚMEROS 
+Fluxograma para 
+determinar a paridade 
+de um número natural 
+Múltiplos e divisores 
+de um número natural 
+Números primos e 
+compostos 
+(EF06MA04) Construir algoritmo em linguagem natural 
+e representá-lo por fluxograma que indique a resolução 
+de um problema simples (por exemplo, se um número 
+natural qualquer é par). 
+Apropriar-se dos algoritmo s do tipo 2n e 
+2n+1 para identificar se um número é par 
+ou ímpar, representando-o através de 
+resolução de problemas simples. 
+NÚMEROS 
+Fluxograma para 
+determinar a paridade 
+de um número natural 
+Múltiplos e divisores 
+de um número natural 
+Números primos e 
+compostos 
+(EF06MA05) Classificar números naturais em primos e 
+compostos, estabelecer relações entre números, 
+expressos pelos termos ―é múltiplo de‖, ―é divisor de‖, 
+―é fator de‖, e estabelecer, por meio de investigações, 
+critérios de divisibilidade por 2, 3, 4, 5, 6, 8, 9, 10, 100 
+e 1000. 
+Apresente e aplique as regras dos 
+critérios de divisibilidade, números 
+primos e compostos, decomposição em 
+fatores primos, estabelecendo as relações 
+entre ―é múltiplo de‖, ―é divisor de‖, ―é 
+fator de‖. Sugira aos alunos que 
+estabeleçam os critérios de divisibilidade 
+por 2, 3, 4, 5, 6, 8, 9, 10, 100 e 1000, por 
+meio de investigações. 
+NÚMEROS 
+Fluxograma para 
+determinar a paridade 
+de um número natural 
+Múltiplos e divisores 
+de um número natural 
+Números primos e 
+compostos 
+(EF06MA06) Resolver e elaborar problemas que 
+envolvam as ideias de múltiplo e de divisor. 
+Apresente situações envolvendo o 
+múltiplo e o divisor de números naturais, 
+podendo ser resolvidos através da 
+fatoração.
+
+367 
+  
+NÚMEROS 
+Frações: significados 
+(parte/todo, 
+quociente), 
+equivalência, 
+comparação, adição e 
+subtração; cálculo da 
+fração de um número 
+natural; adição e 
+subtração de frações. 
+(EF06MA07) Compreender, comparar e ordenar frações 
+associadas às ideias de partes de inteiros e resultado de 
+divisão, identificando frações equivalentes, percebendo 
+que duas frações são equivalentes quando ambas 
+representam a mesma quantidade; 
+Para introduzir esse conteúdo, represente 
+e localize um número racional na reta 
+numerada, estabelecendo relações entre a 
+escrita fracionária e a escrita decimal. 
+Mostre como reconhecer a equivalência 
+entre frações e as diferentes formas de 
+representação (fracionária e decimal). 
+Apresente situações problemas com os 
+números racionais na forma fracionária 
+em diferentes contextos e situações do 
+cotidiano. 
+ 
+NÚMEROS 
+Frações: significados 
+(parte/todo, 
+quociente), 
+equivalência, 
+comparação, adição e 
+subtração; cálculo da 
+fração de um número 
+natural; adição e 
+subtração de frações. 
+(EF06MA08) Reconhecer que os números racionais 
+positivos podem ser expressos nas formas fracionária e 
+decimal, estabelecer relações entre essas representações, 
+passando de uma representação para outra, e relacioná -
+los a pontos na reta numérica em situações que indicam 
+a relação parte-todo. 
+ 
+NÚMEROS 
+Frações: significados 
+(parte/todo, 
+quociente), 
+equivalência, 
+comparação, adição e 
+subtração; cálculo da 
+fração de um número 
+natural; adição e 
+subtração de frações. 
+(EF06MA09) Resolver e elaborar problemas que 
+envolvam o cálculo da fração de uma quantidade e cujo 
+resultado seja um número natural, com e sem uso de 
+calculadora. 
+ 
+NÚMEROS 
+Frações: significados 
+(parte/todo, 
+quociente), 
+equivalência, 
+comparação, adição e 
+subtração; cálculo da 
+fração de um número 
+natural; adição e 
+subtração de frações. 
+(EF06MA10) Resolver e elaborar problemas que 
+envolvam adição ou subtração com números racionais 
+positivos na representação fracionária. 
+ 
+NÚMEROS 
+Operações (adição, 
+subtração, 
+multiplicação, divisão 
+e potenciação) com 
+números racionais 
+(EF06MA11) Resolver e elaborar problemas com 
+números racionais positivos na representação decimal, 
+envolvendo as quatro operações fundamentais e a 
+potenciação, por meio de estratégias diversas, utilizando 
+estimativas e arredondamentos para verificar a 
+razoabilidade de respostas, com e sem uso de 
+calculadora. 
+As atividades podem ser desenvolvidas 
+através da leitura e escrita por extenso 
+dos números racionais positivos, 
+relacionando-os às escrita fracionária e 
+escrita decimal, envolvendo operações 
+com decimais: multiplicação de natural 
+por decimal, divisão de decimal por 
+natural, divisão de natural por natural 
+com quociente decimal. Proponha 
+questões para serem resolvidas com e 
+sem uso de calculadora.
+ 
+NÚMEROS 
+Aproximação de 
+números para 
+múltiplos de potências 
+de 10 
+(EF06MA12) Fazer est imativas de quantidades e 
+aproximar números para múltiplos da potência de 10 
+mais próximas.
+
+368 
+  
+NÚMEROS 
+Cálculo de 
+porcentagens por meio 
+de estratégias diversas, 
+sem fazer uso da 
+“regra de três” 
+(EF06MA13) Resolver e elaborar problemas que 
+envolvam porcentagens, com base na ideia de 
+proporcionalidade, sem fazer uso da ―regra de três‖, 
+utilizando estratégias pessoais, cálculo mental e 
+calculadora, em contextos de educação financeira, entre 
+outros (problemas que envolvam o uso da porcentagem 
+no contexto diário). 
+Introduza o estudo de porcentagens 
+visando abordar a ideia de 
+proporcionalidade, sem fazer uso da 
+regra de três, utilizando estratégias 
+diferentes. Mostre procedimentos para 
+obter fração geratriz que represente 
+dízimas periódicas simples e compo sta. 
+Proponha questões contextuais 
+envolvendo grandezas direta e 
+inversamente proporcionais, utilizando 
+regra de três simples, solucionando 
+questões envolvendo escalas, através do 
+cálculo mental e calculador. Explore a 
+linguagem ―tantos por cento de‖ 
+dividindo por cem e multiplicando pelo 
+todo. 
+ÁLGEBRA Propriedades da 
+igualdade 
+(EF06MA14) Reconhecer que a relação de igualdade 
+matemática não se altera ao adicionar, subtrair, 
+multiplicar ou dividir os seus dois membros por um 
+mesmo número e utilizar essa noç ão para determinar 
+valores desconhecidos na resolução de problemas. 
+ÁLGEBRA 
+Problemas que tratam 
+da partição de um 
+todo em duas partes 
+desiguais, envolvendo 
+razões entre as partes 
+e entre uma das partes 
+e o todo. 
+(EF06MA15) Resolver e elaborar problemas que 
+envolvam a partilha de uma quantidade em duas partes 
+desiguais, envolvendo relações aditivas e 
+multiplicativas, bem como a razão entre as partes e 
+entre uma das partes e o todo. 
+Utilize os conhecimentos prévios dos 
+alunos sobre a divisão de um todo em 
+partes iguais e apresente situações que 
+envolva a part ilha de um todo em partes 
+desiguais, envolvendo relações aditivas e 
+multiplicativas. 
+GEOMETRIA 
+Plano cartesiano: 
+associação dos vértices 
+de um polígono a 
+pares ordenados 
+(EF06MA16) Associar pares ordenados de números a 
+pontos do plano cartesiano do 1º quadrante, em 
+situações como a localização dos vértices de um 
+polígono, reconhecendo o par ordenado como uma 
+forma padronizada de identificar a localização de um 
+ponto no plano cartesiano. 
+Inicie o es tudo conceituando plano 
+cartesiano, identificando os quadrantes 
+representando os pares ordenados apenas 
+no 1º quadrante em situações aplicadas 
+em atividades que explorem localizar os 
+vértices de um polígono no plano. 
+Proponha atividades para localizar 
+pontos no plano, utilizando malhas em 
+papel milimetrado ou software de 
+geometria. Fale sobre os dispositivos de 
+localização global (GPS), muito usado 
+em situações que necessitam conhecer o 
+ponto de localização. 
+GEOMETRIA 
+Prismas e pirâmides: 
+planificações e 
+relações entre seus 
+elementos (vértices, 
+faces e arestas) 
+(EF06MA17) Quantificar e estabelecer relações entre o 
+número de vértices, faces e arestas de prismas e 
+pirâmides, em função do seu polígono da base, para 
+resolver problemas e desenvolver a percepção espacial 
+destacando suas características e reconhecendo-as em 
+objetos do seu cotidiano. 
+ 
+Apresente a classificação de formas 
+espaciais dando ênfase às suas 
+características (faces, vértices e arestas), 
+sistematizando a classificação dos 
+poliedros em prismas  e pirâmides, 
+relacionando sua planificação entre os 
+sólidos geométricos. Trabalhe o conteúdo 
+dando significado, solicite que os alunos 
+pesquisem e apresentem imagens de 
+diferentes construções do mundo físico, 
+de modo que permita ao aluno 
+estabelecer conex ões com os poliedros 
+que apresentam formato de prismas e 
+pirâmides. Utilize mídias com 
+animações. 
+GEOMETRIA 
+Polígonos: 
+classificações quanto 
+ao número de vértices, 
+às medidas de lados e 
+ângulos e ao 
+paralelismo e 
+perpendicularismo dos 
+lados 
+(EF06MA18) Reconhecer, nomear e comparar 
+polígonos, considerando lados, vértices e ângulos, e 
+classificá-los em regulares e não regulares, tanto em 
+suas representações no plano como em faces de 
+poliedros. 
+Introduza o estudo apresentando imagens 
+(construídas com o uso  de softwares de 
+geometria dinâmica ou desenhadas na 
+lousa) com vários polígonos já feitos e 
+questione os alunos sobre as diferenças 
+observadas entre os mesmos, 
+considerando lados, vértices e ângulos. 
+Proponha atividade com os polígonos 
+construídos e estim ule que os alunos a 
+utilizem instrumentos de medidas para 
+fazerem medições. Certifique de que os
+
+369 
+  
+alunos conseguem diferenciar os 
+polígonos regulares dos polígonos não 
+regulares e nomeá -los corretamente. 
+Classificação de polígonos: Regulares e 
+irregulares, conforme a medição e 
+construção dos ângulos. 
+GEOMETRIA 
+Polígonos: 
+classificações quanto 
+ao número de vértices, 
+às medidas de lados e 
+ângulos e ao 
+paralelismo e 
+perpendicularismo dos 
+lados. 
+(EF06MA19) Identificar características dos triângulos e 
+classificá-los em relação às medidas dos lados e dos 
+ângulos. 
+Identifique características dos triângulos 
+e classifique-os em relação às medidas 
+dos lados e dos ângulos. Verificar a 
+condição de existência dos triângulos, 
+suas relações com outros políg onos, bem 
+como suas aplicações. 
+ 
+GEOMETRIA 
+Polígonos: 
+classificações quanto 
+ao número de vértices, 
+às medidas de lados e 
+ângulos e ao 
+paralelismo e 
+perpendicularismo dos 
+lados. 
+(EF06MA20) Identificar características dos 
+quadriláteros, classificá -los em relação a lados e a 
+ângulos e reconhecer a inclusão e a intersecção de 
+classes entre eles. 
+Retome as definições básicas dos 
+quadriláteros para um aprofundamento 
+do tema. Discuta com os alunos a 
+classificação de um quadrilátero quanto à 
+medida dos lados e ângulos, mostrando e 
+aplicando a soma das medidas dos 
+ângulos internos . Apresente as 
+características dos quadriláteros para sua 
+identificação e estimule o aluno a 
+entender que existe a intersecção entre as 
+classes. Proponha questionamentos sobre 
+isso.
+ 
+GEOMETRIA 
+Construção de figuras 
+semelhantes: 
+ampliação e redução 
+de figuras planas em 
+malhas quadriculadas 
+(EF06MA21) Construir figuras planas semelhantes em 
+situações de ampliação e de redução, com o uso de 
+malhas quadriculadas, plano cartesiano ou tecnologias 
+digitais construindo conceito de homotética 
+Inicie discutindo as ideias de ampliação e 
+redução de uma figura para introduzir a 
+ideia de semelhança. Proponha atividades 
+para os alunos construírem figuras planas 
+com régua, esquadro e compasso, ou com 
+o uso de software, reconhecendo os eixos 
+de simetria em diferentes figuras 
+presentes na natureza e em construções. 
+GEOMETRIA 
+Construção de retas 
+paralelas e 
+perpendiculares, 
+fazendo uso de réguas, 
+esquadros e softwares. 
+(EF06MA22) Utilizar instrumentos, como réguas e 
+esquadros, ou softwares para representações de retas 
+paralelas e perpendiculares e construção de 
+quadriláteros, entre outros. 
+Desenvolva essa habilidade despertando 
+no aluno o uso correto dos instrumentos 
+de desenho geométrico, como réguas e 
+esquadros, ou programas  
+computacionais. Mostre as 
+representações de retas paralelas e 
+perpendiculares, fazendo a construção de 
+quadriláteros, entre outros para 
+desenvolver a visualização na busca de 
+solucionar problemas. Apresentação de 
+atividades através das mídias poderá ser 
+gerenciada no ambiente pedagógico da 
+informática. 
+GEOMETRIA 
+Construção de retas 
+paralelas e 
+perpendiculares, 
+fazendo uso de réguas, 
+esquadros e softwares. 
+(EF06MA23) Construir algoritmo para resolver 
+situações passo a passo (como na construção de 
+dobraduras ou na indicação de deslocamento de um 
+objeto no plano segundo pontos de referência e 
+distâncias fornecidas etc.). 
+Apresente situações -problema de 
+localização e deslocamento de pontos no 
+espaço, reconhecendo as noções de 
+direção e sentido, de p aralelismo e 
+perpendicularismo, elementos 
+fundamentais para a constituição de 
+sistemas de coordenadas cartesianas.
+ 
+GRANDEZAS E 
+MEDIDAS 
+Problemas sobre 
+medidas envolvendo 
+grandezas como 
+comprimento, massa, 
+tempo, temperatura, 
+área, capacidade e 
+volume. 
+(EF06MA24) Resolver e elaborar problemas que 
+envolvam as grandezas comprimento, massa, tempo, 
+temperatura, área (triângulos e retângulos), capacidade e 
+volume (sólidos formados por blocos retangulares), sem 
+uso de fórmulas, inseridos, sempre que possível, em 
+contextos oriundos de situações reais e/ou relacionadas 
+às outras áreas do conhecimento. 
+Possibilite uma avaliação dos 
+conhecimentos prévios dos alunos sobre 
+o tema. Estimule-os a resolver e elaborar 
+situações-problema com figuras 
+geométricas planas, bloco s geométricos 
+e/ou o próprio material dourado como 
+recurso para desenvolver a habilidade.
+
+370 
+  
+GRANDEZAS E 
+MEDIDAS 
+Ângulos: noção, usos e 
+medida. 
+(EF06MA25) Reconhecer a abertura do ângulo como 
+grandeza associada às figuras geométricas , 
+compreendendo a ideia d e medida de um ângulo ( em 
+grau ), operando com medidas de ângulos . 
+Inicie o conteúdo apresentando a abertura 
+do ângulo como uma grandeza e mostre 
+que eles estão presentes em figuras 
+geométricas, e em situações do dia a dia, 
+como o ângulo formado pelo mov imento 
+dos ponteiros de um relógio, nos 
+movimentos que fazemos com o nosso 
+corpo, manobras com bicicletas, skates, 
+etc. Apresente o grau como a principal 
+unidade de medida de ângulo. 
+GRANDEZAS E 
+MEDIDAS 
+Ângulos: noção, usos e 
+medida. 
+(EF06MA26) Resolver problemas que envolvam a 
+noção de ângulo em diferentes contextos e em situações 
+reais, como ângulo de visão, associada à ideia de 
+mudança de direção. 
+Introduzir o conceito de ângulo visão, 
+destacando também o que significa 
+campo de visão ou campo visual. 
+Apresente que esse conceito está presente 
+na visão e em aparelhos como a máquina 
+fotográfica. Proponha e resolva 
+problemas que envolvam a noção de 
+ângulos em diferentes contextos e 
+situações reais. 
+GRANDEZAS E 
+MEDIDAS 
+Ângulos: noção, usos e 
+medida. 
+(EF06MA27) Determinar medidas da abertura de 
+ângulos, por meio de transferidor e/ou tecnologias 
+digitais, reconhecendo ângulos retos, agudos e obtusos e 
+sua aplicabilidade na solução de problemas. 
+Trabalhar atividades  em que o aluno 
+utilize o transferidor como instrumento 
+de para medir abertura de ângulos. 
+GRANDEZAS E 
+MEDIDAS 
+Plantas baixas e vistas 
+aéreas 
+(EF06MA28) Interpretar, descrever e desenhar plantas 
+baixas simples de residências e vistas aéreas, fazendo 
+uso de instrumentos de medidas. 
+ 
+Apresente o  conceito de planta baixa 
+como uma imagem que representa a vista 
+superior de um objeto ou região 
+desconsiderando suas características de 
+profundidade. Fale que a planta baixa de 
+uma residência é a representação de seus 
+cômodos ou ambientes em projeção 
+horizontal, ou seja, é como se estivesse 
+vendo a casa de cima, sem laje e sem 
+telhado.  Estimule os alunos a 
+observarem na sala de aula e os objetos 
+que a compõem, motivando que o aluno 
+escolha um objeto e desenhe a vista aérea 
+observada. 
+GRANDEZAS E 
+MEDIDAS 
+Perímetro de um 
+quadrado como 
+grandeza proporcional 
+à medida do lado 
+(EF06MA29) Analisar e descrever mudanças que 
+ocorrem no perímetro e na área de um quadrado ao se 
+ampliarem ou reduzirem, igualmente, as medidas de 
+seus lados, para compreender que o perím etro é 
+proporcional à medida do lado, o que não ocorre com a 
+área. 
+Inicie o assunto sugerindo atividades que 
+levem os alunos a analisarem e 
+compreenderem o que acontece com o 
+perímetro e área de um quadrado quando 
+ampliamos ou reduzimos seus lados. 
+Proponha que os alunos construam uma 
+tabela que apresente a medida do lado, a 
+medida do perímetro e a mediada da área, 
+de seis quadrados distintos. Use a tabela 
+para reforçar a não proporcionalidade e 
+para compreender o padrão existente 
+quando analisamos os perím etros e as 
+áreas de regiões quadradas. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Cálculo de 
+probabilidade como a 
+razão entre o número 
+de resultados 
+favoráveis e o total de 
+resultados possíveis 
+em um espaço 
+amostral equiprovável 
+Cálculo de 
+probabilidade por 
+meio de muitas 
+(EF06MA30) Calcular a probabilidade de um evento 
+aleatório, expressando -a por número racional (forma 
+fracionária, decimal e percentual) e comparar esse 
+número com a probabilidade obtida por meio de 
+experimentos sucessivos. 
+O cálculo de probabilidade pode ser 
+introduzido discutindo-se historicamente, 
+que esse conteúdo foi desenvolvido 
+basicamente através dos jogos de azar. 
+Aproveite essa  discussão e faça o 
+lançamento d e uma moeda, e 
+posteriormente o lançamento de um dado 
+e apresente questionamentos, 
+estimulando os alunos a descobrirem o 
+número de resultados favoráveis e o total 
+de resultados possíveis para um

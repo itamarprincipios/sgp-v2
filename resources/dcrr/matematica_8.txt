@@ -1,0 +1,528 @@
+[DCRR — Documento Curricular de Roraima]
+[Seção: MATEMÁTICA — 8º ANO | páginas 376-380 do documento original]
+
+376 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Gráficos de setores: 
+interpretação, pertinência 
+e construção para 
+representar conjunto de 
+dados 
+(EF07MA37) Interpretar e analisar dados 
+apresentados em gráfico de setores divulgados pela 
+mídia e compreender quando é possível ou 
+conveniente sua utilização. 
+ 
+ORGANIZADOR CURRICULAR- 8º ANO 
+MATEMÁTICA 
+Unidades 
+Temáticas 
+Objetos De 
+Conhecimento Habilidades Orientações 
+Didáticas/Metodológicas
+
+377 
+  
+NÚMEROS Notação científica 
+(EF08MA01) Efetuar cálculos com potências de 
+expoentes inteiros e aplicar esse conhecimento na 
+representação de números em notação científica 
+(números sintetizados em uma estrutura na forma de  
+potenciação com base dez) com relevância no cotidiano 
+Mostre a necessidade da representação 
+em notação cientifica para facilitar o 
+registro de grandes e pequenas 
+quantidades. Proponha e resolva 
+problemas envolvendo potências de 
+expoentes inteiros, para ap licar a 
+representação em notação científica. 
+Esclareça que este estudo também é de 
+fundamental importância para as 
+Ciências: Física, Biologia e Química. 
+NÚMEROS Potenciação e 
+radiciação 
+(EF08MA02) Resolver e elaborar problemas usando a 
+relação entre potenciação e radiciação, para representar 
+uma raiz como potência de expoente fracionário, 
+compreendendo o significado das mesmas, a partir de 
+situações-problemas que expressam seu uso no contexto 
+social e em outras áreas do conhecimento e que 
+possibilitem a comparação dos métodos da mesma 
+natureza 
+As operações envolvendo representação 
+de uma raiz como potência de expoente 
+fracionário são fundamentais para a 
+resolução de diversos problemas 
+da matemática e das demais ciências. 
+Resolva e elabore problemas que envolva 
+operações com radiciação e potenciação 
+que apresenta expoente fracionário. 
+NÚMEROS 
+O princípio 
+multiplicativo da 
+contagem 
+(EF08MA03) Resolver e elaborar problemas de 
+contagem cuja resolução envolva a aplicação do 
+princípio multiplicativo, relacio nando-os com situações 
+problemas contextualizados e voltados para a realidade 
+do aluno. 
+Apresente situações problema que 
+envolvam contagens, dando ênfase à 
+resolução sem utilização de fórmulas, 
+para que os alunos possam compreender 
+primeiramente o princípio multiplicativo. 
+Priorize o uso de diagramas, lista ou 
+árvore das possibilidades. Valorize 
+caminhos pessoais dos alunos na busca 
+por solucionar um problema. 
+NÚMEROS Porcentagens 
+(EF08MA04) Resolver e elaborar problemas, 
+envolvendo cálculo de porcentagens, incluindo o uso de 
+tecnologias digitais. 
+Utilize os conhecimentos prévios dos 
+alunos sobre a representação dos 
+números na forma decimal e fracionária. 
+Apresente situações problemas que 
+envolvam porcentagens, em contexto de 
+educação financeira e valorize estratégias 
+pessoais dos alunos para solucionar. 
+Proponha problemas com uso de 
+calculadora, visando que o aluno use esse 
+recurso para comprovar resultados. 
+Favoreça a redução de erros na resolução 
+de problemas e desenvolva o senso 
+crítico, capacidade de observação e 
+investigação. 
+NÚMEROS Dízimas periódicas: 
+fração geratriz 
+(EF08MA05) Reconhecer e utilizar procedimentos para 
+a obtenção de uma fração geratriz para uma  dízima 
+periódica. 
+Introduzir o estudo de dízimas periódicas 
+visando mostrar procedimentos para 
+obter fração geratriz que represente 
+dízimas periódicas simples e composta. 
+Proponha uso de calculadora para 
+comprovar resultados. 
+ÁLGEBRA Valor numérico de 
+expressões algébricas 
+(EF08MA06) Resolver e elaborar problemas que 
+envolvam cálculo do valor numérico de expressões 
+algébricas, utilizando as propriedades das operações. 
+Mostre a importância de utilizar a 
+linguagem algébrica para modelar 
+situações problemas.  Resolva e elabore 
+situações problemas que envolvam o 
+cálculo do valor numérico de expressões 
+algébricas, utilizando as propriedades das 
+operações 
+ÁLGEBRA 
+Associação de uma 
+equação linear de 1º 
+grau a uma reta no 
+plano cartesiano 
+(EF08MA07) Associar uma equação linear de 1º grau 
+com duas incógnitas a uma reta no plano cartesiano. 
+Apresente equação do 1º grau com duas 
+variáveis partindo diretamente de seu 
+significado apresentado na representação 
+gráfica. Por meio da comparação entre os 
+diversos gráficos, o s alunos poderão 
+observar nas retas obtidas o 
+reconhecimento das propriedades de 
+crescimento e decrescimento que serão
+
+378 
+  
+apresentados no ensino médio. 
+ÁLGEBRA 
+Sistema de equações 
+polinomiais de 1º 
+grau: resolução 
+algébrica e 
+representação no 
+plano cartesiano 
+(EF08MA08) Resolver e elaborar problemas 
+relacionados ao seu contexto próximo, que possam ser 
+representados por sistemas de equações de 1º grau com 
+duas incógnitas e interpretá -los, utilizando, inclusive, o 
+plano cartesiano como recurso. 
+Modele e resolva situações do cotidiano 
+que envolva sistema de equação do 1º 
+grau com duas variáveis, interprete a 
+solução e represente graficamente no 
+plano cartesiano. É importante que os 
+alunos possam pensar sobre estratégias 
+diversas que podem ser utilizadas para 
+modelar e resolver os problemas. Utilize 
+recurso tecnológico que permita a 
+construção de retas no plano cartesiano a 
+partir de suas equações. 
+ÁLGEBRA Equação polinomial de 
+2º grau do tipo ax2 = b 
+(EF08MA09) Resolver e elaborar, com e sem uso de 
+tecnologias, problemas que possam ser representados 
+por equações polinomiais de 2º grau do tipo ax²+b 
+Apresente equação polinomial do 2º grau 
+do tipo ax² = b partindo diretamente de 
+seu significado apresentado na 
+representação gráfica. Modele e resolva 
+situações do cotidiano que envolva 
+sistema de equação do 2º grau do tipo 
+apresentado e interprete a solução. 
+Utilize recurso tecnológico que permita a 
+construção de gráficos no plano 
+cartesiano a partir de suas equações. 
+ÁLGEBRA Sequências recursivas 
+e não recursivas 
+(EF08MA10) Identificar a regularidade de uma 
+sequência numérica ou figural não recursiva e construir 
+um algoritmo por meio de um fluxograma que permita 
+indicar os números ou as figuras seguintes, justificando 
+ausência de elementos. 
+Apresente situações  problemas com 
+sequências numéricas ou figural 
+recursivas, não recursiva que permita 
+indicar regularidades para obter os 
+números ou as figuras seguintes. 
+Esclareça que este estudo é importante 
+para que os alunos possam avançar na 
+compreensão das progressõe s aritméticas 
+e geométricas que serão estudadas no 
+ensino médio. 
+ÁLGEBRA Sequências recursivas 
+e não recursivas 
+(EF08MA11) Identificar a regularidade de uma 
+sequência numérica recursiva e construir um algoritmo 
+por meio de um fluxograma que permita indica r os 
+números seguintes, observando suas regularidades e 
+modelo matemático (fórmula). 
+ÁLGEBRA 
+Variação de 
+grandezas: 
+diretamente 
+proporcionais, 
+inversamente 
+proporcionais ou não 
+proporcionais 
+(EF08MA12) Identificar a natureza da variação de duas 
+grandezas, diretamente, inversamente proporcionais ou 
+não proporcionais, expressando a relação existente por 
+meio de sentença algébrica e representá -la no plano 
+cartesiano. Identifique a relação de dependência 
+entre grandezas, resolvendo situações 
+problemas envolvendo a variação de 
+grandezas diretamente proporcionais e 
+grandezas inversamente proporcionais. 
+ÁLGEBRA 
+Variação de 
+grandezas: 
+diretamente 
+proporcionais, 
+inversamente 
+proporcionais ou não 
+proporcionais 
+(EF08MA13) Resolver e elaborar problemas que 
+envolvam grandezas diretamente ou inversamente 
+proporcionais, por meio de estratégias variadas, 
+utilizando o conceito de razão em diversos contextos 
+como: proporcionalidade, escala, velocidade, 
+porcentagem, etc. 
+GEOMETRIA 
+Congruência de 
+triângulos e 
+demonstrações de 
+propriedades de 
+quadriláteros 
+(EF08MA14) Demonstrar propriedades de quadriláteros 
+por meio da identificação das propriedades de cada caso 
+de congruência de triângulos. 
+Apresente os conceitos de congruência 
+de triângulos e oriente os casos de 
+congruência entre dois triângulos. 
+Resolva questões envolvendo 
+congruência de triângulos e aborde para 
+demonstrar as propriedades de 
+quadriláteros.  Reconhecer o conceito de 
+semelhança entre polígonos, 
+diferenciando-o do conceito de 
+congruência, a partir de situações 
+cotidianas, como ampliação e redução.
+
+379 
+  
+GEOMETRIA 
+Construções 
+geométricas: ângulos 
+de 90°, 60°, 45° e 30° e 
+polígonos regulares 
+(EF08MA15) Construir, utilizando instrumentos de 
+desenho ou softwares de geometria dinâmica, mediatriz, 
+bissetriz, ângulos de 90°, 60°, 45° e 30° e polígonos 
+regulares. 
+Inicie o estudo com a construção de 
+triângulos retângulos e explore os 
+conceitos de mediatriz e bissetriz de 
+ângulo de 90°, 60°, 45° e 30°. Discuta 
+com os alunos as possibilidades de 
+construir polígonos regulares para 
+explorar esses conceitos. Utilize 
+corretamente instrumentos de desenho 
+geométrico ou programas 
+computacionais para construir mediatriz 
+e bissetriz de ângulos em polígonos 
+regulares. Explore o recurso do 
+movimento e da simulação e m 
+construções com uso de recurso 
+tecnológico e proponha representações 
+geométricas que seria inviável sem a 
+presença desses recursos. Proponha 
+construção de um hexágono regular de 
+qualquer área, a partir da medida do 
+ângulo central utilizando esquadros e 
+compasso. É importante reconhecer que o 
+hexágono regular é construído de modo 
+mais prático quando é inscrito numa 
+circunferência, pois o lado do hexágono 
+tem a mesma medida do raio dessa 
+circunferência. 
+GEOMETRIA 
+Construções 
+geométricas: ângulos 
+de 90°, 60°, 45° e 30° e 
+polígonos regulares 
+(EF08MA16) Descrever, por escrito e por meio de um 
+fluxograma, um algoritmo para a construção de um 
+hexágono regular de qualquer área, a partir da medida 
+do ângulo central e da utilização de esquadros e 
+compasso. 
+GEOMETRIA 
+Mediatriz e bissetriz 
+como lugares 
+geométricos: 
+construção e 
+problemas 
+(EF08MA17) Aplicar os conceitos de mediatriz e 
+bissetriz como lugares geométricos na resolução de 
+problemas. 
+Trabalhe a  mediatriz e bissetriz como 
+lugares geométricos e apliqu e os 
+conceitos estudados para resolver 
+problemas. Proponha problemas com o 
+uso de recursos tecnológicos para 
+visualizar, determinar e validar soluções 
+de problemas propostos. 
+GEOMETRIA 
+Transformações 
+geométricas: simetrias 
+de translação, reflexão 
+e rotação 
+(EF08MA18) Reconhecer e construir figuras obtidas 
+por composições de transformações geométricas 
+(translação, reflexão e rotação), com o uso de 
+instrumentos de desenho ou de softwares de geometria 
+dinâmica. 
+Introduza os conceitos de transformações 
+geométricas, associando aos conceitos de 
+rotação e translação da terra e ao nosso 
+reflexo no espelho. Utilize recurso 
+tecnológico que permita a construção de 
+figuras no plano obtidas por composições 
+de transformações geométricas 
+(translação, reflexão e rota ção) e mostre 
+que os movimentos das construções no 
+plano conservam a forma e o tamanho 
+das figuras originais. 
+GRANDEZAS E 
+MEDIDAS 
+Área de figuras planas 
+Área do círculo e 
+comprimento de sua 
+circunferência 
+(EF08MA19) Resolver e elaborar problemas que 
+envolvam medidas de área de figuras geométricas, 
+utilizando expressões de cálculo de área (quadriláteros, 
+triângulos e círculos), em situações como determinar 
+medida de terrenos. 
+Retome com os alunos algumas ideias de 
+polígonos estudadas em anos anteriores e 
+aprofunde os conceitos de áreas de 
+figuras planas (quadriláteros, triângulos e 
+círculos) e comprimento da 
+circunferência. Resolva e represente 
+situações-problemas que envolva cálculo 
+da área de superfície de figuras planas 
+preferencialmente usando problemas 
+significativos, aplicados em situações 
+reais. 
+GRANDEZAS E 
+MEDIDAS 
+Volume de cilindro 
+reto  
+Medidas de 
+capacidade 
+(EF08MA20) Reconhecer a relação entre um litro e um 
+decímetro cúbico e a relação entre litro e metro cúbico, 
+para resolver problemas de cálcul o de capacidade de 
+recipientes cujo formato é um cilindro reto. 
+Procure identificar os conhecimentos 
+prévios dos alunos acerca das medidas de 
+capacidade e volume e se eles sabem 
+efetuar transformações de unidades de 
+medida de capacidade, envolvendo seus 
+múltiplos e submúltiplos. Resolva e 
+represente situações-problemas
+
+380 
+  
+envolvendo o cálculo de volume do 
+cilindro reto e bloco retangular 
+(paralelepípedo retângulo), 
+preferencialmente usando situações do 
+cotidiano. Sugira aos alunos uma visita a 
+supermercados, para analisarem as 
+medidas de algumas embalagens mais 
+usuais em f ormato de bloco retangular 
+(caixas de leite, sucos, sabão em pó, etc) 
+e em formato de cilindro (latas de leite 
+condensado, milho, extrato de tomate, 
+etc) e registrem a sua capacidade e 
+volume. 
+GRANDEZAS E 
+MEDIDAS 
+Volume de cilindro 
+reto  
+Medidas de 
+capacidade 
+(EF08MA21) Resolver e elaborar problemas que 
+envolvam o cálculo do volume de recipiente cujo 
+formato é o de um bloco retangular. 
+ 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Princípio 
+multiplicativo da 
+contagem 
+Soma das 
+probabilidades de 
+todos os elementos de 
+um espaço amostral 
+(EF08MA22) Calcular a probabilidade de eventos, com 
+base na construção do espaço amostral, utilizando o 
+princípio multiplicativo, e reconhecer que a soma das 
+probabilidades de todos os elementos do espaço 
+amostral é igual a 1. 
+Os conteúdos dev em ser trabalhados de 
+forma que os alunos adquiram 
+conhecimentos sobre possíveis 
+levantamentos de possibilidades, 
+contidos nas mais variadas áreas de 
+conhecimento. Como fenômenos 
+naturais, científico -tecnológicos ou 
+sociais.  É importante abordar os 
+conceitos de princípio multiplicativo da 
+contagem e conceitos relacionados à 
+probabilidade: espaço amostral em um 
+experimento aleatório, possibilidades, 
+tipos de eventos, cálculo de 
+probabilidade de eventos. É importante 
+que os alunos percebam relações com os 
+conteúdos de conjuntos, funções, análise 
+combinatória e estatística. Proponha e 
+resolva situações problemas de 
+probabilidades usando diagramas, lista, 
+árvore de possibilidades ou fórmulas. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Gráficos de barras, 
+colunas, linhas ou 
+setores e seus 
+elementos 
+constitutivos e 
+adequação para 
+determinado conjunto 
+de dados 
+(EF08MA23) Avaliar a adequação de diferentes tipos 
+de gráficos para representar um conjunto de dados de 
+uma pesquisa, desenvolvendo atitudes de interação, de 
+colaboração e de troca de experiências. Elaborando 
+pesquisas em loco, levando em consideração o meio do 
+aluno. 
+Mostre a necessidade de interpretar 
+informações de natureza científica e 
+social obtidas da leitura de gráficos e 
+tabelas. Amplie a compreensão para 
+organizar um conjunto de dados 
+distribuídos em tabelas de frequências 
+absoluta e relativa e represente -a 
+utilizando adequadamente gráficos de 
+barras, colunas, linhas ou setores. 
+Proponha uso de planilhas eletrônica para 
+que os alunos aprendam a construir 
+gráficos p or meio de recursos 
+tecnológicos. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Organização dos 
+dados de uma variável 
+contínua em classes 
+(EF08MA24) Classificar as frequências de uma variável 
+contínua de uma pesquisa em classes, de modo que 
+resumam os dados de maneira adeq uada para a tomada 
+de decisões. 
+Apresente os conceitos de frequência de 
+uma variável contínua e mostre como 
+organizar a distribuição de frequências 
+em tabelas com dados agrupados em 
+intervalos de classe e a representação 
+gráfica em histograma de frequência s. 
+Proponha uso de planilha eletrônica. 
+PROBABILIDA
+DE E 
+ESTATÍSTICA 
+Medidas de tendência 
+central e de dispersão 
+(EF08MA25) Obter os valores de medidas de tendência 
+central de uma pesquisa estatística (média, moda e 
+mediana) com a compreensão de seus signi ficados e 
+relacioná-los com a dispersão de dados, indicada pela 
+Apresente situações para explorar a 
+importância e significado de conhecer e 
+calcular valores de medidas central 
+(média, mediana e moda). Proponha uso
