@@ -126,6 +126,10 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::post('/school/correcoes/upload', [\App\Http\Controllers\CorrectionController::class, 'store'])->name('school.corrections.upload');
         Route::post('/school/correcoes/confirmar', [\App\Http\Controllers\CorrectionController::class, 'confirm'])->name('school.corrections.confirm');
         Route::post('/school/correcoes/aprovar', [\App\Http\Controllers\CorrectionController::class, 'approve'])->name('school.corrections.approve');
+
+        // IANNE Assistente — perguntas amplas sobre o conjunto de planejamentos
+        Route::get('/school/ianne', [\App\Http\Controllers\AssistantController::class, 'index'])->name('school.assistant');
+        Route::post('/school/ianne', [\App\Http\Controllers\AssistantController::class, 'ask'])->name('school.assistant.ask');
         Route::post('/school/correcoes/analisar', [\App\Http\Controllers\CorrectionController::class, 'analyze'])->name('school.corrections.analyze');
         Route::post('/school/correcoes/analise', [\App\Http\Controllers\CorrectionController::class, 'saveAnalysis'])->name('school.corrections.analysis.save');
         Route::delete('/school/correcoes', [\App\Http\Controllers\CorrectionController::class, 'destroy'])->name('school.corrections.delete');
