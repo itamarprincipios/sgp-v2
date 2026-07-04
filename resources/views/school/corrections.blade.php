@@ -186,26 +186,35 @@
         </div>
     </div>
 
+    @php
+        // Docs aguardando confirmação (para recarregamento de página). Montado
+        // aqui, e não inline no @json, para não esbarrar no parser de diretiva
+        // do Blade com um arrow-function que retorna array.
+        $pendingDocs = $documents->where('status', 'aguardando_confirmacao')->map(function ($d) {
+            return [
+                'id' => $d->id,
+                'title' => $d->title,
+                'type' => $d->type,
+                'file_name' => $d->file_path,
+                'professor_id' => $d->user_id ? (string) $d->user_id : '',
+                'class_id' => $d->class_id ? (string) $d->class_id : '',
+                'discipline' => $d->discipline,
+                'reference_label' => $d->reference_label,
+                'professor_name_detected' => null,
+                'class_name_detected' => null,
+                'new_professor_name' => '',
+                'busy' => false,
+            ];
+        })->values();
+    @endphp
+
     <script>
         function correctionsPage() {
             return {
                 dragging: false,
                 queue: [],
                 // Documentos já subidos que ainda aguardam confirmação (recarregamento de página)
-                pending: @json($documents->where('status', 'aguardando_confirmacao')->map(fn($d) => [
-                    'id' => $d->id,
-                    'title' => $d->title,
-                    'type' => $d->type,
-                    'file_name' => $d->file_path,
-                    'professor_id' => $d->user_id ? (string) $d->user_id : '',
-                    'class_id' => $d->class_id ? (string) $d->class_id : '',
-                    'discipline' => $d->discipline,
-                    'reference_label' => $d->reference_label,
-                    'professor_name_detected' => null,
-                    'class_name_detected' => null,
-                    'new_professor_name' => '',
-                    'busy' => false,
-                ])->values()),
+                pending: @json($pendingDocs),
                 csrf: document.querySelector('meta[name="csrf-token"]').content,
                 uploading: 0,
 
