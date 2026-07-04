@@ -52,11 +52,19 @@ Extraia os metadados do documento abaixo e retorne APENAS um objeto JSON com est
   "professor_name_detected": <nome do professor como está escrito no documento, ou null>,
   "class_id": <id numérico da turma na lista abaixo mencionada no documento, ou null>,
   "class_name_detected": <turma como está escrita no documento (ex: "3º Ano B"), ou null>,
-  "discipline": <disciplina/componente curricular (ex: "Matemática", "Polivalente"), ou null>,
-  "reference_label": <período de referência normalizado (ex: "1º Bimestre {$currentYear}", "Semana 12/05 a 16/05"), ou null>,
+  "discipline": <componente curricular, seguindo a regra de disciplina abaixo>,
+  "reference_label": <período de APLICAÇÃO do plano normalizado (ex: "Quinzena 12/05 a 23/05/{$currentYear}", "1º Bimestre {$currentYear}"), ou null>,
   "type": <"planejamento", "relatorio" ou "outro">,
-  "title": <título curto e descritivo para o documento (máx 80 caracteres)>
+  "title": <título seguindo a regra de título abaixo (máx 80 caracteres)>
 }
+
+Regra de disciplina (os planejamentos desta rede são QUINZENAIS):
+- Se o documento abrange DOIS OU MAIS componentes curriculares (ex: Português, Matemática, História, Geografia, Ciências, Ensino Religioso e Arte no mesmo plano — típico de professor titular dos anos iniciais), retorne exatamente "Polivalente".
+- Se abrange UM único componente (ex: professor específico de Educação Física, Arte, Inglês), retorne o nome desse componente (ex: "Educação Física").
+
+Regra de título:
+- Construa a partir das DATAS DE APLICAÇÃO do plano, extraídas do próprio documento, no formato: "<Tipo> <datas> — <turma>". Ex: "Planejamento 12/05 a 23/05 — 3º Ano B".
+- Se o documento não trouxer as datas, use o período de referência (ex: "Planejamento 1º Bimestre — 3º Ano B"); em último caso, um título descritivo curto.
 
 Regras de matching:
 - Compare nomes ignorando acentos, maiúsculas e nomes parciais (ex: "Profª Maria S." casa com "Maria da Silva").

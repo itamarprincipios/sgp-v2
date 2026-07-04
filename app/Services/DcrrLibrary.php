@@ -17,9 +17,10 @@ class DcrrLibrary
         'geografia', 'historia', 'ensino_religioso',
     ];
 
-    /** Núcleo comum usado para professor polivalente (anos iniciais). */
+    /** Componentes do professor polivalente/titular dos anos iniciais (por ano). */
     private const POLIVALENTE = [
         'lingua_portuguesa', 'matematica', 'ciencias', 'historia', 'geografia',
+        'ensino_religioso',
     ];
 
     /**
@@ -27,7 +28,7 @@ class DcrrLibrary
      * quando não há como determinar a seção (o PlanAnalyzer então instrui a
      * IANNE a declarar "não verificado" em vez de inventar).
      */
-    public function excerptFor(?string $discipline, ?string $className, int $maxChars = 36000): ?string
+    public function excerptFor(?string $discipline, ?string $className, int $maxChars = 42000): ?string
     {
         $ano = $this->yearFromClassName($className);
         $slugs = $this->resolveSlugs($this->normalize($discipline ?? ''), $ano, $className);
@@ -127,9 +128,11 @@ class DcrrLibrary
         }
 
         // Polivalente (ou disciplina vazia/não mapeada) nos anos iniciais:
-        // núcleo comum do ano
+        // todos os componentes do titular, incluindo Arte (arquivo único 1º-5º)
         if ($ano <= 5 && ($discipline === '' || str_contains($discipline, 'polivalente') || str_contains($discipline, 'todas'))) {
-            return array_map(fn ($c) => "{$c}_{$ano}", self::POLIVALENTE);
+            $slugs = array_map(fn ($c) => "{$c}_{$ano}", self::POLIVALENTE);
+            $slugs[] = 'arte_iniciais';
+            return $slugs;
         }
 
         return [];
