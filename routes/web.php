@@ -175,7 +175,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
     Route::get('/api/rag', [\App\Http\Controllers\RAGController::class, 'history'])->name('api.rag.history');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'subscription'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -64,6 +64,12 @@ class SemedController extends Controller
             'address' => ['nullable', 'string', 'max:255'],
         ]);
 
+        $tenant = auth()->user()->tenant;
+        if ($tenant && $tenant->max_schools_limit !== null
+            && \App\Models\School::where('tenant_id', $tenant->id)->count() >= $tenant->max_schools_limit) {
+            return back()->withInput()->with('error', 'Limite de escolas do seu plano atingido (' . $tenant->max_schools_limit . '). Fale com o suporte para ampliar.');
+        }
+
         $validated['tenant_id'] = auth()->user()->tenant_id;
 
         School::create($validated);

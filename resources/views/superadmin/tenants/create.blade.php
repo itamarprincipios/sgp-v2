@@ -60,9 +60,9 @@
                     <div>
                         <label for="plan" class="block text-sm font-semibold text-slate-700 mb-2">Plano</label>
                         <select name="plan" id="plan" class="w-full rounded-lg border-slate-200 focus:border-violet-500 focus:ring focus:ring-violet-500/20 text-sm py-2.5 transition @error('plan') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
-                            <option value="coordenador" {{ old('plan') === 'coordenador' ? 'selected' : '' }}>Coordenador (individual)</option>
-                            <option value="escola" {{ old('plan') === 'escola' ? 'selected' : '' }}>Escola</option>
-                            <option value="semed" {{ old('plan') === 'semed' ? 'selected' : '' }}>SEMED (rede)</option>
+                            <option value="coordenador" {{ old('plan', 'semed') === 'coordenador' ? 'selected' : '' }}>Coordenador (individual)</option>
+                            <option value="escola" {{ old('plan', 'semed') === 'escola' ? 'selected' : '' }}>Escola</option>
+                            <option value="semed" {{ old('plan', 'semed') === 'semed' ? 'selected' : '' }}>SEMED (rede)</option>
                         </select>
                         @error('plan')
                             <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>

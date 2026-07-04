@@ -124,6 +124,11 @@
                         <a href="https://wa.me/5595991248941" target="_blank" class="underline font-bold hover:text-slate-700">Fale conosco para renovar</a>
                     </div>
                 @endif
+                @if(session('error'))
+                    <div class="bg-rose-100 border-b border-rose-200 text-rose-800 text-sm font-semibold px-4 py-2.5 text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <!-- Topbar -->
                 <header class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white border-b border-slate-200/80 shadow-sm shadow-slate-100/50 px-4 md:px-8">
                     <!-- Mobile Hamburger -->
