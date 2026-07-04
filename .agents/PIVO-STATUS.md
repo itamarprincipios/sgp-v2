@@ -2,8 +2,8 @@
 
 > **Para agentes de IA:** este arquivo é o log passo a passo da implementação do pivô descrito na **seção 14 do AGENTS.md**. Leia os dois antes de continuar qualquer trabalho. Atualize este arquivo a cada passo concluído.
 
-**Última atualização:** 03/07/2026
-**Fase atual:** Fase 1 — Upload inteligente (CONCLUÍDA — publicada em 03/07/2026)
+**Última atualização:** 04/07/2026
+**Fase atual:** Fases 1 e 2 CONCLUÍDAS — próxima: Fase 3 (diagnóstico da rede)
 
 ---
 
@@ -21,11 +21,21 @@
 - [x] Sidebar: substituir "Cronogramas (Prazos)" e "Envios de Planejamentos" por "Correções"
 - [x] `npm run build` + push final
 
-## Fase 2 (não iniciada)
-Rubrica da SEMED + análise/correção automática pela IA + edição pelo coordenador.
+## Fase 2 — Correção assistida (CONCLUÍDA em 04/07/2026)
+
+- [x] `PlanAnalyzer` gera parecer da IANNE com rubrica de 10 critérios — commit `da07786`
+- [x] Botão "Analisar" + diálogo (vigência, nº de aulas, observações) + parecer editável pelo coordenador
+- [x] Campos `documents.analysis` / `documents.analyzed_at` (migration `2026_07_04_000002`, guardada com `hasColumn`)
+- [x] Provedor de IA trocado de Gemini para **Claude (Anthropic)** — commit `a15894e`. `AIService` lê via `config()`.
+- [x] Professor auto-criado a partir do documento (`new_professor_name` no confirm; `users.email` agora é NULLABLE — professor sem login tem email NULL, decisão de design, NÃO usar placeholder) — commits `0610649`, migration `2026_07_04_000001`
+- [x] Card de correção mostra motivo quando a IANNE falha (`ai_error`) — commit `b87bfe1`
+- [ ] Etapa B pendente: material de referência da SEMED (DCRR) como insumo do parecer (ver TODO no `CorrectionController::analyze`)
 
 ## Fase 3 (não iniciada)
 Reescrever estatísticas do `ContextBuilder` e dashboards (sai "enviados/atrasados", entra "corrigidos/metodologias/temas").
+
+## Camada comercial (implementada em 03/07/2026, fora do plano original)
+3 modelos de venda (coordenador individual / escola / SEMED), wizard "Nova Venda" no SuperAdmin, `TenantProvisioner`, middleware de assinatura com modo somente leitura, contador mensal de uso de IA (`ai_usage` + `AiQuota`), registro público desativado. Spec: `docs/superpowers/specs/2026-07-03-camada-comercial-design.md`.
 
 ---
 
@@ -76,6 +86,22 @@ ALTER TABLE documents
 
 Ver spec `docs/superpowers/specs/2026-07-03-camada-comercial-design.md` §2.3.
 
+### 4. Professor sem login (JÁ EXECUTADO em 04/07/2026, conforme comentário na migration `2026_07_04_000001`)
+
+```sql
+ALTER TABLE users MODIFY email VARCHAR(255) NULL;
+```
+
+### 5. Fase 2 — parecer da IANNE (VERIFICAR se já foi executado; commit `da07786` diz "requer SQL")
+
+```sql
+ALTER TABLE documents
+  ADD COLUMN analysis LONGTEXT NULL AFTER reference_label,
+  ADD COLUMN analyzed_at TIMESTAMP NULL AFTER analysis;
+```
+
+> Se o botão "Analisar" já funciona em produção, este SQL já foi executado. Conferir com `SHOW COLUMNS FROM documents LIKE 'analysis';` antes de rodar.
+
 ---
 
 ## Histórico passo a passo
@@ -84,3 +110,11 @@ Ver spec `docs/superpowers/specs/2026-07-03-camada-comercial-design.md` §2.3.
 |---|---|---|
 | 01/07/2026 | `973909f` | Pivô documentado na seção 14 do AGENTS.md |
 | 01/07/2026 | `1f83fdc` | Trabalho pendente (vice-diretores) commitado separado do pivô |
+| 03/07/2026 | `22ed755` | **Fase 1 completa**: upload inteligente com drag-and-drop multi-arquivo, inferência de metadados, PDF multimodal |
+| 03/07/2026 | `08f266b`…`4221a8f` | Camada comercial: 3 planos, wizard Nova Venda, `TenantProvisioner`, middleware de assinatura, cota de IA, registro público desativado |
+| 03/07/2026 | `7140395`, `3308444` | Login redireciona ao painel correto; página Segurança da Conta para diretor/vice/coordenador |
+| 04/07/2026 | `0610649` | Professor auto-criado do documento (email NULL, sem login) + visão de docs por professor |
+| 04/07/2026 | `ebafa59`, `b87bfe1` | Fix ParseError no blade de correções; card mostra motivo quando a IANNE falha |
+| 04/07/2026 | `e01ce70`, `a15894e` | `AIService` via `config()`; **troca de provedor Gemini → Claude (Anthropic)** |
+| 04/07/2026 | `da07786`, `c7a4502` | **Fase 2 completa**: parecer da IANNE (rubrica de 10 critérios), botão Analisar + diálogo, parecer editável; fix das aspas no `@click` |
+| 04/07/2026 | `13d6bd5`+`70283fa` | Fix indevido de email placeholder aplicado e revertido (email NULL é design — ver migration `2026_07_04_000001`) |
