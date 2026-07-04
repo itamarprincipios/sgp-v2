@@ -174,7 +174,7 @@
                                     </td>
                                     <td class="px-4 py-3 text-right">
                                         <div class="flex items-center justify-end gap-3">
-                                            <button @click='openAnalysis(@js($doc->id), @js($doc->title), @js($doc->reference_label ?? ""), @js($doc->analysis ?? ""))' class="text-xs font-bold text-violet-600 hover:text-violet-800">{{ $doc->analysis ? 'Ver análise' : 'Analisar' }}</button>
+                                            <button @click="openAnalysis(@js($doc->id), @js($doc->title), @js($doc->reference_label ?? ''), @js($doc->analysis ?? ''))" class="text-xs font-bold text-violet-600 hover:text-violet-800">{{ $doc->analysis ? 'Ver análise' : 'Analisar' }}</button>
                                             <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
                                             @if($doc->status === 'em_correcao')
                                                 <button @click="deleteConfirmed({{ $doc->id }})" class="text-xs font-bold text-rose-500 hover:text-rose-700">Excluir</button>
