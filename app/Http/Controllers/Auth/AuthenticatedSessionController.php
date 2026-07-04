@@ -29,7 +29,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended($request->user()->dashboardPath());
+        // Sempre leva ao painel do papel do usuário. Não usamos intended()
+        // porque um destino "pretendido" sem permissão (ex.: diretor que abriu
+        // uma rota da SEMED antes de logar) cairia num 403 logo após o login.
+        return redirect($request->user()->dashboardPath());
     }
 
     /**
