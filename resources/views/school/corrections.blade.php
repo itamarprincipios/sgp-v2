@@ -298,6 +298,11 @@
                             headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json' },
                             body: formData,
                         });
+                        if (res.status === 419 || res.status === 401) {
+                            alert('Sua sessão expirou. A página será recarregada — envie os arquivos novamente.');
+                            window.location.reload();
+                            return;
+                        }
                         const data = await res.json();
                         if (!res.ok || !data.success) {
                             throw new Error(data.message || (data.errors ? Object.values(data.errors)[0][0] : 'Falha no envio.'));
@@ -324,6 +329,26 @@
                     this.queue = this.queue.filter(i => i.key !== key);
                 },
 
+                // Helper central: trata sessão expirada (419) com aviso claro
+                // em vez do críptico "CSRF token mismatch".
+                async request(url, method, body) {
+                    const res = await fetch(url, {
+                        method,
+                        headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body),
+                    });
+                    if (res.status === 419 || res.status === 401) {
+                        alert('Sua sessão expirou. A página será recarregada — tente a ação novamente.');
+                        window.location.reload();
+                        throw new Error('Sessão expirada.');
+                    }
+                    const data = await res.json();
+                    if (!res.ok || !data.success) {
+                        throw new Error(data.message || (data.errors ? Object.values(data.errors)[0][0] : 'Falha na operação.'));
+                    }
+                    return data;
+                },
+
                 async confirmDoc(doc) {
                     if (!doc.title || !doc.title.trim()) { alert('Informe um título para o documento.'); return; }
                     const creatingProf = doc.professor_id === '__new__';
@@ -332,22 +357,16 @@
                     }
                     doc.busy = true;
                     try {
-                        const res = await fetch('{{ route('school.corrections.confirm') }}', {
-                            method: 'POST',
-                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                id: doc.id,
-                                title: doc.title,
-                                type: doc.type,
-                                professor_id: creatingProf ? null : (doc.professor_id || null),
-                                new_professor_name: creatingProf ? doc.new_professor_name.trim() : null,
-                                class_id: doc.class_id || null,
-                                discipline: doc.discipline || null,
-                                reference_label: doc.reference_label || null,
-                            }),
+                        await this.request('{{ route('school.corrections.confirm') }}', 'POST', {
+                            id: doc.id,
+                            title: doc.title,
+                            type: doc.type,
+                            professor_id: creatingProf ? null : (doc.professor_id || null),
+                            new_professor_name: creatingProf ? doc.new_professor_name.trim() : null,
+                            class_id: doc.class_id || null,
+                            discipline: doc.discipline || null,
+                            reference_label: doc.reference_label || null,
                         });
-                        const data = await res.json();
-                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao confirmar.');
                         this.pending = this.pending.filter(p => p.id !== doc.id);
                         if (this.queue.filter(i => i.state === 'working').length === 0 && this.pending.length === 0) {
                             window.location.reload();
@@ -383,13 +402,7 @@
                 async approveDoc(id) {
                     if (!confirm('Aprovar este planejamento? Ele sai da Central de Correção e passa a compor o histórico do professor.')) return;
                     try {
-                        const res = await fetch('{{ route('school.corrections.approve') }}', {
-                            method: 'POST',
-                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ id }),
-                        });
-                        const data = await res.json();
-                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao aprovar.');
+                        await this.request('{{ route('school.corrections.approve') }}', 'POST', { id });
                         window.location.reload();
                     } catch (e) {
                         alert(e.message);
@@ -397,13 +410,7 @@
                 },
 
                 async deleteRequest(id) {
-                    const res = await fetch('{{ route('school.corrections.delete') }}', {
-                        method: 'DELETE',
-                        headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ id }),
-                    });
-                    const data = await res.json();
-                    if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao excluir.');
+                    await this.request('{{ route('school.corrections.delete') }}', 'DELETE', { id });
                 },
 
                 // ===== Análise da IANNE (Fase 2) =====
@@ -423,18 +430,12 @@
                 async runAnalysis() {
                     this.analysisBusy = true;
                     try {
-                        const res = await fetch('{{ route('school.corrections.analyze') }}', {
-                            method: 'POST',
-                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                id: this.analysisDoc.id,
-                                vigencia: this.analysisDoc.vigencia || null,
-                                aulas: this.analysisDoc.aulas || null,
-                                observacoes: this.analysisDoc.observacoes || null,
-                            }),
+                        const data = await this.request('{{ route('school.corrections.analyze') }}', 'POST', {
+                            id: this.analysisDoc.id,
+                            vigencia: this.analysisDoc.vigencia || null,
+                            aulas: this.analysisDoc.aulas || null,
+                            observacoes: this.analysisDoc.observacoes || null,
                         });
-                        const data = await res.json();
-                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha na análise.');
                         this.analysisDoc.report = data.analysis;
                     } catch (e) {
                         alert(e.message);
@@ -447,13 +448,7 @@
                     if (!this.analysisDoc.report || !this.analysisDoc.report.trim()) { alert('Nada para salvar.'); return; }
                     this.analysisBusy = true;
                     try {
-                        const res = await fetch('{{ route('school.corrections.analysis.save') }}', {
-                            method: 'POST',
-                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ id: this.analysisDoc.id, analysis: this.analysisDoc.report }),
-                        });
-                        const data = await res.json();
-                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao salvar.');
+                        await this.request('{{ route('school.corrections.analysis.save') }}', 'POST', { id: this.analysisDoc.id, analysis: this.analysisDoc.report });
                         this.analysisOpen = false;
                         window.location.reload();
                     } catch (e) {
