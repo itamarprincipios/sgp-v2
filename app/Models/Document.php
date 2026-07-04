@@ -76,7 +76,9 @@ class Document extends Model
         // rewrite da Hostinger, e o Google Viewer precisa do host para buscar
         // o arquivo (senão: "Nenhuma visualização disponível").
         $base = rtrim(config('app.url') ?: request()->getSchemeAndHttpHost(), '/');
-        $url = $base . '/uploads/' . $this->file_path;
+        // rawurlencode: docs antigos guardaram o nome original do arquivo
+        // (espaços/acentos), que quebra a URL se não for codificado.
+        $url = $base . '/uploads/' . rawurlencode($this->file_path);
         $ext = strtolower(pathinfo($this->file_path, PATHINFO_EXTENSION));
 
         if ($ext === 'pdf') {
