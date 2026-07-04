@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="space-y-6">
+    <div class="space-y-6" x-data="{ analysisOpen: false, analysisTitle: '', analysisText: '' }">
         <a href="{{ route('school.professors') }}" class="inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:text-indigo-800">
             ← Voltar aos professores
         </a>
@@ -33,7 +33,7 @@
                             <th class="px-4 py-3 text-left text-[10px] font-bold text-slate-500 uppercase tracking-wider">Turma</th>
                             <th class="px-4 py-3 text-left text-[10px] font-bold text-slate-500 uppercase tracking-wider">Período</th>
                             <th class="px-4 py-3 text-left text-[10px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                            <th class="px-4 py-3 text-right text-[10px] font-bold text-slate-500 uppercase tracking-wider">Ação</th>
+                            <th class="px-4 py-3 text-right text-[10px] font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -46,7 +46,9 @@
                                 <td class="px-4 py-3 text-sm text-slate-700">{{ $doc->schoolClass->name ?? '—' }}</td>
                                 <td class="px-4 py-3 text-sm text-slate-700">{{ $doc->reference_label ?? '—' }}</td>
                                 <td class="px-4 py-3">
-                                    @if($doc->status === 'corrigido')
+                                    @if($doc->status === 'aprovado')
+                                        <span class="text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 rounded-full px-2.5 py-1">Aprovado</span>
+                                    @elseif($doc->status === 'corrigido')
                                         <span class="text-[10px] font-bold uppercase bg-emerald-100 text-emerald-800 rounded-full px-2.5 py-1">Corrigido</span>
                                     @elseif($doc->status === 'em_correcao')
                                         <span class="text-[10px] font-bold uppercase bg-sky-100 text-sky-800 rounded-full px-2.5 py-1">Em correção</span>
@@ -55,7 +57,12 @@
                                     @endif
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
+                                    <div class="flex items-center justify-end gap-3">
+                                        @if($doc->analysis)
+                                            <button @click="analysisTitle = @js($doc->title); analysisText = @js($doc->analysis); analysisOpen = true" class="text-xs font-bold text-violet-600 hover:text-violet-800">Rever análise</button>
+                                        @endif
+                                        <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -63,5 +70,21 @@
                 </table>
             </div>
         @endif
+
+        <style>[x-cloak]{display:none!important}</style>
+
+        <!-- Modal de releitura do parecer da IANNE -->
+        <div x-show="analysisOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="absolute inset-0 bg-slate-900/60" @click="analysisOpen = false"></div>
+            <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 sticky top-0 bg-white">
+                    <h3 class="font-bold text-slate-900 text-sm">Análise da IANNE — <span class="text-slate-600" x-text="analysisTitle"></span></h3>
+                    <button @click="analysisOpen = false" class="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
+                </div>
+                <div class="p-6">
+                    <pre class="whitespace-pre-wrap text-sm text-slate-800 font-sans leading-relaxed" x-text="analysisText"></pre>
+                </div>
+            </div>
+        </div>
     </div>
 </x-app-layout>

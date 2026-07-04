@@ -175,6 +175,9 @@
                                     <td class="px-4 py-3 text-right">
                                         <div class="flex items-center justify-end gap-3">
                                             <button @click="openAnalysis(@js($doc->id), @js($doc->title), @js($doc->reference_label ?? ''), @js($doc->analysis ?? ''))" class="text-xs font-bold text-violet-600 hover:text-violet-800">{{ $doc->analysis ? 'Ver análise' : 'Analisar' }}</button>
+                                            @if($doc->analysis)
+                                                <button @click="approveDoc({{ $doc->id }})" class="text-xs font-bold text-emerald-600 hover:text-emerald-800">Aprovar</button>
+                                            @endif
                                             <a href="{{ asset('uploads/' . $doc->file_path) }}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">Abrir</a>
                                             @if($doc->status === 'em_correcao')
                                                 <button @click="deleteConfirmed({{ $doc->id }})" class="text-xs font-bold text-rose-500 hover:text-rose-700">Excluir</button>
@@ -371,6 +374,22 @@
                     if (!confirm('Excluir este documento do fluxo de correção?')) return;
                     try {
                         await this.deleteRequest(id);
+                        window.location.reload();
+                    } catch (e) {
+                        alert(e.message);
+                    }
+                },
+
+                async approveDoc(id) {
+                    if (!confirm('Aprovar este planejamento? Ele sai da Central de Correção e passa a compor o histórico do professor.')) return;
+                    try {
+                        const res = await fetch('{{ route('school.corrections.approve') }}', {
+                            method: 'POST',
+                            headers: { 'X-CSRF-TOKEN': this.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ id }),
+                        });
+                        const data = await res.json();
+                        if (!res.ok || !data.success) throw new Error(data.message || 'Falha ao aprovar.');
                         window.location.reload();
                     } catch (e) {
                         alert(e.message);

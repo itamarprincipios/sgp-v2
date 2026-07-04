@@ -125,6 +125,7 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::get('/school/correcoes', [\App\Http\Controllers\CorrectionController::class, 'index'])->name('school.corrections');
         Route::post('/school/correcoes/upload', [\App\Http\Controllers\CorrectionController::class, 'store'])->name('school.corrections.upload');
         Route::post('/school/correcoes/confirmar', [\App\Http\Controllers\CorrectionController::class, 'confirm'])->name('school.corrections.confirm');
+        Route::post('/school/correcoes/aprovar', [\App\Http\Controllers\CorrectionController::class, 'approve'])->name('school.corrections.approve');
         Route::post('/school/correcoes/analisar', [\App\Http\Controllers\CorrectionController::class, 'analyze'])->name('school.corrections.analyze');
         Route::post('/school/correcoes/analise', [\App\Http\Controllers\CorrectionController::class, 'saveAnalysis'])->name('school.corrections.analysis.save');
         Route::delete('/school/correcoes', [\App\Http\Controllers\CorrectionController::class, 'destroy'])->name('school.corrections.delete');

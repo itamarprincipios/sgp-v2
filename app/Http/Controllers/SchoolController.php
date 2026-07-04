@@ -371,7 +371,7 @@ class SchoolController extends Controller
             ->where('role', 'professor')
             ->with('schoolClass')
             ->withCount(['documents as documents_count' => function ($query) {
-                $query->whereIn('status', ['aguardando_confirmacao', 'em_correcao', 'corrigido']);
+                $query->whereIn('status', ['aguardando_confirmacao', 'em_correcao', 'corrigido', 'aprovado']);
             }])
             ->orderBy('name')
             ->get();
@@ -395,7 +395,7 @@ class SchoolController extends Controller
             ->findOrFail($request->id);
 
         $documents = \App\Models\Document::where('user_id', $professor->id)
-            ->whereIn('status', ['aguardando_confirmacao', 'em_correcao', 'corrigido'])
+            ->whereIn('status', ['aguardando_confirmacao', 'em_correcao', 'corrigido', 'aprovado'])
             ->with('schoolClass')
             ->orderByDesc('id')
             ->get();

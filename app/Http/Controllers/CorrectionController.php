@@ -287,6 +287,29 @@ class CorrectionController extends Controller
     }
 
     /**
+     * Aprova o documento: sai da Central de Correção e passa a compor o
+     * histórico do professor (com o parecer disponível para releitura).
+     */
+    public function approve(Request $request)
+    {
+        $user = auth()->user();
+        $schoolIds = $user->getAssignedSchoolIds();
+
+        $request->validate(['id' => ['required', 'exists:documents,id']]);
+
+        $document = Document::findOrFail($request->id);
+
+        if (!in_array($document->school_id, $schoolIds)
+            || !in_array($document->status, ['em_correcao', 'corrigido'])) {
+            return response()->json(['success' => false, 'message' => 'Acesso negado.'], 403);
+        }
+
+        $document->update(['status' => 'aprovado']);
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
      * Remove um documento do fluxo de correção (arquivo físico + registro).
      */
     public function destroy(Request $request)
