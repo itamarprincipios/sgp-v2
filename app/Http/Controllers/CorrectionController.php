@@ -171,12 +171,13 @@ class CorrectionController extends Controller
             $schoolId = $professor->school_id;
         } elseif ($request->filled('new_professor_name')) {
             // Cadastro leve do professor a partir do que a IA extraiu do documento
-            // (sem e-mail/login). Do próximo upload em diante ele casa sozinho.
+            // (sem login). E-mail placeholder porque a coluna é NOT NULL UNIQUE;
+            // do próximo upload em diante ele casa sozinho.
             $professor = User::create([
                 'tenant_id' => $document->tenant_id,
                 'school_id' => $schoolId,
                 'name' => trim($request->new_professor_name),
-                'email' => null,
+                'email' => 'professor.' . Str::lower(Str::random(16)) . '@cadastro.sgp',
                 'password' => Hash::make(Str::random(32)),
                 'role' => 'professor',
                 'class_id' => $request->class_id,
