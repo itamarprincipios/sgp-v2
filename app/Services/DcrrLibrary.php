@@ -28,7 +28,7 @@ class DcrrLibrary
      * quando não há como determinar a seção (o PlanAnalyzer então instrui a
      * IANNE a declarar "não verificado" em vez de inventar).
      */
-    public function excerptFor(?string $discipline, ?string $className, int $maxChars = 42000): ?string
+    public function excerptFor(?string $discipline, ?string $className, int $maxChars = 150000): ?string
     {
         $ano = $this->yearFromClassName($className);
         $slugs = $this->resolveSlugs($this->normalize($discipline ?? ''), $ano, $className);
@@ -37,23 +37,36 @@ class DcrrLibrary
             return null;
         }
 
-        // Orçamento por seção, para o total respeitar $maxChars
-        $budget = intdiv($maxChars, count($slugs));
-        $parts = [];
+        // Carrega as seções inteiras; só trunca (proporcionalmente) se o total
+        // estourar $maxChars. Truncar demais faz a IA afirmar que habilidades
+        // "não existem no DCRR" quando existem — erro inaceitável no parecer.
+        $contents = [];
+        $total = 0;
         foreach ($slugs as $slug) {
             $path = resource_path("dcrr/{$slug}.txt");
             if (!is_file($path)) {
                 continue;
             }
             $content = file_get_contents($path);
-            if (mb_strlen($content) > $budget) {
-                $content = mb_substr($content, 0, $budget)
-                    . "\n[... seção truncada — consulte o DCRR completo para o restante ...]";
-            }
-            $parts[] = $content;
+            $contents[] = $content;
+            $total += mb_strlen($content);
         }
 
-        return empty($parts) ? null : implode("\n\n---\n\n", $parts);
+        if (empty($contents)) {
+            return null;
+        }
+
+        if ($total > $maxChars) {
+            foreach ($contents as $i => $content) {
+                $allowed = (int) floor(mb_strlen($content) / $total * $maxChars);
+                if (mb_strlen($content) > $allowed) {
+                    $contents[$i] = mb_substr($content, 0, $allowed)
+                        . "\n[ATENÇÃO: seção truncada — o DCRR completo contém MAIS habilidades e orientações além das mostradas acima]";
+                }
+            }
+        }
+
+        return implode("\n\n---\n\n", $contents);
     }
 
     /**
