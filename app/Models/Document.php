@@ -72,7 +72,11 @@ class Document extends Model
      */
     public function getViewerUrlAttribute(): string
     {
-        $url = asset('uploads/' . $this->file_path);
+        // URL absoluta explícita: o asset() gera caminho sem domínio atrás do
+        // rewrite da Hostinger, e o Google Viewer precisa do host para buscar
+        // o arquivo (senão: "Nenhuma visualização disponível").
+        $base = rtrim(config('app.url') ?: request()->getSchemeAndHttpHost(), '/');
+        $url = $base . '/uploads/' . $this->file_path;
         $ext = strtolower(pathinfo($this->file_path, PATHINFO_EXTENSION));
 
         if ($ext === 'pdf') {
