@@ -57,15 +57,22 @@
         </div>
     </div>
 
+    @php
+        // Montado aqui, e não inline no @json, porque o parser de diretivas do
+        // Blade quebra com arrow-function multilinha (mesmo caso do ebafa59).
+        $chatHistory = $history->flatMap(function ($h) {
+            return [
+                ['role' => 'user', 'text' => $h->question],
+                ['role' => 'assistant', 'text' => $h->response],
+            ];
+        })->values();
+    @endphp
     <script>
         function assistantPage() {
             return {
                 busy: false,
                 question: '',
-                messages: @json($history->flatMap(fn($h) => [
-                    ['role' => 'user', 'text' => $h->question],
-                    ['role' => 'assistant', 'text' => $h->response],
-                ])->values()),
+                messages: @json($chatHistory),
                 csrf: document.querySelector('meta[name="csrf-token"]').content,
 
                 async send() {
