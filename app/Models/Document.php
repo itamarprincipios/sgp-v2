@@ -89,6 +89,17 @@ class Document extends Model
     }
 
     /**
+     * URL direta do arquivo (para o botão Baixar — editar no Word e devolver
+     * ao professor com marcações, já que o Google Viewer é só leitura).
+     */
+    public function getDownloadUrlAttribute(): string
+    {
+        $base = rtrim(config('app.url') ?: request()->getSchemeAndHttpHost(), '/');
+
+        return $base . '/uploads/' . rawurlencode($this->file_path);
+    }
+
+    /**
      * Get the coordinator who uploaded the document (correction flow).
      */
     public function uploadedBy(): BelongsTo
