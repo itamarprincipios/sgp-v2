@@ -57,6 +57,8 @@ DADOS INFORMADOS PELO COORDENADOR:
 TEXTO DO PLANEJAMENTO:
 {$plan}
 
+REGRA DE CORREÇÃO DE HABILIDADES: sempre que apontar erro de habilidade (código inexistente, de outro ano/componente, ou incompatível com o objeto de conhecimento/conteúdo trabalhado), INDIQUE a habilidade CORRETA para o professor substituir: localize no material do DCRR fornecido a habilidade adequada ao conteúdo e ao ano, e cite o código com um resumo curto da descrição (ex: "substituir por EF05MA08 — resolver problemas de multiplicação e divisão..."). Se a habilidade correta não estiver no material fornecido, oriente o professor a consultar a seção do DCRR daquele ano/componente — NUNCA invente um código.
+
 CRITÉRIOS A VERIFICAR (checklist interno — não os copie como seções do parecer):
 identificação completa do cabeçalho; vigência × dias letivos × nº de aulas; habilidades BNCC (códigos existem e pertencem ao ano/componente); CRUZAMENTO objetos de conhecimento × habilidades (cada habilidade citada deve ter objeto de conhecimento correspondente e vice-versa — aponte pares incompatíveis usando o material do DCRR); alinhamento ao DCRR; objetivos claros e mensuráveis; metodologia variada, adequada à faixa etária e DIVIDIDA EM MOMENTOS (acolhida/introdução, desenvolvimento, fechamento); avaliação com instrumentos e critérios definidos (incluindo formativa); inclusão e adaptações; coerência geral entre as partes.
 
@@ -78,6 +80,7 @@ FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio
    - Escreva dirigindo-se diretamente ao professor, em tom respeitoso e objetivo (ex: "Professor(a), segue o retorno do seu planejamento...").
    - Liste as correções a fazer NUMERADAS (1., 2., 3...), uma por linha.
    - Em cada item, rastreie a correção pela DATA/dia da aula e pela DISCIPLINA sempre que o plano permitir (ex: "1. Aula de Matemática de 03/06: incluir o instrumento de avaliação da atividade de frações").
+   - Quando a correção for de habilidade, inclua no item o código errado e o código correto sugerido (conforme a regra de correção de habilidades acima), para o professor só substituir.
    - A mensagem deve ser autossuficiente: o professor precisa entender o que corrigir sem ler o restante do parecer.
    - Se não houver nada a corrigir, escreva uma mensagem curta parabenizando e confirmando que o plano foi aprovado sem ressalvas.
 PROMPT;
