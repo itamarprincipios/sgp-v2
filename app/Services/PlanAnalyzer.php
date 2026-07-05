@@ -72,7 +72,14 @@ FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio
 
 3. "## Pontos positivos" — curto e objetivo, ao final.
 
-4. Última linha: "**Situação geral:** " + uma única frase (ex: apto com pequenos ajustes / precisa de correções antes de aprovar / adequado).
+4. "**Situação geral:** " + uma única frase (ex: apto com pequenos ajustes / precisa de correções antes de aprovar / adequado).
+
+5. "## Mensagem ao professor" — um resumo pronto para envio, que o coordenador poderá encaminhar (ou não, a critério dele) ao professor. Regras desta seção:
+   - Escreva dirigindo-se diretamente ao professor, em tom respeitoso e objetivo (ex: "Professor(a), segue o retorno do seu planejamento...").
+   - Liste as correções a fazer NUMERADAS (1., 2., 3...), uma por linha.
+   - Em cada item, rastreie a correção pela DATA/dia da aula e pela DISCIPLINA sempre que o plano permitir (ex: "1. Aula de Matemática de 03/06: incluir o instrumento de avaliação da atividade de frações").
+   - A mensagem deve ser autossuficiente: o professor precisa entender o que corrigir sem ler o restante do parecer.
+   - Se não houver nada a corrigir, escreva uma mensagem curta parabenizando e confirmando que o plano foi aprovado sem ressalvas.
 PROMPT;
 
         // maxTokens alto (o parecer é longo) e timeout generoso.
