@@ -44,6 +44,7 @@ REGRAS DE CALENDÁRIO (obrigatórias):
 - O planejamento quinzenal cobre 10 DIAS LETIVOS, de segunda a sexta-feira, ao longo de duas semanas.
 - Sábados e domingos NÃO são dias letivos. NUNCA aponte "falta de planejamento" para fim de semana.
 - Ao verificar a cobertura da vigência, conte apenas os dias úteis (segunda a sexta) dentro do período.
+- EXCEÇÕES: as "Observações do coordenador" têm PRIORIDADE sobre as regras acima. Se ele informar feriado, recesso ou dia sem aula, NÃO cobre planejamento para essa data; se informar sábado letivo ou reposição, esse dia PASSA a contar como letivo e deve ter planejamento. Ajuste a contagem de dias letivos conforme essas informações.
 
 DADOS INFORMADOS PELO COORDENADOR:
 - Professor(a): {$professor}
