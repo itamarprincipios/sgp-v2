@@ -35,8 +35,11 @@
 - [x] **Refinamento da inferência (04/07/2026, commit `95ed21e`):** planos são QUINZENAIS. Documento com 2+ componentes → disciplina "Polivalente" (professor titular dos anos iniciais, ex: Ana Cristina); 1 componente → nome dele (ex: "Educação Física", professor que atende 2º-5º). Título gerado a partir das datas de aplicação extraídas do documento ("Planejamento 12/05 a 23/05 — 3º Ano B"). DCRR do polivalente cobre os 7 componentes do titular (LP, MAT, CIE, HIS, GEO, ER, Arte), teto 42k chars.
 - [x] **Etapa B concluída (04/07/2026): DCRR integrado ao parecer.** O DCRR completo (586 páginas, PDF oficial fornecido pelo Itamar) foi fatiado em **69 arquivos** por componente/ano em `resources/dcrr/*.txt`. O serviço `DcrrLibrary::excerptFor(discipline, className)` seleciona a seção certa (ex: `matematica_3.txt` para Matemática do 3º ano; núcleo comum de 5 componentes para polivalente; `educacao_infantil.txt` para turmas Pré/Maternal) com teto de 36k chars, e o `CorrectionController::analyze` injeta no contexto `dcrr` do `PlanAnalyzer`. Sem turma/ano identificável → `null` → parecer declara "não verificado" (nunca inventa). O PDF original NÃO está no repo (5,9MB); só o texto fatiado.
 
-## Fase 3 (não iniciada)
-Reescrever estatísticas do `ContextBuilder` e dashboards (sai "enviados/atrasados", entra "corrigidos/metodologias/temas").
+## Fase 3 (INICIADA em 04/07/2026)
+
+- [x] **IANNE Assistente (escola)** — commit `338bb21`: item "IANNE (Assistente)" na sidebar de diretor/vice/coordenador → chat em `/school/ianne`. `PlanCorpus` monta o corpus dos planejamentos da(s) escola(s) (conteúdo ~2,2k chars + parecer ~900 chars por doc, teto 280k, mais recentes primeiro; avisa cobertura parcial no prompt). `AssistantController@ask` responde citando professor/documento e listando nominalmente em contagens; histórico salvo em `ai_queries` (`context_filters->tipo = planejamentos_escola`; colunas reais: question/response/response_time_ms/context_filters).
+- [ ] Versão SEMED/Seduc do assistente (corpus multi-escola, comparativos entre escolas)
+- [ ] Reescrever estatísticas do `ContextBuilder`/dashboards (sai "enviados/atrasados", entra "corrigidos/metodologias/temas")
 
 ## Camada comercial (implementada em 03/07/2026, fora do plano original)
 3 modelos de venda (coordenador individual / escola / SEMED), wizard "Nova Venda" no SuperAdmin, `TenantProvisioner`, middleware de assinatura com modo somente leitura, contador mensal de uso de IA (`ai_usage` + `AiQuota`), registro público desativado. Spec: `docs/superpowers/specs/2026-07-03-camada-comercial-design.md`.
