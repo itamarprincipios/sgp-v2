@@ -68,15 +68,6 @@
                 </div>
             </div>
             
-            <!-- Ações Rápidas -->
-            <div class="relative z-10 self-stretch md:self-auto flex flex-col justify-center">
-                <a href="{{ route('school.planning.create') }}" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-750 text-white rounded-xl text-xs font-bold shadow-lg transition duration-150 flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Novo Período de Planejamento
-                </a>
-            </div>
         </div>
 
         @if($tab === 'home')
@@ -210,14 +201,6 @@
                 </div>
             @endif
 
-            <!-- Alterar Senha -->
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 max-w-lg">
-                <h4 class="font-bold text-slate-900 text-sm mb-1">Alterar Sua Senha</h4>
-                <p class="text-xs text-slate-500 mb-4">Gerencie a senha da sua conta na página de segurança.</p>
-                <a href="{{ route('school.security') }}" class="inline-block px-4 py-2.5 bg-slate-950 hover:bg-slate-900 text-white font-bold rounded-xl text-xs shadow-sm transition">
-                    Ir para Segurança da Conta
-                </a>
-            </div>
         @elseif($tab === 'uploads')
             <!-- ================= TAB: ENVIOS RECENTES ================= -->
             <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
