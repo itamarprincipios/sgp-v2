@@ -8,7 +8,7 @@
     <div class="space-y-6" x-data="assistantPage()">
         <div>
             <h3 class="text-lg font-bold text-slate-900">Pergunte sobre os planejamentos da escola</h3>
-            <p class="text-xs text-slate-500">A IANNE varre todos os planejamentos e pareceres da escola para responder perguntas amplas. Ex: "Quais professores usaram metodologias lúdicas em Matemática?", "Quais os erros mais comuns nos planejamentos?", "Quantos planos usaram trabalho em grupo?"</p>
+            <p class="text-xs text-slate-500">A IANNE varre os planejamentos e pareceres da escola para responder perguntas analíticas — sobre um professor, uma turma, um ano inteiro ou a escola toda.</p>
         </div>
 
         <!-- Conversa -->
@@ -17,12 +17,8 @@
                 <template x-if="messages.length === 0">
                     <div class="text-center py-12">
                         <div class="w-14 h-14 mx-auto rounded-2xl bg-violet-100 text-violet-600 flex items-center justify-center font-bold text-xl mb-3">IA</div>
-                        <p class="text-sm text-slate-500">Faça sua primeira pergunta sobre os planejamentos.</p>
-                        <div class="flex flex-wrap justify-center gap-2 mt-4">
-                            <button @click="question = 'Quais professores utilizaram metodologias lúdicas e em quais disciplinas?'" class="text-xs px-3 py-1.5 bg-slate-100 hover:bg-violet-100 hover:text-violet-700 text-slate-600 rounded-full transition">Metodologias lúdicas</button>
-                            <button @click="question = 'Quais são os erros mais comuns encontrados nos planejamentos? Sugira temas para uma oficina de formação.'" class="text-xs px-3 py-1.5 bg-slate-100 hover:bg-violet-100 hover:text-violet-700 text-slate-600 rounded-full transition">Erros mais comuns</button>
-                            <button @click="question = 'Quantos professores utilizaram trabalho em grupo como estratégia? Liste quem.'" class="text-xs px-3 py-1.5 bg-slate-100 hover:bg-violet-100 hover:text-violet-700 text-slate-600 rounded-full transition">Trabalho em grupo</button>
-                        </div>
+                        <p class="text-sm text-slate-500">Faça sua primeira pergunta sobre os planejamentos da escola.</p>
+                        <p class="text-xs text-slate-400 mt-1">Pode perguntar sobre um professor específico, uma turma, todos os 5º anos, a escola inteira...</p>
                     </div>
                 </template>
                 <template x-for="(msg, i) in messages" :key="i">
