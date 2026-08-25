@@ -11,6 +11,9 @@ use App\Models\Document;
  */
 class PlanAnalyzer
 {
+    /** Teto do texto do plano enviado à IANNE. Ver comentário em analyze(). */
+    private const MAX_PLAN_CHARS = 60000;
+
     private AIService $ai;
 
     public function __construct(AIService $ai)
@@ -23,7 +26,17 @@ class PlanAnalyzer
      */
     public function analyze(Document $document, array $context = []): string
     {
-        $plan = mb_substr($document->content_text ?? '', 0, 12000);
+        // Teto generoso: um plano quinzenal polivalente (10 dias × 7 componentes)
+        // passa fácil de 12k caracteres, que era o limite anterior. O que ficava
+        // de fora era invisível para a IANNE, que então apontava como AUSENTE
+        // uma parte que existia — o pior erro que este parecer pode cometer.
+        $planCompleto = $document->content_text ?? '';
+        $plan = mb_substr($planCompleto, 0, self::MAX_PLAN_CHARS);
+        $planCortado = mb_strlen($planCompleto) > self::MAX_PLAN_CHARS;
+
+        $avisoCorte = $planCortado
+            ? "\n\n[ATENÇÃO: o texto acima é o INÍCIO do planejamento; ele foi cortado por limite de tamanho e há mais conteúdo além deste ponto. NÃO afirme que algo está ausente ou faltando com base no que não aparece aqui — se um item esperado não estiver no trecho, escreva \"não localizado no trecho analisado\" e recomende conferência manual do restante.]"
+            : '';
         $professor = $document->user->name ?? 'não identificado';
         $turma = $document->schoolClass->name ?? 'não informada';
         $disciplina = $document->discipline ?? 'não informada';
@@ -70,7 +83,7 @@ DADOS INFORMADOS PELO COORDENADOR:
 
 {$dcrrBloco}
 {$referenciasBloco}TEXTO DO PLANEJAMENTO:
-{$plan}
+{$plan}{$avisoCorte}
 
 REGRA DE CORREÇÃO DE HABILIDADES: sempre que apontar erro de habilidade (código inexistente, de outro ano/componente, ou incompatível com o objeto de conhecimento/conteúdo trabalhado), INDIQUE a habilidade CORRETA para o professor substituir: localize no material do DCRR fornecido a habilidade adequada ao conteúdo e ao ano, e cite o código com um resumo curto da descrição (ex: "substituir por EF05MA08 — resolver problemas de multiplicação e divisão..."). Se a habilidade correta não estiver no material fornecido, oriente o professor a consultar a seção do DCRR daquele ano/componente — NUNCA invente um código.
 

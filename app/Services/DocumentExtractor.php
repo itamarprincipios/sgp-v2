@@ -87,19 +87,45 @@ class DocumentExtractor
      */
     private function extractTextFromXml(string $xml): string
     {
-        $xml = str_replace(['w:', 'w:'], '', $xml);
-        
+        // Planejamento quase sempre é TABELA (dia | conteúdo | habilidade |
+        // metodologia | avaliação). Sem preservar a estrutura, tudo virava uma
+        // linha única e a IANNE não conseguia dizer qual célula pertencia a
+        // qual dia — daí concluir que "falta avaliação" onde ela existe.
+        // Injetamos marcadores como nós <w:t> para eles saírem na ordem certa.
+        $xml = preg_replace('/<w:tab\b[^>]*\/?>/', '<w:t>[[TAB]]</w:t>', $xml);
+        $xml = preg_replace('/<w:br\b[^>]*\/?>/', '<w:t>[[BR]]</w:t>', $xml);
+        $xml = str_replace('</w:tc>', '<w:t>[[CELL]]</w:t></w:tc>', $xml);
+        $xml = str_replace('</w:tr>', '<w:t>[[ROW]]</w:t></w:tr>', $xml);
+        $xml = str_replace('</w:p>', '<w:t>[[PAR]]</w:t></w:p>', $xml);
+
+        $xml = str_replace('w:', '', $xml);
+
         $dom = new DOMDocument();
         @$dom->loadXML($xml);
-        
+
         $textNodes = $dom->getElementsByTagName('t');
-        
+
         $text = '';
         foreach ($textNodes as $node) {
-            $text .= $node->nodeValue . ' ';
+            $text .= $node->nodeValue;
         }
-        
-        $text = preg_replace('/\s+/', ' ', $text);
+
+        $text = str_replace(
+            ['[[TAB]]', '[[BR]]', '[[PAR]]', '[[CELL]]', '[[ROW]]'],
+            [' ',       "\n",     "\n",      ' | ',      "\n"],
+            $text
+        );
+
+        // Espaços em excesso somem; quebras de linha ficam.
+        $text = preg_replace('/[ \t]+/', ' ', $text);
+        // Parágrafo dentro de célula deixava " \n | " antes do separador.
+        $text = preg_replace('/\s*\n\s*\|/', ' |', $text);
+        $text = preg_replace('/\|\s*\n/', "|\n", $text);
+        $text = preg_replace('/ *\n *(\| *\n *)+/', "\n", $text);
+        $text = preg_replace('/\n{3,}/', "\n\n", $text);
+        $text = preg_replace('/^[ |]+$/m', '', $text);
+        $text = preg_replace('/\n{3,}/', "\n\n", $text);
+
         return trim($text);
     }
     
