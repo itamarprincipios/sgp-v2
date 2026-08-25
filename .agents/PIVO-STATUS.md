@@ -143,6 +143,24 @@ ALTER TABLE documents
 
 > Se o botão "Analisar" já funciona em produção, este SQL já foi executado. Conferir com `SHOW COLUMNS FROM documents LIKE 'analysis';` antes de rodar.
 
+### 6. Prompts da IANNE por município (commit desta entrega — PENDENTE DE EXECUÇÃO)
+
+```sql
+CREATE TABLE tenant_ai_prompts (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  tenant_id BIGINT UNSIGNED NOT NULL,
+  blocks LONGTEXT NULL,
+  created_at TIMESTAMP NULL DEFAULT NULL,
+  updated_at TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY tenant_ai_prompts_tenant_id_unique (tenant_id),
+  CONSTRAINT tenant_ai_prompts_tenant_id_foreign FOREIGN KEY (tenant_id) REFERENCES tenants (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+> Enquanto a tabela não existir, a tela `/superadmin/tenants/{id}/ianne` quebra ao SALVAR.
+> A geração de pareceres continua funcionando normalmente com os prompts padrão.
+
 ---
 
 ## Histórico passo a passo

@@ -55,8 +55,14 @@ class AssistantController extends Controller
             ? "ATENÇÃO: por limite de espaço, você está vendo os {$data['included']} documentos mais recentes de um total de {$data['total']}. Ao responder contagens ou levantamentos, deixe claro que a análise cobre os {$data['included']} planejamentos mais recentes."
             : "Você está vendo TODOS os {$data['total']} documentos da escola.";
 
+        $b = \App\Services\PromptSettings::for($user->tenant_id);
+        $regrasExtra = trim($b['assistente_extra']) !== '' ? "
+- " . str_replace("
+", "
+- ", trim($b['assistente_extra'])) : '';
+
         $prompt = <<<PROMPT
-Você é a IANNE, assistente pedagógica de uma escola municipal de Roraima. O coordenador/diretor vai fazer uma pergunta sobre o CONJUNTO de planejamentos abaixo (metodologias usadas, contagens, comparações, erros recorrentes, sugestões de formação etc.).
+{$b['assistente_persona']}
 
 REGRAS:
 - Responda SOMENTE com base nos documentos fornecidos. Não invente professores, planos ou práticas que não estejam neles.
@@ -64,7 +70,7 @@ REGRAS:
 - Em contagens e levantamentos ("quantos professores usaram X"), liste nominalmente quem usou, para a resposta ser conferível.
 - Se a pergunta não puder ser respondida com os documentos disponíveis, diga isso claramente.
 - {$cobertura}
-- Responda em português, em markdown, de forma organizada e direta.
+- Responda em português, em markdown, de forma organizada e direta.{$regrasExtra}
 
 DOCUMENTOS DA ESCOLA:
 {$data['text']}

@@ -43,6 +43,9 @@ class MetadataInference
         $excerpt = mb_substr($contentText, 0, 4000);
         $currentYear = now()->year;
 
+        // Blocos editáveis pelo SuperAdmin (tela "Prompts da IANNE" do município).
+        $b = PromptSettings::for(auth()->user()?->tenant_id);
+
         $prompt = <<<PROMPT
 Você analisa documentos pedagógicos (planejamentos de aula, relatórios) de escolas municipais brasileiras.
 Extraia os metadados do documento abaixo e retorne APENAS um objeto JSON com estes campos:
@@ -58,13 +61,11 @@ Extraia os metadados do documento abaixo e retorne APENAS um objeto JSON com est
   "title": <título seguindo a regra de título abaixo (máx 80 caracteres)>
 }
 
-Regra de disciplina (os planejamentos desta rede são QUINZENAIS):
-- Se o documento abrange DOIS OU MAIS componentes curriculares (ex: Português, Matemática, História, Geografia, Ciências, Ensino Religioso e Arte no mesmo plano — típico de professor titular dos anos iniciais), retorne exatamente "Polivalente".
-- Se abrange UM único componente (ex: professor específico de Educação Física, Arte, Inglês), retorne o nome desse componente (ex: "Educação Física").
+Regra de disciplina:
+{$b['inferencia_disciplina']}
 
 Regra de título:
-- Construa a partir das DATAS DE APLICAÇÃO do plano, extraídas do próprio documento, no formato: "<Tipo> <datas> — <turma>". Ex: "Planejamento 12/05 a 23/05 — 3º Ano B".
-- Se o documento não trouxer as datas, use o período de referência (ex: "Planejamento 1º Bimestre — 3º Ano B"); em último caso, um título descritivo curto.
+{$b['inferencia_titulo']}
 
 Regras de matching:
 - Compare nomes ignorando acentos, maiúsculas e nomes parciais (ex: "Profª Maria S." casa com "Maria da Silva").

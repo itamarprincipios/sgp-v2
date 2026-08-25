@@ -32,16 +32,23 @@ class PlanAnalyzer
         $observacoes = trim($context['observacoes'] ?? '') ?: 'nenhuma';
         $dcrr = trim($context['dcrr'] ?? '');
 
+        // Blocos editáveis pelo SuperAdmin (tela "Prompts da IANNE" do município).
+        $b = PromptSettings::for($document->tenant_id);
+        $extra = trim($b['parecer_extra']) !== '' ? "
+
+INSTRUÇÕES ADICIONAIS DESTA REDE:
+{$b['parecer_extra']}" : '';
+
         $dcrrBloco = $dcrr !== ''
             ? "MATERIAL DE REFERÊNCIA DO DCRR (currículo de Roraima) para este componente/etapa:\n{$dcrr}\n\n"
                 . "REGRA CRÍTICA SOBRE O MATERIAL ACIMA: ele é um RECORTE do DCRR. Se uma habilidade citada no plano não aparecer nele, NUNCA afirme que ela \"não existe no DCRR\" — escreva \"não localizada no trecho fornecido do DCRR; confirmar no documento completo\". Só aponte uma habilidade como inválida se o próprio CÓDIGO for incompatível com o ano/componente (padrão: EF + ano com 2 dígitos + sigla do componente + número; ex: EF05LP05 = 5º ano, Língua Portuguesa). Afirmar inexistência sem certeza induz o coordenador a erro — é a falha mais grave que este parecer pode cometer.\n"
             : "MATERIAL DO DCRR: NÃO fornecido. No item de alinhamento com o DCRR, escreva exatamente que não foi possível verificar por falta do documento de referência — NÃO invente habilidades, códigos ou alinhamentos do DCRR.\n";
 
         $prompt = <<<PROMPT
-Você é um(a) coordenador(a) pedagógico(a) experiente da rede municipal de Roraima avaliando um PLANEJAMENTO QUINZENAL. Seja honesto(a), específico(a) e construtivo(a). Baseie-se SOMENTE no texto do plano e no material de referência fornecido. NÃO invente habilidades, códigos da BNCC nem alinhamentos que não estejam comprovados; quando algo não constar no plano, escreva "não consta".
+{$b['parecer_persona']}
 
 REGRAS DE CALENDÁRIO (obrigatórias):
-- O planejamento quinzenal cobre 10 DIAS LETIVOS, de segunda a sexta-feira, ao longo de duas semanas.
+{$b['parecer_periodicidade']}
 - Sábados e domingos NÃO são dias letivos. NUNCA aponte "falta de planejamento" para fim de semana.
 - Ao verificar a cobertura da vigência, conte apenas os dias úteis (segunda a sexta) dentro do período.
 - EXCEÇÕES: as "Observações do coordenador" têm PRIORIDADE sobre as regras acima. Se ele informar feriado, recesso ou dia sem aula, NÃO cobre planejamento para essa data; se informar sábado letivo ou reposição, esse dia PASSA a contar como letivo e deve ter planejamento. Ajuste a contagem de dias letivos conforme essas informações.
@@ -61,15 +68,12 @@ TEXTO DO PLANEJAMENTO:
 REGRA DE CORREÇÃO DE HABILIDADES: sempre que apontar erro de habilidade (código inexistente, de outro ano/componente, ou incompatível com o objeto de conhecimento/conteúdo trabalhado), INDIQUE a habilidade CORRETA para o professor substituir: localize no material do DCRR fornecido a habilidade adequada ao conteúdo e ao ano, e cite o código com um resumo curto da descrição (ex: "substituir por EF05MA08 — resolver problemas de multiplicação e divisão..."). Se a habilidade correta não estiver no material fornecido, oriente o professor a consultar a seção do DCRR daquele ano/componente — NUNCA invente um código.
 
 CRITÉRIOS A VERIFICAR (checklist interno — não os copie como seções do parecer):
-identificação completa do cabeçalho; vigência × dias letivos × nº de aulas; habilidades BNCC (códigos existem e pertencem ao ano/componente); CRUZAMENTO objetos de conhecimento × habilidades (cada habilidade citada deve ter objeto de conhecimento correspondente e vice-versa — aponte pares incompatíveis usando o material do DCRR); alinhamento ao DCRR; objetivos claros e mensuráveis; metodologia variada, adequada à faixa etária e DIVIDIDA EM MOMENTOS (acolhida/introdução, desenvolvimento, fechamento); avaliação com instrumentos e critérios definidos (incluindo formativa); inclusão e adaptações; coerência geral entre as partes.
+{$b['parecer_criterios']}
 
 FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio da análise):
 
 1. "## ⚠️ Erros graves" — inclua esta seção SOMENTE se houver ao menos um destes problemas (caso contrário, omita a seção por completo):
-   - erro grave de metodologia (atividade incompatível com o ano/faixa etária ou erro conceitual);
-   - AUSÊNCIA de forma/instrumento de avaliação;
-   - metodologia NÃO dividida em momentos;
-   - habilidade BNCC inexistente ou de outro ano/componente.
+{$b['parecer_erros_graves']}
 
 2. "## Pontos a melhorar" — liste APENAS o que precisa ser corrigido ou está faltando, em itens objetivos, citando trechos do plano quando útil. NÃO descreva o que está adequado. Critério sem ressalvas não deve ser mencionado.
 
@@ -83,7 +87,7 @@ FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio
    - Em cada item, rastreie a correção pela DATA/dia da aula e pela DISCIPLINA sempre que o plano permitir (ex: "1. Aula de Matemática de 03/06: incluir o instrumento de avaliação da atividade de frações").
    - Quando a correção for de habilidade, inclua no item o código errado e o código correto sugerido (conforme a regra de correção de habilidades acima), para o professor só substituir.
    - A mensagem deve ser autossuficiente: o professor precisa entender o que corrigir sem ler o restante do parecer.
-   - Se não houver nada a corrigir, escreva uma mensagem curta parabenizando e confirmando que o plano foi aprovado sem ressalvas.
+   - Se não houver nada a corrigir, escreva uma mensagem curta parabenizando e confirmando que o plano foi aprovado sem ressalvas.{$extra}
 PROMPT;
 
         // maxTokens alto (o parecer é longo) e timeout generoso.

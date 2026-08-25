@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tenant;
+use App\Models\TenantAiPrompt;
+use App\Services\PromptSettings;
 use App\Models\School;
 use App\Models\User;
 use App\Models\AiQuery;
@@ -81,6 +83,44 @@ class SuperAdminController extends Controller
     public function tenantsEdit(Tenant $tenant)
     {
         return view('superadmin.tenants.edit', compact('tenant'));
+    }
+
+    /**
+     * Tela de personalização dos prompts da IANNE deste município.
+     */
+    public function iannePrompts(Tenant $tenant)
+    {
+        $blocos = PromptSettings::for($tenant->id);
+        $padroes = PromptSettings::defaults();
+
+        return view('superadmin.tenants.ianne', compact('tenant', 'blocos', 'padroes'));
+    }
+
+    /**
+     * Salva os blocos editados. Campo apagado volta ao padrão (PromptSettings
+     * trata vazio como "usa o padrão"), então não há como deixar um buraco no
+     * meio do prompt.
+     */
+    public function iannePromptsUpdate(Request $request, Tenant $tenant)
+    {
+        $regras = [];
+        foreach (array_keys(PromptSettings::BLOCKS) as $chave) {
+            $regras["blocks.{$chave}"] = ['nullable', 'string', 'max:8000'];
+        }
+        $request->validate($regras);
+
+        $blocos = [];
+        foreach (array_keys(PromptSettings::BLOCKS) as $chave) {
+            $blocos[$chave] = trim((string) $request->input("blocks.{$chave}", ''));
+        }
+
+        TenantAiPrompt::updateOrCreate(
+            ['tenant_id' => $tenant->id],
+            ['blocks' => $blocos],
+        );
+
+        return redirect()->route('superadmin.tenants.ianne', $tenant)
+            ->with('success', "Prompts da IANNE atualizados para {$tenant->name}. Valem a partir da próxima análise.");
     }
 
     /**
