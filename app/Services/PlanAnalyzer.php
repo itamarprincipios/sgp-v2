@@ -11,8 +11,20 @@ use App\Models\Document;
  */
 class PlanAnalyzer
 {
-    /** Teto do texto do plano enviado à IANNE. Ver comentário em analyze(). */
-    private const MAX_PLAN_CHARS = 60000;
+    /**
+     * Teto do texto do plano enviado à IANNE. Margem de segurança deliberada:
+     * o maior plano real desta rede tem ~45k caracteres, então 100k dá folga de
+     * mais de 2x. Cabe sem aperto — pior caso do prompt inteiro (DCRR 150k +
+     * referências 60k + plano 100k) dá ~88 mil tokens contra 200 mil de contexto.
+     * Um parecer errado por texto faltando custa muito mais que tokens.
+     */
+    private const MAX_PLAN_CHARS = 100000;
+
+    /**
+     * Teto da RESPOSTA. Em 4096 um parecer longo (polivalente, com correções
+     * numeradas por dia e a mensagem ao professor) era cortado no meio da frase.
+     */
+    private const MAX_PARECER_TOKENS = 8192;
 
     private AIService $ai;
 
@@ -111,6 +123,21 @@ FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio
 PROMPT;
 
         // maxTokens alto (o parecer é longo) e timeout generoso.
-        return $this->ai->query($prompt, false, 4096, 120);
+        $parecer = $this->ai->query($prompt, false, self::MAX_PARECER_TOKENS, 180);
+
+        // Parecer cortado no limite de saída para de vez de sumir em silêncio:
+        // o coordenador precisa saber que o texto acabou por limite, e não
+        // porque a IANNE não tinha mais nada a apontar.
+        if ($this->ai->lastStopReason() === 'max_tokens') {
+            $parecer .= "
+
+---
+
+> **Este parecer foi interrompido por limite de tamanho e está incompleto.** "
+                . "O que aparece acima é válido, mas pode haver mais itens não listados. "
+                . "Clique em \"Refazer análise\" ou avalie o restante manualmente.";
+        }
+
+        return $parecer;
     }
 }
