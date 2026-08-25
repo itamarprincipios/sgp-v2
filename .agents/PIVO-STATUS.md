@@ -2,7 +2,7 @@
 
 > **Para agentes de IA:** este arquivo é o log passo a passo da implementação do pivô descrito na **seção 14 do AGENTS.md**. Leia os dois antes de continuar qualquer trabalho. Atualize este arquivo a cada passo concluído.
 
-**Última atualização:** 04/07/2026
+**Última atualização:** 25/08/2026
 **Fase atual:** Fases 1 e 2 CONCLUÍDAS — próxima: Fase 3 (diagnóstico da rede)
 
 ---
@@ -143,7 +143,7 @@ ALTER TABLE documents
 
 > Se o botão "Analisar" já funciona em produção, este SQL já foi executado. Conferir com `SHOW COLUMNS FROM documents LIKE 'analysis';` antes de rodar.
 
-### 6. Prompts da IANNE por município (commit desta entrega — PENDENTE DE EXECUÇÃO)
+### 6. Prompts da IANNE por município (commit `00c2db4` — ✅ JÁ EXECUTADO em 25/08/2026)
 
 ```sql
 CREATE TABLE tenant_ai_prompts (
@@ -158,9 +158,9 @@ CREATE TABLE tenant_ai_prompts (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
-> Enquanto a tabela não existir, a tela `/superadmin/tenants/{id}/ianne` quebra ao SALVAR.
+> As migrations no repositório são guardadas com `Schema::hasTable`, então rodá-las não recria a tabela.
 
-### 7. Material de referência por município (mesma entrega — PENDENTE DE EXECUÇÃO)
+### 7. Material de referência por município (commit `e89bb05` — ✅ JÁ EXECUTADO em 25/08/2026)
 
 ```sql
 CREATE TABLE tenant_reference_files (
