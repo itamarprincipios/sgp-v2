@@ -152,18 +152,18 @@ class SemedController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => TempPassword::phoneRules(),
             'school_id' => ['required', Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
-        ]);
+        ], TempPassword::phoneMessages());
 
-        $tempPassword = TempPassword::generate();
+        $tempPassword = TempPassword::fromPhone($validated['whatsapp']);
 
         $director = User::create([
             'tenant_id' => $tenantId,
             'school_id' => $validated['school_id'],
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'whatsapp' => $validated['whatsapp'] ?? null,
+            'whatsapp' => $validated['whatsapp'],
             'password' => Hash::make($tempPassword),
             'role' => 'director',
         ]);
@@ -176,7 +176,7 @@ class SemedController extends Controller
         ]);
 
         return redirect()->route('semed.directors')
-            ->with('success', "Diretor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} (informe ao diretor e oriente a troca no primeiro acesso).");
+            ->with('success', "Diretor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} — os 4 últimos dígitos do WhatsApp. Oriente a troca no primeiro acesso.");
     }
 
     /**
@@ -203,9 +203,9 @@ class SemedController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => TempPassword::phoneRules(),
             'school_id' => ['required', Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
-        ]);
+        ], TempPassword::phoneMessages());
 
         $user->update($validated);
 
@@ -227,14 +227,14 @@ class SemedController extends Controller
     {
         abort_unless($user->role === 'director', 404);
 
-        $tempPassword = TempPassword::generate();
+        [$tempPassword, $origem] = TempPassword::resolve($user->whatsapp);
 
         $user->update([
             'password' => Hash::make($tempPassword),
         ]);
 
         return redirect()->route('semed.directors')
-            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} (informe ao diretor e oriente a troca no primeiro acesso).");
+            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} — {$origem}. Oriente a troca no primeiro acesso.");
     }
 
     /**
@@ -290,18 +290,18 @@ class SemedController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => TempPassword::phoneRules(),
             'school_id' => ['required', Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
-        ]);
+        ], TempPassword::phoneMessages());
 
-        $tempPassword = TempPassword::generate();
+        $tempPassword = TempPassword::fromPhone($validated['whatsapp']);
 
         $viceDirector = User::create([
             'tenant_id' => $tenantId,
             'school_id' => $validated['school_id'],
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'whatsapp' => $validated['whatsapp'] ?? null,
+            'whatsapp' => $validated['whatsapp'],
             'password' => Hash::make($tempPassword),
             'role' => 'vice_director',
         ]);
@@ -314,7 +314,7 @@ class SemedController extends Controller
         ]);
 
         return redirect()->route('semed.vice-directors')
-            ->with('success', "Vice-Diretor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} (informe ao vice-diretor e oriente a troca no primeiro acesso).");
+            ->with('success', "Vice-Diretor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} — os 4 últimos dígitos do WhatsApp. Oriente a troca no primeiro acesso.");
     }
 
     /**
@@ -341,9 +341,9 @@ class SemedController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => TempPassword::phoneRules(),
             'school_id' => ['required', Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
-        ]);
+        ], TempPassword::phoneMessages());
 
         $user->update($validated);
 
@@ -365,14 +365,14 @@ class SemedController extends Controller
     {
         abort_unless($user->role === 'vice_director', 404);
 
-        $tempPassword = TempPassword::generate();
+        [$tempPassword, $origem] = TempPassword::resolve($user->whatsapp);
 
         $user->update([
             'password' => Hash::make($tempPassword),
         ]);
 
         return redirect()->route('semed.vice-directors')
-            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} (informe ao vice-diretor e oriente a troca no primeiro acesso).");
+            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} — {$origem}. Oriente a troca no primeiro acesso.");
     }
 
     /**
@@ -430,20 +430,20 @@ class SemedController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => TempPassword::phoneRules(),
             'role' => ['required', Rule::in(array_keys(self::SUPERVISOR_TYPES))],
             'school_ids' => ['required', 'array', 'min:1'],
             'school_ids.*' => [Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
-        ]);
+        ], TempPassword::phoneMessages());
 
-        $tempPassword = TempPassword::generate();
+        $tempPassword = TempPassword::fromPhone($validated['whatsapp']);
 
         $supervisor = User::create([
             'tenant_id' => $tenantId,
             'school_id' => null,
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'whatsapp' => $validated['whatsapp'] ?? null,
+            'whatsapp' => $validated['whatsapp'],
             'password' => Hash::make($tempPassword),
             'role' => $validated['role'],
         ]);
@@ -459,7 +459,7 @@ class SemedController extends Controller
         DB::table('user_schools')->insert($pivotRows);
 
         return redirect()->route('semed.supervisors')
-            ->with('success', "Supervisor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} (informe ao supervisor e oriente a troca no primeiro acesso).");
+            ->with('success', "Supervisor(a) cadastrado(a) com sucesso! Senha inicial: {$tempPassword} — os 4 últimos dígitos do WhatsApp. Oriente a troca no primeiro acesso.");
     }
 
     /**
@@ -488,16 +488,16 @@ class SemedController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => TempPassword::phoneRules(),
             'role' => ['required', Rule::in(array_keys(self::SUPERVISOR_TYPES))],
             'school_ids' => ['required', 'array', 'min:1'],
             'school_ids.*' => [Rule::exists('schools', 'id')->where('tenant_id', $tenantId)],
-        ]);
+        ], TempPassword::phoneMessages());
 
         $user->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'whatsapp' => $validated['whatsapp'] ?? null,
+            'whatsapp' => $validated['whatsapp'],
             'role' => $validated['role'],
         ]);
 
@@ -523,14 +523,14 @@ class SemedController extends Controller
     {
         abort_unless(array_key_exists($user->role, self::SUPERVISOR_TYPES), 404);
 
-        $tempPassword = TempPassword::generate();
+        [$tempPassword, $origem] = TempPassword::resolve($user->whatsapp);
 
         $user->update([
             'password' => Hash::make($tempPassword),
         ]);
 
         return redirect()->route('semed.supervisors')
-            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} (informe ao supervisor e oriente a troca no primeiro acesso).");
+            ->with('success', "Senha de {$user->name} redefinida para: {$tempPassword} — {$origem}. Oriente a troca no primeiro acesso.");
     }
 
     /**

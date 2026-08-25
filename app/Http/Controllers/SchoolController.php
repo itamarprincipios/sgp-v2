@@ -641,14 +641,14 @@ class SchoolController extends Controller
             'school_id' => ['required', 'exists:schools,id'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
-        ]);
+            'whatsapp' => TempPassword::phoneRules(),
+        ], TempPassword::phoneMessages());
         
         if (!in_array($request->school_id, $schoolIds)) {
             return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('error', 'Acesso negado para esta escola.');
         }
         
-        $tempPassword = TempPassword::generate();
+        $tempPassword = TempPassword::fromPhone($request->whatsapp);
 
         $coordinator = User::create([
             'tenant_id' => $user->tenant_id,
@@ -668,7 +668,7 @@ class SchoolController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "Coordenador cadastrado com sucesso! Senha inicial: {$tempPassword} (informe ao coordenador e oriente a troca no primeiro acesso).");
+        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "Coordenador cadastrado com sucesso! Senha inicial: {$tempPassword} — os 4 últimos dígitos do WhatsApp. Oriente a troca no primeiro acesso.");
     }
 
     /**
@@ -715,8 +715,8 @@ class SchoolController extends Controller
             'school_id' => ['required', 'exists:schools,id'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $request->id],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
-        ]);
+            'whatsapp' => TempPassword::phoneRules(),
+        ], TempPassword::phoneMessages());
 
         $coordinator = User::findOrFail($request->id);
 
@@ -764,13 +764,13 @@ class SchoolController extends Controller
             return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('error', 'Acesso negado.');
         }
         
-        $tempPassword = TempPassword::generate();
+        [$tempPassword, $origem] = TempPassword::resolve($coordinator->whatsapp);
 
         $coordinator->update([
             'password' => Hash::make($tempPassword),
         ]);
 
-        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "A senha do coordenador {$coordinator->name} foi redefinida para: {$tempPassword} (oriente a troca no primeiro acesso).");
+        return redirect()->route('school.dashboard', ['tab' => 'coordinators'])->with('success', "A senha do coordenador {$coordinator->name} foi redefinida para: {$tempPassword} — {$origem}. Oriente a troca no primeiro acesso.");
     }
 
     /**

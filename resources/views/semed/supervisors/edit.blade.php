@@ -82,11 +82,12 @@
                     </div>
 
                     <div>
-                        <label for="whatsapp" class="block text-sm font-semibold text-slate-700 mb-2">WhatsApp (opcional)</label>
-                        <input type="text" name="whatsapp" id="whatsapp" value="{{ old('whatsapp', $user->whatsapp) }}" placeholder="5595999999999" class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 text-sm py-2.5 transition @error('whatsapp') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
+                        <label for="whatsapp" class="block text-sm font-semibold text-slate-700 mb-2">WhatsApp <span class="text-rose-500">*</span></label>
+                        <input type="text" name="whatsapp" id="whatsapp" required value="{{ old('whatsapp', $user->whatsapp) }}" placeholder="5595999999999" class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 text-sm py-2.5 transition @error('whatsapp') border-rose-500 focus:border-rose-500 focus:ring-rose-500/20 @enderror">
                         @error('whatsapp')
                             <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
                         @enderror
+                        <p class="text-xs text-slate-500 mt-1.5">A senha inicial serão os 4 últimos dígitos deste número.</p>
                     </div>
                 </div>
 
