@@ -19,8 +19,20 @@ class AIService
     private $model;
     private $maxTokens;
 
+    /**
+     * stop_reason da última chamada. 'max_tokens' significa que a resposta foi
+     * CORTADA no meio — quem transcreve documento precisa saber disso, senão
+     * entrega meio texto como se fosse o documento inteiro.
+     */
+    private ?string $lastStopReason = null;
+
     private const ENDPOINT = 'https://api.anthropic.com/v1/messages';
     private const VERSION = '2023-06-01';
+
+    public function lastStopReason(): ?string
+    {
+        return $this->lastStopReason;
+    }
 
     public function __construct()
     {
@@ -66,8 +78,10 @@ class AIService
      * @return string A resposta da IA
      * @throws Exception Em caso de erro na API ou arquivo inacessível
      */
-    public function queryWithFile(string $prompt, string $filePath, string $mimeType): string
+    public function queryWithFile(string $prompt, string $filePath, string $mimeType, ?int $maxTokens = null): string
     {
+        $maxTokens = $maxTokens ?? (int) config('services.anthropic.file_max_tokens', 32000);
+
         if (!file_exists($filePath)) {
             throw new Exception("Arquivo não encontrado: {$filePath}");
         }
@@ -82,7 +96,7 @@ class AIService
                 'data' => $data,
             ]],
             ['type' => 'text', 'text' => $prompt],
-        ], false, 8192, 90);
+        ], false, $maxTokens, 180);
     }
 
     /**
@@ -115,6 +129,8 @@ class AIService
                 Log::error("Claude API Error (HTTP {$response->status()}): {$errorMsg}");
                 throw new Exception("Claude API Error (HTTP {$response->status()}): {$errorMsg}");
             }
+
+            $this->lastStopReason = $response->json('stop_reason');
 
             // A resposta traz content[] com blocos; juntamos o texto de todos os blocos type=text.
             $text = '';

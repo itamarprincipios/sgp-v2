@@ -42,6 +42,10 @@ return [
         'key' => env('ANTHROPIC_API_KEY'),
         'model' => env('ANTHROPIC_MODEL', 'claude-opus-4-8'),
         'max_tokens' => env('ANTHROPIC_MAX_TOKENS', 1024),
+        // Transcrição de PDF: um planejamento quinzenal passa de 40k caracteres,
+        // que não cabem nos 8192 tokens antigos. Se o modelo configurado não
+        // aceitar este teto, o DocumentExtractor repete a chamada com 8192.
+        'file_max_tokens' => env('ANTHROPIC_FILE_MAX_TOKENS', 32000),
     ],
 
 ];

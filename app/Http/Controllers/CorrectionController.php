@@ -114,6 +114,8 @@ class CorrectionController extends Controller
             $aiError = 'Não consegui extrair o texto do arquivo. Se for um PDF digitalizado (imagem) ou protegido, a leitura automática não funciona — preencha os campos manualmente.';
         } elseif ($inferred && !empty($inferred['error'])) {
             $aiError = 'A IANNE está indisponível no momento (' . $inferred['error'] . '). Preencha os campos manualmente.';
+        } elseif (str_contains($document->content_text, '[ATENÇÃO: a transcrição deste PDF foi INTERROMPIDA')) {
+            $aiError = 'Este PDF é longo e a leitura automática não alcançou o fim dele. O parecer sairá incompleto — reenvie o planejamento em Word (.docx), que é lido inteiro.';
         }
 
         return response()->json([

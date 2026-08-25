@@ -48,11 +48,37 @@ class DocumentExtractor
     {
         $ai = app(AIService::class);
 
+        // Tabelas viram linhas com " | ", igual ao que o extrator de .docx faz —
+        // é o que permite à IANNE saber qual célula pertence a qual dia.
         $prompt = "Transcreva TODO o texto deste documento PDF, na ordem em que aparece, "
-            . "incluindo cabeçalhos, tabelas (como texto corrido) e rodapés. "
+            . "incluindo cabeçalhos, tabelas e rodapés. Em tabelas, separe as células com \" | \" "
+            . "e cada linha da tabela em uma linha do texto. "
             . "Não resuma, não comente, não adicione nada — retorne apenas o texto transcrito.";
 
-        return trim($ai->queryWithFile($prompt, $filePath, 'application/pdf'));
+        try {
+            $texto = $ai->queryWithFile($prompt, $filePath, 'application/pdf');
+        } catch (Exception $e) {
+            // Modelo que não aceita o teto alto devolve erro citando max_tokens.
+            // Repete com o valor conservador em vez de derrubar o upload.
+            if (stripos($e->getMessage(), 'max_tokens') === false) {
+                throw $e;
+            }
+            Log::warning('Transcrição de PDF: teto rejeitado pelo modelo, repetindo com 8192. ' . $e->getMessage());
+            $texto = $ai->queryWithFile($prompt, $filePath, 'application/pdf', 8192);
+        }
+
+        $texto = trim($texto);
+
+        // stop_reason = max_tokens significa transcrição interrompida no meio.
+        // Sem este aviso, meio documento seria analisado como se fosse o todo —
+        // e a IANNE apontaria como ausente o que ela nunca chegou a ler.
+        if ($ai->lastStopReason() === 'max_tokens') {
+            $texto .= "\n\n[ATENÇÃO: a transcrição deste PDF foi INTERROMPIDA por limite de tamanho e está incompleta. "
+                . "NÃO afirme que algo está ausente com base no que não aparece acima — o documento continua além deste ponto. "
+                . "Recomende ao coordenador reenviar o planejamento em .docx.]";
+        }
+
+        return $texto;
     }
     
     /**
