@@ -249,6 +249,7 @@ class CorrectionController extends Controller
                     $document->discipline,
                     $document->schoolClass->name ?? null
                 ),
+                'referencias' => app(\App\Services\ReferenceLibrary::class)->textFor($document->tenant_id),
             ]);
         } catch (\Throwable $e) {
             return response()->json([

@@ -159,6 +159,34 @@ CREATE TABLE tenant_ai_prompts (
 ```
 
 > Enquanto a tabela não existir, a tela `/superadmin/tenants/{id}/ianne` quebra ao SALVAR.
+
+### 7. Material de referência por município (mesma entrega — PENDENTE DE EXECUÇÃO)
+
+```sql
+CREATE TABLE tenant_reference_files (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  tenant_id BIGINT UNSIGNED NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  original_name VARCHAR(255) NOT NULL,
+  file_path VARCHAR(255) NOT NULL,
+  extension VARCHAR(10) NOT NULL,
+  content_text LONGTEXT NULL,
+  chars INT NOT NULL DEFAULT 0,
+  extraction_ok TINYINT(1) NOT NULL DEFAULT 0,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  uploaded_by BIGINT UNSIGNED NULL,
+  created_at TIMESTAMP NULL DEFAULT NULL,
+  updated_at TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY tenant_reference_files_tenant_id_foreign (tenant_id),
+  KEY tenant_reference_files_uploaded_by_foreign (uploaded_by),
+  CONSTRAINT tenant_reference_files_tenant_id_foreign FOREIGN KEY (tenant_id) REFERENCES tenants (id) ON DELETE CASCADE,
+  CONSTRAINT tenant_reference_files_uploaded_by_foreign FOREIGN KEY (uploaded_by) REFERENCES users (id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+> Os arquivos vão para `public/uploads/referencias/` (criada sozinha no primeiro upload).
+> O que entra no prompt é o `content_text` extraído no upload, não o arquivo.
 > A geração de pareceres continua funcionando normalmente com os prompts padrão.
 
 ---

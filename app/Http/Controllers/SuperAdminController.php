@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Tenant;
 use App\Models\TenantAiPrompt;
+use App\Models\TenantReferenceFile;
+use App\Services\DocumentExtractor;
+use Illuminate\Support\Facades\File;
 use App\Services\PromptSettings;
 use App\Models\School;
 use App\Models\User;
@@ -92,8 +95,9 @@ class SuperAdminController extends Controller
     {
         $blocos = PromptSettings::for($tenant->id);
         $padroes = PromptSettings::defaults();
+        $arquivos = TenantReferenceFile::where('tenant_id', $tenant->id)->orderByDesc('id')->get();
 
-        return view('superadmin.tenants.ianne', compact('tenant', 'blocos', 'padroes'));
+        return view('superadmin.tenants.ianne', compact('tenant', 'blocos', 'padroes', 'arquivos'));
     }
 
     /**
@@ -121,6 +125,110 @@ class SuperAdminController extends Controller
 
         return redirect()->route('superadmin.tenants.ianne', $tenant)
             ->with('success', "Prompts da IANNE atualizados para {$tenant->name}. Valem a partir da próxima análise.");
+    }
+
+    /**
+     * Recebe um arquivo de referência da rede (modelo de requisitos, portaria,
+     * rubrica) e já extrai o texto — é o texto, não o arquivo, que vai ao
+     * prompt do parecer.
+     */
+    public function ianneFileStore(Request $request, Tenant $tenant, DocumentExtractor $extractor)
+    {
+        $request->validate([
+            'file' => ['required', 'file', 'mimes:docx,pdf,txt', 'max:10240'],
+            'title' => ['nullable', 'string', 'max:255'],
+        ], [
+            'file.mimes' => 'Formato não suportado. Envie Word (.docx), PDF ou texto (.txt).',
+            'file.max' => 'Arquivo muito grande (máximo 10MB).',
+        ]);
+
+        $file = $request->file('file');
+        $originalName = $file->getClientOriginalName();
+        $extension = strtolower($file->getClientOriginalExtension());
+        $fileName = $tenant->id . '_' . time() . '_' . preg_replace('/[^A-Za-z0-9._-]/', '_', $originalName);
+
+        $destino = public_path('uploads/referencias');
+        if (!File::isDirectory($destino)) {
+            File::makeDirectory($destino, 0755, true);
+        }
+        $file->move($destino, $fileName);
+        $caminho = $destino . DIRECTORY_SEPARATOR . $fileName;
+
+        // .txt é lido direto; .docx sai do ZipArchive local; .pdf passa pela IA.
+        $texto = '';
+        $erro = null;
+        try {
+            $texto = $extension === 'txt'
+                ? (string) File::get($caminho)
+                : $extractor->extractText($caminho);
+        } catch (\Throwable $e) {
+            $erro = $e->getMessage();
+        }
+
+        $texto = trim($texto);
+        $ok = $texto !== '' && !str_starts_with($texto, '[Arquivo');
+
+        $arquivo = TenantReferenceFile::create([
+            'tenant_id' => $tenant->id,
+            'title' => trim((string) $request->input('title')) ?: pathinfo($originalName, PATHINFO_FILENAME),
+            'original_name' => $originalName,
+            'file_path' => $fileName,
+            'extension' => $extension,
+            'content_text' => $ok ? $texto : null,
+            'chars' => $ok ? mb_strlen($texto) : 0,
+            'extraction_ok' => $ok,
+            'is_active' => $ok,
+            'uploaded_by' => auth()->id(),
+        ]);
+
+        if (!$ok) {
+            $motivo = $erro
+                ? "A leitura falhou: {$erro}"
+                : 'Não foi possível extrair texto — se for um PDF digitalizado (imagem) ou protegido, a leitura automática não funciona.';
+
+            return redirect()->route('superadmin.tenants.ianne', $tenant)
+                ->with('error', "\"{$arquivo->title}\" foi guardado, mas está INATIVO e não entra nas análises. {$motivo} Converta para .docx e envie de novo.");
+        }
+
+        $aviso = $arquivo->provavelmenteTruncado()
+            ? ' ATENÇÃO: PDF longo — a extração pode ter sido cortada. Confira o texto ou envie em .docx.'
+            : '';
+
+        return redirect()->route('superadmin.tenants.ianne', $tenant)
+            ->with('success', "\"{$arquivo->title}\" enviado: " . number_format($arquivo->chars, 0, ',', '.') . " caracteres extraídos. Passa a valer na próxima análise.{$aviso}");
+    }
+
+    /**
+     * Liga/desliga um arquivo sem excluí-lo.
+     */
+    public function ianneFileToggle(Tenant $tenant, TenantReferenceFile $file)
+    {
+        abort_unless($file->tenant_id === $tenant->id, 404);
+        abort_if(!$file->extraction_ok && !$file->is_active, 422, 'Arquivo sem texto extraído não pode ser ativado.');
+
+        $file->update(['is_active' => !$file->is_active]);
+
+        return redirect()->route('superadmin.tenants.ianne', $tenant)
+            ->with('success', "\"{$file->title}\" " . ($file->is_active ? 'passou a valer' : 'saiu') . ' nas análises deste município.');
+    }
+
+    /**
+     * Remove o arquivo do fluxo (registro + arquivo físico).
+     */
+    public function ianneFileDestroy(Tenant $tenant, TenantReferenceFile $file)
+    {
+        abort_unless($file->tenant_id === $tenant->id, 404);
+
+        $caminho = public_path('uploads/referencias/' . $file->file_path);
+        if (File::exists($caminho)) {
+            File::delete($caminho);
+        }
+
+        $titulo = $file->title;
+        $file->delete();
+
+        return redirect()->route('superadmin.tenants.ianne', $tenant)
+            ->with('success', "\"{$titulo}\" removido.");
     }
 
     /**

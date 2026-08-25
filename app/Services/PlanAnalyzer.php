@@ -39,6 +39,13 @@ class PlanAnalyzer
 INSTRUÇÕES ADICIONAIS DESTA REDE:
 {$b['parecer_extra']}" : '';
 
+        // Material enviado pela rede (SuperAdmin -> município -> Prompts da IANNE).
+        $referencias = trim($context['referencias'] ?? '');
+        $referenciasBloco = $referencias !== ''
+            ? "MATERIAL DE REFERÊNCIA DESTA REDE (modelo de requisitos, portarias e rubricas enviados pela administração):\n{$referencias}\n\n"
+                . "COMO USAR O MATERIAL ACIMA: as exigências dele são OBRIGATÓRIAS para esta rede e têm prioridade sobre orientações genéricas. Verifique o plano contra elas e, ao apontar uma falta, cite o documento de origem pelo título. Se o material for um recorte e algo não aparecer nele, NÃO afirme que a exigência não existe — diga que não foi localizada no material fornecido.\n\n"
+            : '';
+
         $dcrrBloco = $dcrr !== ''
             ? "MATERIAL DE REFERÊNCIA DO DCRR (currículo de Roraima) para este componente/etapa:\n{$dcrr}\n\n"
                 . "REGRA CRÍTICA SOBRE O MATERIAL ACIMA: ele é um RECORTE do DCRR. Se uma habilidade citada no plano não aparecer nele, NUNCA afirme que ela \"não existe no DCRR\" — escreva \"não localizada no trecho fornecido do DCRR; confirmar no documento completo\". Só aponte uma habilidade como inválida se o próprio CÓDIGO for incompatível com o ano/componente (padrão: EF + ano com 2 dígitos + sigla do componente + número; ex: EF05LP05 = 5º ano, Língua Portuguesa). Afirmar inexistência sem certeza induz o coordenador a erro — é a falha mais grave que este parecer pode cometer.\n"
@@ -62,7 +69,7 @@ DADOS INFORMADOS PELO COORDENADOR:
 - Observações do coordenador: {$observacoes}
 
 {$dcrrBloco}
-TEXTO DO PLANEJAMENTO:
+{$referenciasBloco}TEXTO DO PLANEJAMENTO:
 {$plan}
 
 REGRA DE CORREÇÃO DE HABILIDADES: sempre que apontar erro de habilidade (código inexistente, de outro ano/componente, ou incompatível com o objeto de conhecimento/conteúdo trabalhado), INDIQUE a habilidade CORRETA para o professor substituir: localize no material do DCRR fornecido a habilidade adequada ao conteúdo e ao ano, e cite o código com um resumo curto da descrição (ex: "substituir por EF05MA08 — resolver problemas de multiplicação e divisão..."). Se a habilidade correta não estiver no material fornecido, oriente o professor a consultar a seção do DCRR daquele ano/componente — NUNCA invente um código.

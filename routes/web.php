@@ -39,6 +39,9 @@ Route::middleware(['auth', 'verified', 'subscription'])->group(function () {
         Route::patch('/superadmin/tenants/{tenant}/toggle', [SuperAdminController::class, 'tenantsToggleStatus'])->name('superadmin.tenants.toggle');
         Route::get('/superadmin/tenants/{tenant}/ianne', [SuperAdminController::class, 'iannePrompts'])->name('superadmin.tenants.ianne');
         Route::put('/superadmin/tenants/{tenant}/ianne', [SuperAdminController::class, 'iannePromptsUpdate'])->name('superadmin.tenants.ianne.update');
+        Route::post('/superadmin/tenants/{tenant}/ianne/arquivos', [SuperAdminController::class, 'ianneFileStore'])->name('superadmin.tenants.ianne.files.store');
+        Route::patch('/superadmin/tenants/{tenant}/ianne/arquivos/{file}', [SuperAdminController::class, 'ianneFileToggle'])->name('superadmin.tenants.ianne.files.toggle');
+        Route::delete('/superadmin/tenants/{tenant}/ianne/arquivos/{file}', [SuperAdminController::class, 'ianneFileDestroy'])->name('superadmin.tenants.ianne.files.destroy');
         Route::get('/superadmin/vendas/nova', [SuperAdminController::class, 'saleCreate'])->name('superadmin.sale.create');
         Route::post('/superadmin/vendas', [SuperAdminController::class, 'saleStore'])->name('superadmin.sale.store');
         Route::get('/superadmin/security', [SuperAdminController::class, 'security'])->name('superadmin.security');
