@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Session\TokenMismatchException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,6 +45,26 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        // Sessão expirada (419). Sem isto o gestor cai na tela crua
+        // "419 PAGE EXPIRED", em inglês e sem caminho de volta.
+        $this->renderable(function (TokenMismatchException $e, Request $request) {
+            $mensagem = 'A página ficou aberta tempo demais e o envio expirou. Entre novamente e refaça a operação.';
+
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json(['success' => false, 'message' => $mensagem], 419);
+            }
+
+            // Sessão ainda válida (só o token venceu): devolve ao formulário
+            // com o que já tinha sido digitado.
+            if (auth()->check()) {
+                return redirect()->back()
+                    ->withInput($request->except($this->dontFlash))
+                    ->with('error', 'O envio expirou por inatividade. Confira os dados e envie novamente.');
+            }
+
+            return redirect()->guest(route('login'))->with('status', $mensagem);
         });
     }
 }

@@ -29,6 +29,22 @@
             </div>
         @endif
 
+        @if($errors->any())
+            <div class="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-sm flex items-start gap-3 shadow-sm">
+                <svg class="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div class="space-y-1">
+                    <p class="font-semibold">Não foi possível salvar:</p>
+                    <ul class="list-disc list-inside space-y-0.5">
+                        @foreach($errors->all() as $erro)
+                            <li>{{ $erro }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
         <!-- Banner da Escola -->
         <div class="relative bg-slate-900 rounded-2xl overflow-hidden shadow-xl p-6 md:p-8 text-white border border-slate-850 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/20 via-sky-600/10 to-transparent pointer-events-none"></div>
@@ -283,17 +299,17 @@
 
                         <div class="space-y-1.5">
                             <label class="block text-xs font-semibold text-slate-600">Nome Completo</label>
-                            <input type="text" name="name" required placeholder="Ex: Milza Souza" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                            <input type="text" name="name" required value="{{ old('name') }}" placeholder="Ex: Milza Souza" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                         </div>
 
                         <div class="space-y-1.5">
                             <label class="block text-xs font-semibold text-slate-600">E-mail de Acesso</label>
-                            <input type="email" name="email" required placeholder="Ex: milza@sgp.com" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                            <input type="email" name="email" required value="{{ old('email') }}" placeholder="Ex: milza@sgp.com" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                         </div>
 
                         <div class="space-y-1.5">
                             <label class="block text-xs font-semibold text-slate-600">WhatsApp <span class="text-rose-500">*</span></label>
-                            <input type="text" name="whatsapp" required placeholder="Ex: 5595999999999" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                            <input type="text" name="whatsapp" required value="{{ old('whatsapp') }}" placeholder="Ex: 5595999999999" class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2.5 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                             <p class="text-[10px] text-slate-500">A senha inicial serão os 4 últimos dígitos deste número.</p>
                         </div>
 
