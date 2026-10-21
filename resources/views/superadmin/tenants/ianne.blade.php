@@ -78,9 +78,9 @@
 
                     <div class="space-y-1.5">
                         <label class="block text-xs font-semibold text-slate-600">Arquivo <span class="text-rose-500">*</span></label>
-                        <input type="file" name="file" required accept=".docx,.pdf,.txt"
+                        <input type="file" name="file" required accept=".docx,.doc,.pdf,.txt"
                                class="w-full text-sm border border-slate-200 rounded-xl px-4 py-2 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 cursor-pointer">
-                        <p class="text-[11px] text-slate-500">.docx, .pdf ou .txt — até 10MB.</p>
+                        <p class="text-[11px] text-slate-500">.docx, .doc, .pdf ou .txt — até 10MB.</p>
                     </div>
 
                     <div>
@@ -93,7 +93,7 @@
 
                 <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
                     <p class="text-xs text-amber-900 leading-relaxed">
-                        <strong>Prefira .docx.</strong> Word e texto são lidos direto no servidor, sem limite de tamanho.
+                        <strong>Prefira Word ou texto.</strong> .docx, .doc e .txt são lidos direto no servidor, sem limite de tamanho.
                         PDF é lido pela própria IA, cuja resposta é limitada — um PDF longo pode ser cortado no meio sem aviso.
                         PDF digitalizado (foto do papel) não é lido de jeito nenhum. O DCRR completo, de 586 páginas, não cabe
                         aqui: ele já está no sistema, fatiado por componente e ano.

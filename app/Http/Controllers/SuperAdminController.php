@@ -135,10 +135,10 @@ class SuperAdminController extends Controller
     public function ianneFileStore(Request $request, Tenant $tenant, DocumentExtractor $extractor)
     {
         $request->validate([
-            'file' => ['required', 'file', 'mimes:docx,pdf,txt', 'max:10240'],
+            'file' => ['required', 'file', 'mimes:docx,doc,pdf,txt', 'max:10240'],
             'title' => ['nullable', 'string', 'max:255'],
         ], [
-            'file.mimes' => 'Formato não suportado. Envie Word (.docx), PDF ou texto (.txt).',
+            'file.mimes' => 'Formato não suportado. Envie Word (.docx ou .doc), PDF ou texto (.txt).',
             'file.max' => 'Arquivo muito grande (máximo 10MB).',
         ]);
 

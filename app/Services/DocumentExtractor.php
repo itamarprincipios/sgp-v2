@@ -30,7 +30,7 @@ class DocumentExtractor
         } elseif ($extension === 'pdf') {
             return $this->extractFromPdf($filePath);
         } elseif ($extension === 'doc') {
-            return "[Arquivo .doc antigo - Por favor, converta para .docx para extração de conteúdo]";
+            return app(DocBinaryExtractor::class)->extract($filePath);
         } else {
             throw new Exception("Formato não suportado: $extension");
         }

@@ -56,9 +56,9 @@ class CorrectionController extends Controller
         $schoolIds = $user->getAssignedSchoolIds();
 
         $request->validate([
-            'file' => ['required', 'file', 'mimes:docx,pdf', 'max:10240'],
+            'file' => ['required', 'file', 'mimes:docx,doc,pdf', 'max:10240'],
         ], [
-            'file.mimes' => 'Formato não suportado. Envie arquivos Word (.docx) ou PDF.',
+            'file.mimes' => 'Formato não suportado. Envie arquivos Word (.docx ou .doc) ou PDF.',
             'file.max' => 'Arquivo muito grande (máximo 10MB).',
         ]);
 

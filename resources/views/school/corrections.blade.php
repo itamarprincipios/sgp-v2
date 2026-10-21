@@ -19,12 +19,12 @@
             @click="$refs.fileInput.click()"
             :class="dragging ? 'border-indigo-500 bg-indigo-50' : 'border-slate-300 bg-white hover:border-indigo-400'"
             class="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition duration-150">
-            <input type="file" x-ref="fileInput" class="hidden" multiple accept=".docx,.pdf" @change="addFiles($event.target.files); $event.target.value = ''">
+            <input type="file" x-ref="fileInput" class="hidden" multiple accept=".docx,.doc,.pdf" @change="addFiles($event.target.files); $event.target.value = ''">
             <svg class="w-12 h-12 mx-auto text-indigo-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
             </svg>
             <p class="text-sm font-bold text-slate-700">Arraste os arquivos aqui ou clique para selecionar</p>
-            <p class="text-xs text-slate-500 mt-1">Word (.docx) ou PDF — até 10MB por arquivo</p>
+            <p class="text-xs text-slate-500 mt-1">Word (.docx ou .doc) ou PDF — até 10MB por arquivo</p>
         </div>
 
         <!-- Fila de uploads em andamento -->
@@ -277,8 +277,8 @@
                     for (const file of fileList) {
                         const ext = file.name.split('.').pop().toLowerCase();
                         const key = Date.now() + '_' + Math.random().toString(36).slice(2);
-                        if (!['docx', 'pdf'].includes(ext)) {
-                            this.queue.push({ key, name: file.name, state: 'error', error: 'Formato não suportado (envie .docx ou .pdf).' });
+                        if (!['docx', 'doc', 'pdf'].includes(ext)) {
+                            this.queue.push({ key, name: file.name, state: 'error', error: 'Formato não suportado (envie .docx, .doc ou .pdf).' });
                             continue;
                         }
                         if (file.size > 10 * 1024 * 1024) {
