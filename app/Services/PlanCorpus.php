@@ -5,10 +5,14 @@ namespace App\Services;
 use App\Models\Document;
 
 /**
- * Monta o corpus de planejamentos de uma ou mais escolas para perguntas
- * amplas à IANNE ("quais professores usaram metodologia lúdica?", "erros
- * mais comuns nos planejamentos" etc.) — Fase 3 do pivô.
- * Inclui o texto extraído E o parecer salvo de cada documento.
+ * Monta o corpus de documentos de uma ou mais escolas para perguntas amplas à
+ * IANNE ("quais professores usaram metodologia lúdica?", "erros mais comuns
+ * nos planejamentos", "quantos PEIs já têm avaliação adaptada?") — Fase 3 do
+ * pivô. Inclui o texto extraído E o parecer salvo de cada documento.
+ *
+ * Cada bloco declara o TIPO do documento (DocumentKinds) e o aluno, quando
+ * individual: sem isso a IANNE responderia sobre um PEI como se fosse um
+ * planejamento de turma.
  */
 class PlanCorpus
 {
@@ -39,12 +43,14 @@ class PlanCorpus
             }
 
             $block = '### DOCUMENTO ' . ($i + 1) . ": {$doc->title}\n"
-                . 'Professor(a): ' . ($doc->user->name ?? 'não identificado')
+                . 'Tipo: ' . DocumentKinds::label($doc->kind)
+                . ' | Professor(a): ' . ($doc->user->name ?? 'não identificado')
                 . ' | Turma: ' . ($doc->schoolClass->name ?? 'não informada')
+                . ($doc->student_name ? ' | Aluno(a): ' . $doc->student_name : '')
                 . ' | Disciplina: ' . ($doc->discipline ?? 'não informada')
                 . ' | Período: ' . ($doc->reference_label ?? 'não informado')
                 . ' | Status: ' . $doc->status . "\n"
-                . "CONTEÚDO DO PLANO:\n{$content}\n";
+                . "CONTEÚDO DO DOCUMENTO:\n{$content}\n";
 
             if (!empty($doc->analysis)) {
                 $analysis = mb_substr(trim($doc->analysis), 0, self::PER_DOC_ANALYSIS);

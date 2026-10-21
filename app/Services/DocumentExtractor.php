@@ -75,7 +75,7 @@ class DocumentExtractor
         if ($ai->lastStopReason() === 'max_tokens') {
             $texto .= "\n\n[ATENÇÃO: a transcrição deste PDF foi INTERROMPIDA por limite de tamanho e está incompleta. "
                 . "NÃO afirme que algo está ausente com base no que não aparece acima — o documento continua além deste ponto. "
-                . "Recomende ao coordenador reenviar o planejamento em .docx.]";
+                . "Recomende ao coordenador reenviar o documento em .docx.]";
         }
 
         return $texto;

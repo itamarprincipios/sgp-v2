@@ -1,15 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-slate-900 leading-tight">
-            {{ __('Correções de Planejamentos') }}
+            {{ __('Central de Correção') }}
         </h2>
     </x-slot>
 
     <div class="space-y-8" x-data="correctionsPage()">
         <div>
             <h3 class="text-lg font-bold text-slate-900">Central de Correção</h3>
-            <p class="text-xs text-slate-500">Arraste os planejamentos e relatórios que você recebeu (Word ou PDF). A IANNE identifica o professor, a turma e o período — você só confirma.</p>
+            <p class="text-xs text-slate-500">Arraste tudo o que você recebeu (Word ou PDF): planejamento, PEI, relatório do professor, relatório de aluno da educação especial, relatório de educação infantil. A IANNE identifica o <strong>tipo de documento</strong>, o professor, a turma, o aluno e o período — você só confirma.</p>
         </div>
+
+        @unless($kindsReady)
+            <div class="p-4 bg-amber-50 border border-amber-300 text-amber-900 rounded-xl text-sm space-y-1">
+                <p class="font-bold">Atualização do banco pendente.</p>
+                <p>
+                    Os tipos novos de documento (PEI e relatórios) ainda não podem ser gravados porque as colunas
+                    <code class="text-xs">doc_kind</code> e <code class="text-xs">student_name</code> não existem no banco.
+                    Até o SQL da seção 8 do <code class="text-xs">PIVO-STATUS.md</code> ser executado no phpMyAdmin, a Central de
+                    Correção funciona como antes: <strong>todo parecer sai pelos critérios de planejamento</strong>. O envio e a
+                    correção de planejamentos seguem normais.
+                </p>
+            </div>
+        @endunless
 
         <!-- Dropzone -->
         <div
@@ -24,7 +37,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
             </svg>
             <p class="text-sm font-bold text-slate-700">Arraste os arquivos aqui ou clique para selecionar</p>
-            <p class="text-xs text-slate-500 mt-1">Word (.docx) ou PDF — até 10MB por arquivo</p>
+            <p class="text-xs text-slate-500 mt-1">Word (.docx) ou PDF — até 10MB por arquivo. Não precisa separar por tipo: a IANNE reconhece cada um.</p>
         </div>
 
         <!-- Fila de uploads em andamento -->
@@ -75,7 +88,11 @@
                                     </p>
                                 </template>
                             </div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 rounded-full px-2.5 py-1 shrink-0">Confirmar dados</span>
+                            <div class="flex flex-col items-end gap-1.5 shrink-0">
+                                <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 rounded-full px-2.5 py-1">Confirmar dados</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider bg-violet-100 text-violet-800 rounded-full px-2.5 py-1"
+                                      x-text="'IANNE: ' + kindInfo(doc.doc_kind).badge"></span>
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                             <div class="sm:col-span-2 lg:col-span-3">
@@ -106,17 +123,33 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="text-xs font-semibold text-slate-600">Tipo</label>
-                                <select x-model="doc.type" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="planejamento">Planejamento</option>
-                                    <option value="relatorio">Relatório</option>
-                                    <option value="outro">Outro documento</option>
+                                <label class="text-xs font-semibold text-slate-600">Tipo de documento</label>
+                                <select x-model="doc.doc_kind" @unless($kindsReady) disabled @endunless
+                                        class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500 disabled:bg-slate-100 disabled:text-slate-500">
+                                    @foreach($kinds as $chave => $kind)
+                                        <option value="{{ $chave }}">{{ $kind['label'] }}</option>
+                                    @endforeach
                                 </select>
+                                <p class="text-[11px] text-slate-500 mt-1">
+                                    @if($kindsReady)
+                                        É o tipo que define por quais critérios a IANNE corrige. Troque se ela errou.
+                                    @else
+                                        Bloqueado até a atualização do banco (aviso no topo da página).
+                                    @endif
+                                </p>
                             </div>
-                            <div>
-                                <label class="text-xs font-semibold text-slate-600">Disciplina</label>
-                                <input type="text" x-model="doc.discipline" placeholder="Ex: Polivalente" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
-                            </div>
+                            <template x-if="kindsReady && kindInfo(doc.doc_kind).pede_aluno">
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-600">Aluno(a)/criança</label>
+                                    <input type="text" x-model="doc.student_name" placeholder="Nome de quem o documento trata" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </template>
+                            <template x-if="kindInfo(doc.doc_kind).pede_disciplina">
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-600">Disciplina</label>
+                                    <input type="text" x-model="doc.discipline" placeholder="Ex: Polivalente" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                                </div>
+                            </template>
                             <div>
                                 <label class="text-xs font-semibold text-slate-600">Período de referência</label>
                                 <input type="text" x-model="doc.reference_label" placeholder="Ex: 1º Bimestre {{ now()->year }}" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
@@ -160,7 +193,7 @@
                                 <tr class="hover:bg-slate-50 transition">
                                     <td class="px-4 py-3">
                                         <p class="text-sm font-medium text-slate-800">{{ $doc->title }}</p>
-                                        <p class="text-xs text-slate-400">{{ ucfirst($doc->type) }}{{ $doc->discipline ? ' · ' . $doc->discipline : '' }} · enviado por {{ $doc->uploadedBy->name ?? 'N/A' }} em {{ $doc->created_at->format('d/m/Y') }}</p>
+                                        <p class="text-xs text-slate-400">{{ $doc->kind_badge }}{{ $doc->student_name ? ' · ' . $doc->student_name : '' }}{{ $doc->discipline ? ' · ' . $doc->discipline : '' }} · enviado por {{ $doc->uploadedBy->name ?? 'N/A' }} em {{ $doc->created_at->format('d/m/Y') }}</p>
                                     </td>
                                     <td class="px-4 py-3 text-sm text-slate-700">{{ $doc->user->name ?? '—' }}</td>
                                     <td class="px-4 py-3 text-sm text-slate-700">{{ $doc->schoolClass->name ?? '—' }}</td>
@@ -174,7 +207,7 @@
                                     </td>
                                     <td class="px-4 py-3 text-right">
                                         <div class="flex items-center justify-end gap-3">
-                                            <button @click="openAnalysis(@js($doc->id), @js($doc->title), @js($doc->reference_label ?? ''), @js($doc->analysis ?? ''))" class="text-xs font-bold text-violet-600 hover:text-violet-800">{{ $doc->analysis ? 'Ver análise' : 'Analisar' }}</button>
+                                            <button @click="openAnalysis(@js($doc->id), @js($doc->title), @js($doc->reference_label ?? ''), @js($doc->analysis ?? ''), @js($doc->kind))" class="text-xs font-bold text-violet-600 hover:text-violet-800">{{ $doc->analysis ? 'Ver análise' : 'Analisar' }}</button>
                                             @if($doc->analysis)
                                                 <button @click="approveDoc({{ $doc->id }})" class="text-xs font-bold text-emerald-600 hover:text-emerald-800">Aprovar</button>
                                             @endif
@@ -204,16 +237,22 @@
                     <button @click="closeAnalysis()" class="text-slate-400 hover:text-slate-600 text-xl leading-none">&times;</button>
                 </div>
                 <div class="p-6 space-y-5">
-                    <p class="text-xs text-slate-500">Confirme os dados abaixo — a IANNE usa isso para checar a vigência e a carga horária — e gere o parecer.</p>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold uppercase tracking-wider bg-violet-100 text-violet-800 rounded-full px-2.5 py-1"
+                              x-text="kindInfo(analysisDoc.kind).badge"></span>
+                        <p class="text-xs text-slate-500" x-text="analysisHint()"></p>
+                    </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
-                            <label class="text-xs font-semibold text-slate-600">Período de vigência</label>
+                            <label class="text-xs font-semibold text-slate-600" x-text="kindInfo(analysisDoc.kind).usa_calendario ? 'Período de vigência' : 'Período de referência'"></label>
                             <input type="text" x-model="analysisDoc.vigencia" placeholder="Ex: 04/05 a 29/05/2026" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
                         </div>
-                        <div>
-                            <label class="text-xs font-semibold text-slate-600">Nº de aulas previstas</label>
-                            <input type="text" x-model="analysisDoc.aulas" placeholder="Ex: 20" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
-                        </div>
+                        <template x-if="kindInfo(analysisDoc.kind).pede_aulas">
+                            <div>
+                                <label class="text-xs font-semibold text-slate-600">Nº de aulas previstas</label>
+                                <input type="text" x-model="analysisDoc.aulas" placeholder="Ex: 20" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
+                            </div>
+                        </template>
                         <div>
                             <label class="text-xs font-semibold text-slate-600">Observações (opcional)</label>
                             <input type="text" x-model="analysisDoc.observacoes" placeholder="Algo a destacar" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
@@ -249,11 +288,12 @@
             return [
                 'id' => $d->id,
                 'title' => $d->title,
-                'type' => $d->type,
+                'doc_kind' => $d->kind,
                 'file_name' => $d->file_path,
                 'professor_id' => $d->user_id ? (string) $d->user_id : '',
                 'class_id' => $d->class_id ? (string) $d->class_id : '',
                 'discipline' => $d->discipline,
+                'student_name' => $d->student_name,
                 'reference_label' => $d->reference_label,
                 'professor_name_detected' => null,
                 'class_name_detected' => null,
@@ -270,8 +310,18 @@
                 queue: [],
                 // Documentos já subidos que ainda aguardam confirmação (recarregamento de página)
                 pending: @json($pendingDocs),
+                // Catálogo de tipos (App\Services\DocumentKinds): decide quais
+                // campos o card e o diálogo de análise mostram.
+                kinds: @json($kinds),
+                kindsReady: @json($kindsReady),
                 csrf: document.querySelector('meta[name="csrf-token"]').content,
                 uploading: 0,
+
+                // Tipo desconhecido (documento antigo, catálogo mudado) não
+                // pode sumir com os campos da tela — cai em "outro".
+                kindInfo(key) {
+                    return this.kinds[key] || this.kinds['outro'] || { label: 'Documento', badge: 'Documento', pede_aluno: true, pede_disciplina: true, pede_aulas: false, usa_calendario: false };
+                },
 
                 addFiles(fileList) {
                     for (const file of fileList) {
@@ -361,11 +411,12 @@
                         await this.request('{{ route('school.corrections.confirm') }}', 'POST', {
                             id: doc.id,
                             title: doc.title,
-                            type: doc.type,
+                            doc_kind: doc.doc_kind,
                             professor_id: creatingProf ? null : (doc.professor_id || null),
                             new_professor_name: creatingProf ? doc.new_professor_name.trim() : null,
                             class_id: doc.class_id || null,
                             discipline: doc.discipline || null,
+                            student_name: doc.student_name || null,
                             reference_label: doc.reference_label || null,
                         });
                         this.pending = this.pending.filter(p => p.id !== doc.id);
@@ -401,7 +452,7 @@
                 },
 
                 async approveDoc(id) {
-                    if (!confirm('Aprovar este planejamento? Ele sai da Central de Correção e passa a compor o histórico do professor.')) return;
+                    if (!confirm('Aprovar este documento? Ele sai da Central de Correção e passa a compor o histórico do professor.')) return;
                     try {
                         await this.request('{{ route('school.corrections.approve') }}', 'POST', { id });
                         window.location.reload();
@@ -417,11 +468,20 @@
                 // ===== Análise da IANNE (Fase 2) =====
                 analysisOpen: false,
                 analysisBusy: false,
-                analysisDoc: { id: null, title: '', vigencia: '', aulas: '', observacoes: '', report: '' },
+                analysisDoc: { id: null, title: '', kind: 'planejamento', vigencia: '', aulas: '', observacoes: '', report: '' },
 
-                openAnalysis(id, title, vigencia, existing) {
-                    this.analysisDoc = { id, title, vigencia: vigencia || '', aulas: '', observacoes: '', report: existing || '' };
+                openAnalysis(id, title, vigencia, existing, kind) {
+                    this.analysisDoc = { id, title, kind: kind || 'planejamento', vigencia: vigencia || '', aulas: '', observacoes: '', report: existing || '' };
                     this.analysisOpen = true;
+                },
+
+                // Cada tipo é corrigido por critérios próprios — dizer qual
+                // evita o parecer "errado" que na verdade é tipo errado.
+                analysisHint() {
+                    const info = this.kindInfo(this.analysisDoc.kind);
+                    return info.usa_calendario
+                        ? 'Confirme os dados abaixo — a IANNE usa isso para checar a vigência e a carga horária — e gere o parecer.'
+                        : 'A IANNE vai corrigir este documento pelos critérios de "' + info.label + '". Confirme o período e gere o parecer.';
                 },
 
                 closeAnalysis() {

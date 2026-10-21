@@ -8,9 +8,10 @@ use App\Services\PlanCorpus;
 use Illuminate\Http\Request;
 
 /**
- * IANNE Assistente — perguntas amplas sobre o conjunto de planejamentos da
- * escola (metodologias usadas, contagens, erros recorrentes para oficinas
- * de formação etc.). Fase 3 do pivô — AGENTS.md seção 14.
+ * IANNE Assistente — perguntas amplas sobre o conjunto de documentos da escola
+ * (metodologias usadas, contagens, erros recorrentes para oficinas de formação
+ * etc.). O corpus mistura planejamento, PEI e relatórios, cada bloco com o seu
+ * tipo. Fase 3 do pivô — AGENTS.md seção 14.
  */
 class AssistantController extends Controller
 {
@@ -31,7 +32,7 @@ class AssistantController extends Controller
     }
 
     /**
-     * Recebe a pergunta, monta o corpus dos planejamentos e responde.
+     * Recebe a pergunta, monta o corpus dos documentos da escola e responde.
      */
     public function ask(Request $request, PlanCorpus $corpus, AIService $ai)
     {
@@ -47,12 +48,12 @@ class AssistantController extends Controller
         if ($data['included'] === 0) {
             return response()->json([
                 'success' => true,
-                'answer' => 'Ainda não há planejamentos com texto extraído nesta escola. Envie documentos pela Central de Correção e volte a perguntar.',
+                'answer' => 'Ainda não há documentos com texto extraído nesta escola. Envie planejamentos, PEIs ou relatórios pela Central de Correção e volte a perguntar.',
             ]);
         }
 
         $cobertura = $data['included'] < $data['total']
-            ? "ATENÇÃO: por limite de espaço, você está vendo os {$data['included']} documentos mais recentes de um total de {$data['total']}. Ao responder contagens ou levantamentos, deixe claro que a análise cobre os {$data['included']} planejamentos mais recentes."
+            ? "ATENÇÃO: por limite de espaço, você está vendo os {$data['included']} documentos mais recentes de um total de {$data['total']}. Ao responder contagens ou levantamentos, deixe claro que a análise cobre os {$data['included']} documentos mais recentes."
             : "Você está vendo TODOS os {$data['total']} documentos da escola.";
 
         $b = \App\Services\PromptSettings::for($user->tenant_id);
@@ -68,6 +69,7 @@ REGRAS:
 - Responda SOMENTE com base nos documentos fornecidos. Não invente professores, planos ou práticas que não estejam neles.
 - Ao citar um achado, identifique a fonte: nome do professor e título/período do documento.
 - Em contagens e levantamentos ("quantos professores usaram X"), liste nominalmente quem usou, para a resposta ser conferível.
+- Cada documento traz o seu TIPO (planejamento, PEI, relatório do professor, relatório de aluno da educação especial, relatório de educação infantil). Respeite-o: não trate um relatório ou um PEI como planejamento de turma, e em contagens só conte os documentos do tipo perguntado.
 - Se a pergunta não puder ser respondida com os documentos disponíveis, diga isso claramente.
 - {$cobertura}
 - Responda em português, em markdown, de forma organizada e direta.{$regrasExtra}

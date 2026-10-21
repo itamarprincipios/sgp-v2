@@ -2,7 +2,7 @@
 
 > **Para agentes de IA:** este arquivo é o log passo a passo da implementação do pivô descrito na **seção 14 do AGENTS.md**. Leia os dois antes de continuar qualquer trabalho. Atualize este arquivo a cada passo concluído.
 
-**Última atualização:** 25/08/2026
+**Última atualização:** 21/10/2026
 **Fase atual:** Fases 1 e 2 CONCLUÍDAS — próxima: Fase 3 (diagnóstico da rede)
 
 ---
@@ -38,6 +38,7 @@
 ## Fase 3 (INICIADA em 04/07/2026)
 
 - [x] **IANNE Assistente (escola)** — commit `338bb21`: item "IANNE (Assistente)" na sidebar de diretor/vice/coordenador → chat em `/school/ianne`. `PlanCorpus` monta o corpus dos planejamentos da(s) escola(s) (conteúdo ~2,2k chars + parecer ~900 chars por doc, teto 280k, mais recentes primeiro; avisa cobertura parcial no prompt). `AssistantController@ask` responde citando professor/documento e listando nominalmente em contagens; histórico salvo em `ai_queries` (`context_filters->tipo = planejamentos_escola`; colunas reais: question/response/response_time_ms/context_filters).
+- [x] **IANNE multi-documento (21/10/2026)** — a Central de Correção deixa de ser só de planejamento. O MESMO campo de envio recebe planejamento, **PEI**, **relatório do professor**, **relatório de aluno da educação especial** e **relatório de educação infantil**; a IANNE identifica o tipo no upload (`MetadataInference` devolve `doc_kind` + `student_name`) e o coordenador só confirma (pode trocar o tipo no card). Catálogo em `App\Services\DocumentKinds`: cada tipo declara como é reconhecido, que campos o card pede (aluno/disciplina), se usa DCRR e calendário, sua persona e suas regras fixas. O parecer passa a ter rubrica por tipo — `PlanAnalyzer::promptPlanejamento` segue intacto (prompt afinado da Fase 2) e os demais tipos usam `promptDocumento`, com critérios/erros graves editáveis por município no grupo "Outros documentos (PEI e relatórios)" da tela de prompts. Regras travadas no código, por tipo: no PEI não se exige laudo para atendimento e diagnóstico não é do professor; na educação infantil não há nota, conceito nem comparação entre crianças; nos relatórios, evolução se descreve por evidência, não por adjetivo. `PlanCorpus` passa o tipo e o aluno de cada bloco, para a IANNE Assistente não tratar PEI como plano de turma. **Requer o SQL da seção 8.**
 - [ ] Versão SEMED/Seduc do assistente (corpus multi-escola, comparativos entre escolas)
 - [ ] Reescrever estatísticas do `ContextBuilder`/dashboards (sai "enviados/atrasados", entra "corrigidos/metodologias/temas")
 
@@ -189,6 +190,22 @@ CREATE TABLE tenant_reference_files (
 > O que entra no prompt é o `content_text` extraído no upload, não o arquivo.
 > A geração de pareceres continua funcionando normalmente com os prompts padrão.
 
+### 8. Tipos de documento na Central de Correção (commit desta entrega — ⚠️ PENDENTE)
+
+```sql
+ALTER TABLE documents
+  ADD COLUMN doc_kind VARCHAR(40) NULL AFTER type,
+  ADD COLUMN student_name VARCHAR(255) NULL AFTER discipline;
+```
+
+> O enum de `documents.type` NÃO muda: o tipo fino vai em `doc_kind` e o `type`
+> continua recebendo o balde correspondente (`planejamento`/`relatorio`/`outro`),
+> derivado automaticamente, para não quebrar telas e relatórios legados.
+> Documentos antigos ficam com `doc_kind` NULL e são lidos pelo `type`
+> (`DocumentKinds::resolve`) — não há backfill a fazer.
+> **Enquanto este SQL não rodar, a Central de Correção quebra no upload** (a
+> inferência tenta gravar colunas que não existem).
+
 ---
 
 ## Histórico passo a passo
@@ -205,3 +222,4 @@ CREATE TABLE tenant_reference_files (
 | 04/07/2026 | `e01ce70`, `a15894e` | `AIService` via `config()`; **troca de provedor Gemini → Claude (Anthropic)** |
 | 04/07/2026 | `da07786`, `c7a4502` | **Fase 2 completa**: parecer da IANNE (rubrica de 10 critérios), botão Analisar + diálogo, parecer editável; fix das aspas no `@click` |
 | 04/07/2026 | `13d6bd5`+`70283fa` | Fix indevido de email placeholder aplicado e revertido (email NULL é design — ver migration `2026_07_04_000001`) |
+| 21/10/2026 | (esta entrega) | **IANNE multi-documento**: catálogo `DocumentKinds`, identificação automática do tipo no upload, rubrica de parecer por tipo (PEI e relatórios), campo de aluno, rubricas editáveis por município. SQL da seção 8 pendente |

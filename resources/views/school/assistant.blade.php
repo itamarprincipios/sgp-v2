@@ -7,8 +7,8 @@
 
     <div class="space-y-6" x-data="assistantPage()">
         <div>
-            <h3 class="text-lg font-bold text-slate-900">Pergunte sobre os planejamentos da escola</h3>
-            <p class="text-xs text-slate-500">A IANNE varre os planejamentos e pareceres da escola para responder perguntas analíticas — sobre um professor, uma turma, um ano inteiro ou a escola toda.</p>
+            <h3 class="text-lg font-bold text-slate-900">Pergunte sobre os documentos da escola</h3>
+            <p class="text-xs text-slate-500">A IANNE varre os documentos e pareceres da escola — planejamentos, PEIs e relatórios — para responder perguntas analíticas sobre um professor, uma turma, um aluno, um ano inteiro ou a escola toda.</p>
         </div>
 
         <!-- Conversa -->
@@ -17,7 +17,7 @@
                 <template x-if="messages.length === 0">
                     <div class="text-center py-12">
                         <div class="w-14 h-14 mx-auto rounded-2xl bg-violet-100 text-violet-600 flex items-center justify-center font-bold text-xl mb-3">IA</div>
-                        <p class="text-sm text-slate-500">Faça sua primeira pergunta sobre os planejamentos da escola.</p>
+                        <p class="text-sm text-slate-500">Faça sua primeira pergunta sobre os documentos da escola.</p>
                         <p class="text-xs text-slate-400 mt-1">Pode perguntar sobre um professor específico, uma turma, todos os 5º anos, a escola inteira...</p>
                     </div>
                 </template>
@@ -36,14 +36,14 @@
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                         </svg>
-                        A IANNE está varrendo os planejamentos...
+                        A IANNE está varrendo os documentos...
                     </div>
                 </div>
             </div>
 
             <div class="border-t border-slate-100 p-4">
                 <form @submit.prevent="send()" class="flex items-end gap-3">
-                    <textarea x-model="question" @keydown.enter.prevent="send()" rows="2" maxlength="1000" placeholder="Escreva sua pergunta sobre os planejamentos da escola..." class="flex-1 text-sm rounded-xl border-slate-300 text-slate-900 focus:border-violet-500 focus:ring-violet-500 resize-none"></textarea>
+                    <textarea x-model="question" @keydown.enter.prevent="send()" rows="2" maxlength="1000" placeholder="Escreva sua pergunta sobre os documentos da escola..." class="flex-1 text-sm rounded-xl border-slate-300 text-slate-900 focus:border-violet-500 focus:ring-violet-500 resize-none"></textarea>
                     <button type="submit" :disabled="busy || !question.trim()" class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold rounded-xl shadow transition disabled:opacity-50 shrink-0">
                         Perguntar
                     </button>

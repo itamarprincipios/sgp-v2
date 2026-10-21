@@ -58,14 +58,64 @@ class PromptSettings
         'assistente_persona' => [
             'grupo' => 'assistente',
             'label' => 'Quem a IANNE é no chat',
-            'ajuda' => 'Abre o prompt do assistente que responde perguntas sobre o conjunto de planejamentos.',
-            'default' => 'Você é a IANNE, assistente pedagógica de uma escola municipal de Roraima. O coordenador/diretor vai fazer uma pergunta sobre o CONJUNTO de planejamentos abaixo (metodologias usadas, contagens, comparações, erros recorrentes, sugestões de formação etc.).',
+            'ajuda' => 'Abre o prompt do assistente que responde perguntas sobre o conjunto de documentos da escola.',
+            'default' => 'Você é a IANNE, assistente pedagógica de uma escola municipal de Roraima. O coordenador/diretor vai fazer uma pergunta sobre o CONJUNTO de documentos abaixo — planejamentos, PEIs e relatórios de professores, de alunos da educação especial e da educação infantil (metodologias usadas, contagens, comparações, erros recorrentes, sugestões de formação etc.).',
         ],
         'assistente_extra' => [
             'grupo' => 'assistente',
             'label' => 'Regras adicionais do chat (opcional)',
             'ajuda' => 'Acrescentado à lista de regras. As regras de citar a fonte e de não inventar professores são fixas e continuam valendo.',
             'default' => '',
+        ],
+
+        // ---------- Outros documentos (PEI e relatórios) ----------
+        'doc_pei_criterios' => [
+            'grupo' => 'documentos',
+            'label' => 'PEI — critérios a verificar',
+            'ajuda' => 'A rubrica do Plano Educacional Individualizado. Checklist interno: não vira seção do parecer. Separe por ponto e vírgula.',
+            'default' => 'identificação do aluno (nome, turma, idade, informações de diagnóstico quando houver) e dos profissionais responsáveis; descrição do nível atual de desenvolvimento (o que o aluno faz com autonomia, o que faz com apoio e o que ainda não faz); objetivos/metas individualizados, observáveis e com prazo (curto, médio e longo prazo); relação das metas com o currículo da turma (flexibilização e adaptação, nunca currículo paralelo); adaptações de acesso (recursos, tecnologia assistiva, mobiliário, comunicação alternativa) e adaptações curriculares; estratégias e metodologias específicas, com papel definido do professor regente e do professor do AEE; forma de avaliação adaptada, com instrumentos; previsão de reavaliação/revisão do PEI; participação da família e da rede de apoio (saúde, terapias); coerência entre as barreiras descritas, as metas e as adaptações propostas.',
+        ],
+        'doc_pei_erros' => [
+            'grupo' => 'documentos',
+            'label' => 'PEI — o que conta como erro grave',
+            'ajuda' => 'A seção "⚠️ Erros graves" do parecer de PEI só aparece se um destes for encontrado. Um item por linha, começando com hífen.',
+            'default' => "- PEI sem objetivos/metas, ou com metas genéricas que serviriam para qualquer aluno;\n- ausência de adaptações (de acesso ou curriculares) quando o próprio documento descreve barreiras;\n- ausência de forma de avaliação adaptada;\n- ausência de previsão de reavaliação do plano;\n- texto padronizado que não descreve ESTE aluno (trocar o nome serviria para qualquer um);\n- professor atribuindo diagnóstico ao aluno.",
+        ],
+        'doc_rel_professor_criterios' => [
+            'grupo' => 'documentos',
+            'label' => 'Relatório do professor — critérios a verificar',
+            'ajuda' => 'A rubrica do relatório de período que o professor escreve sobre a turma. Separe por ponto e vírgula.',
+            'default' => 'identificação (professor, turma, componente, período); conteúdos e habilidades efetivamente trabalhados no período, confrontados com o que estava planejado; descrição do desenvolvimento da turma com DADOS e exemplos concretos (quantos alunos em cada nível, frequência, participação), não só impressões; principais dificuldades de aprendizagem identificadas, com exemplos; estratégias já adotadas diante dessas dificuldades e o resultado de cada uma; proposta de intervenção/recuperação para o período seguinte, com responsáveis e prazos; alunos que precisam de acompanhamento específico e para onde foram encaminhados (coordenação, AEE, saúde, família); registro da relação com as famílias; coerência entre as dificuldades apontadas e as intervenções propostas.',
+        ],
+        'doc_rel_professor_erros' => [
+            'grupo' => 'documentos',
+            'label' => 'Relatório do professor — o que conta como erro grave',
+            'ajuda' => 'Um item por linha, começando com hífen.',
+            'default' => "- nenhuma proposta de intervenção ou encaminhamento diante das dificuldades relatadas;\n- relatório genérico, que serviria para qualquer turma (sem dados, sem exemplos);\n- juízo de valor que culpabiliza aluno ou família sem descrever o fato observado;\n- turma ou período não identificados;\n- diagnóstico de deficiência ou transtorno atribuído pelo professor.",
+        ],
+        'doc_rel_aluno_criterios' => [
+            'grupo' => 'documentos',
+            'label' => 'Relatório de aluno da educação especial — critérios a verificar',
+            'ajuda' => 'A rubrica do relatório individual do aluno público da educação especial. Separe por ponto e vírgula.',
+            'default' => 'identificação do aluno, turma, período e profissionais que acompanham; situação de partida (o que o aluno já fazia no início do período); evolução descrita por evidências e episódios observados, não por adjetivos; relação com as metas do PEI (alcançadas, parcialmente alcançadas, não alcançadas); barreiras encontradas (de acesso, de comunicação, atitudinais, curriculares); adaptações e recursos utilizados e o efeito de cada um; participação do aluno nas atividades coletivas (inclusão real, não apenas presença); encaminhamentos e próximas metas sugeridas; interlocução registrada com a família e com o AEE/serviços de saúde; linguagem respeitosa, pessoa-primeiro, sem rótulos.',
+        ],
+        'doc_rel_aluno_erros' => [
+            'grupo' => 'documentos',
+            'label' => 'Relatório de aluno da educação especial — o que conta como erro grave',
+            'ajuda' => 'Um item por linha, começando com hífen.',
+            'default' => "- relatório sem nenhuma evidência concreta (só adjetivos como \"evoluiu bem\" ou \"é carinhoso\");\n- ausência de próximas metas ou encaminhamentos;\n- professor atribuindo, confirmando ou alterando diagnóstico;\n- linguagem estigmatizante, comparação com os demais alunos ou trecho que reduz o aluno ao diagnóstico;\n- relatório que só registra presença, sem nada sobre aprendizagem;\n- aluno ou período não identificados.",
+        ],
+        'doc_rel_infantil_criterios' => [
+            'grupo' => 'documentos',
+            'label' => 'Relatório de educação infantil — critérios a verificar',
+            'ajuda' => 'A rubrica do relatório descritivo da criança. Separe por ponto e vírgula.',
+            'default' => 'identificação (criança, agrupamento/turma, período, professora); registro organizado pelos campos de experiência da BNCC, apontando quais ficaram sem registro; direitos de aprendizagem visíveis no relato (conviver, brincar, participar, explorar, expressar, conhecer-se); descrição baseada em episódios concretos do cotidiano (falas da criança, brincadeiras, interações), com referência à documentação pedagógica (portfólio, registros, fotos) quando houver; avanços descritos como processo, considerando a criança em relação a ela mesma; linguagem acessível à família, sem jargão e sem rótulo; indicação do que a escola fará para continuar apoiando o desenvolvimento; coerência entre o que foi observado e o que é proposto.',
+        ],
+        'doc_rel_infantil_erros' => [
+            'grupo' => 'documentos',
+            'label' => 'Relatório de educação infantil — o que conta como erro grave',
+            'ajuda' => 'Um item por linha, começando com hífen.',
+            'default' => "- avaliação classificatória (nota, conceito, \"atingiu/não atingiu\", aprovado/reprovado);\n- comparação da criança com outras crianças ou com um padrão de turma;\n- texto padronizado que não descreve ESTA criança (sem episódios: trocar o nome serviria para qualquer uma);\n- nenhum registro dos campos de experiência da BNCC;\n- rótulo ou diagnóstico atribuído à criança pelo professor;\n- criança ou período não identificados.",
         ],
 
         // ---------- Inferência de metadados (upload) ----------
@@ -93,15 +143,20 @@ class PromptSettings
             'descricao' => 'O parecer que o coordenador recebe ao clicar em "Analisar". É o que gera valor no dia a dia.',
             'fixo' => 'Continuam travados no código: a proibição de afirmar que uma habilidade "não existe no DCRR" (o material enviado é sempre um recorte), a obrigação de sugerir a habilidade correta ao apontar erro, a regra de que fim de semana não é dia letivo salvo observação do coordenador, e o formato das cinco seções do parecer.',
         ],
+        'documentos' => [
+            'titulo' => 'Outros documentos (PEI e relatórios)',
+            'descricao' => 'Rubricas dos documentos que não são planejamento. A IANNE identifica o tipo sozinha no upload e corrige cada um pelos critérios do seu tipo.',
+            'fixo' => 'Continuam travados no código: a identificação automática do tipo de documento, a persona de cada tipo, o formato das cinco seções do parecer e as regras de integridade de cada documento — não exigir laudo para atendimento no PEI, diagnóstico não é atribuição do professor, nada de nota ou comparação entre crianças na educação infantil, e relato por evidência em vez de adjetivo.',
+        ],
         'assistente' => [
             'titulo' => 'IANNE Assistente (chat da escola)',
-            'descricao' => 'O chat que responde perguntas sobre o conjunto de planejamentos da escola.',
+            'descricao' => 'O chat que responde perguntas sobre o conjunto de documentos da escola (planejamentos, PEIs e relatórios).',
             'fixo' => 'Continuam travados: responder somente com base nos documentos, identificar professor e documento ao citar um achado, listar nominalmente em contagens, e avisar quando a análise cobre só os documentos mais recentes.',
         ],
         'inferencia' => [
             'titulo' => 'Inferência de metadados (upload)',
-            'descricao' => 'O que a IANNE identifica sozinha quando o coordenador arrasta um arquivo: professor, turma, disciplina e período.',
-            'fixo' => 'Continuam travados: o formato JSON da resposta (mexer nele quebra a tela de correções) e as regras de comparação de nomes ignorando acentos e abreviações.',
+            'descricao' => 'O que a IANNE identifica sozinha quando o coordenador arrasta um arquivo: tipo de documento, professor, turma, aluno, disciplina e período.',
+            'fixo' => 'Continuam travados: o formato JSON da resposta (mexer nele quebra a tela de correções), a identificação automática do TIPO de documento (planejamento, PEI, relatório do professor, relatório de aluno da educação especial, relatório de educação infantil) e as regras de comparação de nomes ignorando acentos e abreviações.',
         ],
     ];
 

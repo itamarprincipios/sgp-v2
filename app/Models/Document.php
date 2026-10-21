@@ -20,10 +20,12 @@ class Document extends Model
         'class_id',
         'title',
         'discipline',
+        'student_name',
         'reference_label',
         'analysis',
         'analyzed_at',
         'type',
+        'doc_kind',
         'file_path',
         'content_text',
         'content_extracted_at',
@@ -97,6 +99,50 @@ class Document extends Model
         $base = rtrim(config('app.url') ?: request()->getSchemeAndHttpHost(), '/');
 
         return $base . '/uploads/' . rawurlencode($this->file_path);
+    }
+
+    /**
+     * Se o banco já tem as colunas do catálogo de tipos (`doc_kind`,
+     * `student_name`).
+     *
+     * O autodeploy da Hostinger sobe o código mas NÃO roda migrations: entre o
+     * push e o ALTER TABLE manual no phpMyAdmin existe uma janela em que essas
+     * colunas não existem. Gravar nelas aí derrubaria o upload — o fluxo diário
+     * do coordenador. Então, nessa janela, a Central de Correção segue
+     * funcionando como antes (só planejamento) e avisa na tela que a
+     * atualização do banco está pendente.
+     */
+    public static function supportsKinds(): bool
+    {
+        static $suporta = null;
+
+        if ($suporta === null) {
+            try {
+                $suporta = \Illuminate\Support\Facades\Schema::hasColumn('documents', 'doc_kind')
+                    && \Illuminate\Support\Facades\Schema::hasColumn('documents', 'student_name');
+            } catch (\Throwable $e) {
+                $suporta = false;
+            }
+        }
+
+        return $suporta;
+    }
+
+    /**
+     * Tipo fino do documento (planejamento, PEI, relatórios) — cai no balde
+     * antigo `type` quando o registro é anterior ao catálogo de tipos.
+     */
+    public function getKindAttribute(): string
+    {
+        return \App\Services\DocumentKinds::keyFor($this);
+    }
+
+    /**
+     * Rótulo curto do tipo, para badges e listagens.
+     */
+    public function getKindBadgeAttribute(): string
+    {
+        return \App\Services\DocumentKinds::badge($this->kind);
     }
 
     /**

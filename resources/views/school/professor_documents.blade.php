@@ -41,7 +41,7 @@
                             <tr class="hover:bg-slate-50 transition">
                                 <td class="px-4 py-3">
                                     <p class="text-sm font-medium text-slate-800">{{ $doc->title }}</p>
-                                    <p class="text-xs text-slate-400">{{ ucfirst($doc->type) }}{{ $doc->discipline ? ' · ' . $doc->discipline : '' }} · {{ $doc->created_at->format('d/m/Y') }}</p>
+                                    <p class="text-xs text-slate-400">{{ $doc->kind_badge }}{{ $doc->student_name ? ' · ' . $doc->student_name : '' }}{{ $doc->discipline ? ' · ' . $doc->discipline : '' }} · {{ $doc->created_at->format('d/m/Y') }}</p>
                                 </td>
                                 <td class="px-4 py-3 text-sm text-slate-700">{{ $doc->schoolClass->name ?? '—' }}</td>
                                 <td class="px-4 py-3 text-sm text-slate-700">{{ $doc->reference_label ?? '—' }}</td>

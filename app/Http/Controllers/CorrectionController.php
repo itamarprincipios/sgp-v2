@@ -6,17 +6,23 @@ use App\Models\Document;
 use App\Models\SchoolClass;
 use App\Models\User;
 use App\Services\DocumentExtractor;
+use App\Services\DocumentKinds;
 use App\Services\MetadataInference;
 use App\Services\PlanAnalyzer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 /**
- * Fluxo de correção de planejamentos — pivô "Plataforma de Correção" (AGENTS.md seção 14).
- * O coordenador arrasta os documentos que já recebeu (e-mail/WhatsApp), a IA infere
- * os metadados (professor, turma, disciplina, período) e ele apenas confirma.
+ * Fluxo de correção de documentos pedagógicos — pivô "Plataforma de Correção"
+ * (AGENTS.md seção 14). O coordenador arrasta, num campo de envio só, tudo o
+ * que recebeu por e-mail/WhatsApp — planejamento, PEI, relatório do professor,
+ * relatório de aluno da educação especial, relatório de educação infantil. A
+ * IANNE identifica o TIPO e os metadados (professor, turma, aluno, disciplina,
+ * período); ele apenas confirma. O tipo decide a rubrica do parecer
+ * (App\Services\DocumentKinds).
  */
 class CorrectionController extends Controller
 {
@@ -43,7 +49,12 @@ class CorrectionController extends Controller
             ->orderBy('name')
             ->get(['id', 'name']);
 
-        return view('school.corrections', compact('documents', 'professors', 'classes'));
+        $kinds = DocumentKinds::forFrontend();
+        // Falso só na janela entre o push e o ALTER TABLE manual em produção
+        // (ver Document::supportsKinds) — a tela avisa e segue só com plano.
+        $kindsReady = Document::supportsKinds();
+
+        return view('school.corrections', compact('documents', 'professors', 'classes', 'kinds', 'kindsReady'));
     }
 
     /**
@@ -62,6 +73,8 @@ class CorrectionController extends Controller
             'file.max' => 'Arquivo muito grande (máximo 10MB).',
         ]);
 
+        $kindsReady = Document::supportsKinds();
+
         $file = $request->file('file');
         $originalName = $file->getClientOriginalName();
         $fileName = time() . '_' . preg_replace('/[^A-Za-z0-9._-]/', '_', $originalName);
@@ -72,11 +85,11 @@ class CorrectionController extends Controller
             'uploaded_by' => $user->id,
             'school_id' => $user->school_id ?? ($schoolIds[0] ?? null),
             'title' => pathinfo($originalName, PATHINFO_FILENAME),
-            'type' => 'planejamento',
+            'type' => DocumentKinds::legacyType(DocumentKinds::DEFAULT),
             'file_path' => $fileName,
             'status' => 'aguardando_confirmacao',
             'submitted_at' => now(),
-        ]);
+        ] + ($kindsReady ? ['doc_kind' => DocumentKinds::DEFAULT] : []));
 
         // Extração de texto (docx local, PDF via Gemini multimodal)
         $extraction = $extractor->extractAndSave($document->id);
@@ -93,7 +106,10 @@ class CorrectionController extends Controller
                 'discipline' => $inferred['discipline'],
                 'reference_label' => $inferred['reference_label'],
                 'type' => $inferred['type'],
-            ]);
+            ] + ($kindsReady ? [
+                'doc_kind' => $inferred['doc_kind'],
+                'student_name' => $inferred['student_name'],
+            ] : []));
             if (!empty($inferred['title'])) {
                 $updates['title'] = mb_substr($inferred['title'], 0, 255);
             }
@@ -115,7 +131,7 @@ class CorrectionController extends Controller
         } elseif ($inferred && !empty($inferred['error'])) {
             $aiError = 'A IANNE está indisponível no momento (' . $inferred['error'] . '). Preencha os campos manualmente.';
         } elseif (str_contains($document->content_text, '[ATENÇÃO: a transcrição deste PDF foi INTERROMPIDA')) {
-            $aiError = 'Este PDF é longo e a leitura automática não alcançou o fim dele. O parecer sairá incompleto — reenvie o planejamento em Word (.docx), que é lido inteiro.';
+            $aiError = 'Este PDF é longo e a leitura automática não alcançou o fim dele. O parecer sairá incompleto — reenvie o documento em Word (.docx), que é lido inteiro.';
         }
 
         return response()->json([
@@ -124,11 +140,12 @@ class CorrectionController extends Controller
             'document' => [
                 'id' => $document->id,
                 'title' => $document->title,
-                'type' => $document->type,
+                'doc_kind' => $document->kind,
                 'file_name' => $originalName,
                 'professor_id' => $document->user_id,
                 'class_id' => $document->class_id,
                 'discipline' => $document->discipline,
+                'student_name' => $kindsReady ? $document->student_name : null,
                 'reference_label' => $document->reference_label,
                 'professor_name_detected' => $inferred['professor_name_detected'] ?? null,
                 'class_name_detected' => $inferred['class_name_detected'] ?? null,
@@ -148,12 +165,15 @@ class CorrectionController extends Controller
         $request->validate([
             'id' => ['required', 'exists:documents,id'],
             'title' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'in:planejamento,relatorio,outro'],
+            'doc_kind' => ['required', 'string', Rule::in(DocumentKinds::keys())],
             'professor_id' => ['nullable', 'exists:users,id'],
             'new_professor_name' => ['nullable', 'string', 'max:255'],
             'class_id' => ['nullable', 'exists:classes,id'],
             'discipline' => ['nullable', 'string', 'max:100'],
+            'student_name' => ['nullable', 'string', 'max:255'],
             'reference_label' => ['nullable', 'string', 'max:100'],
+        ], [
+            'doc_kind.in' => 'Tipo de documento inválido. Recarregue a página e tente de novo.',
         ]);
 
         $document = Document::findOrFail($request->id);
@@ -203,23 +223,38 @@ class CorrectionController extends Controller
             $schoolId = $professor->school_id ?? $schoolId;
         }
 
+        // Aluno só vale nos tipos individuais (PEI e relatórios de um aluno):
+        // num planejamento o campo nem aparece na tela, e um valor vindo de
+        // fora dali só sujaria a listagem.
+        $kind = $request->doc_kind;
+        $pedeAluno = DocumentKinds::get($kind)['pede_aluno'];
+
         $document->update([
             'title' => $request->title,
-            'type' => $request->type,
+            // Balde antigo da coluna `type`, derivado do tipo fino: telas e
+            // relatórios legados continuam lendo planejamento/relatorio/outro.
+            'type' => DocumentKinds::legacyType($kind),
             'user_id' => $professorId,
             'class_id' => $request->class_id,
             'discipline' => $request->discipline,
             'reference_label' => $request->reference_label,
             'school_id' => $schoolId,
             'status' => 'em_correcao',
-        ]);
+        ] + (Document::supportsKinds() ? [
+            'doc_kind' => $kind,
+            'student_name' => $pedeAluno ? $request->student_name : null,
+        ] : []));
 
         return response()->json(['success' => true]);
     }
 
     /**
      * Gera o parecer da IANNE para um documento (Fase 2 — correção assistida).
-     * Recebe as respostas da caixa de diálogo (vigência, nº de aulas, observações).
+     * Recebe as respostas da caixa de diálogo (período, nº de aulas,
+     * observações) e monta o contexto conforme o TIPO do documento: só o
+     * planejamento cobra calendário e habilidades; PEI e relatório de educação
+     * infantil recebem o DCRR como referência da etapa; os relatórios de turma
+     * e de aluno não precisam dele.
      */
     public function analyze(Request $request, PlanAnalyzer $analyzer)
     {
@@ -242,15 +277,15 @@ class CorrectionController extends Controller
             return response()->json(['success' => false, 'message' => 'Este documento não tem texto extraído para analisar.'], 422);
         }
 
+        $kind = $document->kind;
+
         try {
             $analysis = $analyzer->analyze($document, [
+                'kind' => $kind,
                 'vigencia' => $request->vigencia,
                 'aulas' => $request->aulas,
                 'observacoes' => $request->observacoes,
-                'dcrr' => app(\App\Services\DcrrLibrary::class)->excerptFor(
-                    $document->discipline,
-                    $document->schoolClass->name ?? null
-                ),
+                'dcrr' => $this->dcrrFor($document, $kind),
                 'referencias' => app(\App\Services\ReferenceLibrary::class)->textFor($document->tenant_id),
             ]);
         } catch (\Throwable $e) {
@@ -263,6 +298,35 @@ class CorrectionController extends Controller
         $document->update(['analysis' => $analysis, 'analyzed_at' => now()]);
 
         return response()->json(['success' => true, 'analysis' => $analysis]);
+    }
+
+    /**
+     * Trecho do DCRR que entra no parecer, conforme o tipo do documento.
+     * Tipo que não usa DCRR recebe null (e o parecer declara "não verificado"
+     * em vez de inventar habilidade).
+     */
+    private function dcrrFor(Document $document, string $kind): ?string
+    {
+        if (!DocumentKinds::get($kind)['usa_dcrr']) {
+            return null;
+        }
+
+        $library = app(\App\Services\DcrrLibrary::class);
+        $turma = $document->schoolClass->name ?? null;
+
+        if ($kind === 'relatorio_educacao_infantil') {
+            // A turma da educação infantil muitas vezes se chama só "Turma A",
+            // sem "Maternal"/"Pré" — então a etapa vem do tipo, não do nome.
+            return $library->excerptFor('Educação Infantil', $turma, 60000);
+        }
+
+        if ($kind === 'planejamento') {
+            return $library->excerptFor($document->discipline, $turma);
+        }
+
+        // Nos demais (PEI), o DCRR é referência do que se espera do ano, não
+        // checagem de código: teto menor, para o prompt não ficar gigante.
+        return $library->excerptFor($document->discipline, $turma, 60000);
     }
 
     /**
