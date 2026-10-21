@@ -6,8 +6,13 @@ use App\Models\Document;
 
 /**
  * Fase 2 do pivô — correção assistida. Monta a rubrica de avaliação e pede à
- * IANNE um parecer honesto sobre o planejamento. Não inventa DCRR/BNCC: quando
- * falta material de referência, instrui o modelo a declarar "não verificado".
+ * IANNE um parecer honesto. Não inventa DCRR/BNCC: quando falta material de
+ * referência, instrui o modelo a declarar "não verificado".
+ *
+ * A rubrica é escolhida pelo TIPO do documento (documents.type, confirmado pelo
+ * coordenador no upload). Antes, tudo era corrigido como planejamento — um
+ * relatório voltava "todo errado" porque era cobrado por dias letivos e
+ * metodologia em momentos, que ele nunca teve.
  */
 class PlanAnalyzer
 {
@@ -59,10 +64,6 @@ class PlanAnalyzer
 
         // Blocos editáveis pelo SuperAdmin (tela "Prompts da IANNE" do município).
         $b = PromptSettings::for($document->tenant_id);
-        $extra = trim($b['parecer_extra']) !== '' ? "
-
-INSTRUÇÕES ADICIONAIS DESTA REDE:
-{$b['parecer_extra']}" : '';
 
         // Material enviado pela rede (SuperAdmin -> município -> Prompts da IANNE).
         $referencias = trim($context['referencias'] ?? '');
@@ -76,7 +77,61 @@ INSTRUÇÕES ADICIONAIS DESTA REDE:
                 . "REGRA CRÍTICA SOBRE O MATERIAL ACIMA: ele é um RECORTE do DCRR. Se uma habilidade citada no plano não aparecer nele, NUNCA afirme que ela \"não existe no DCRR\" — escreva \"não localizada no trecho fornecido do DCRR; confirmar no documento completo\". Só aponte uma habilidade como inválida se o próprio CÓDIGO for incompatível com o ano/componente (padrão: EF + ano com 2 dígitos + sigla do componente + número; ex: EF05LP05 = 5º ano, Língua Portuguesa). Afirmar inexistência sem certeza induz o coordenador a erro — é a falha mais grave que este parecer pode cometer.\n"
             : "MATERIAL DO DCRR: NÃO fornecido. No item de alinhamento com o DCRR, escreva exatamente que não foi possível verificar por falta do documento de referência — NÃO invente habilidades, códigos ou alinhamentos do DCRR.\n";
 
-        $prompt = <<<PROMPT
+        // Regra de habilidades é comum: relatório de AEE também cita código BNCC.
+        $regraHabilidades = 'REGRA DE CORREÇÃO DE HABILIDADES: sempre que apontar erro de habilidade (código inexistente, de outro ano/componente, ou incompatível com o objeto de conhecimento/conteúdo trabalhado), INDIQUE a habilidade CORRETA para substituir: localize no material do DCRR fornecido a habilidade adequada ao conteúdo e ao ano, e cite o código com um resumo curto da descrição (ex: "substituir por EF05MA08 — resolver problemas de multiplicação e divisão..."). Se a habilidade correta não estiver no material fornecido, oriente a consultar a seção do DCRR daquele ano/componente — NUNCA invente um código.';
+
+        $dados = <<<BLOCO_DADOS
+DADOS INFORMADOS PELO COORDENADOR:
+- Professor(a): {$professor}
+- Turma/ano: {$turma}
+- Componente curricular: {$disciplina}
+- Período de referência informado: {$vigencia}
+- Nº de aulas previstas: {$aulas}
+- Observações do coordenador: {$observacoes}
+BLOCO_DADOS;
+
+        $comum = [
+            'dados' => $dados,
+            'dcrrBloco' => $dcrrBloco,
+            'referenciasBloco' => $referenciasBloco,
+            'texto' => $plan . $avisoCorte,
+            'regraHabilidades' => $regraHabilidades,
+        ];
+
+        $prompt = match ($document->type) {
+            'relatorio' => $this->promptRelatorio($b, $comum),
+            'outro' => $this->promptOutro($b, $comum),
+            default => $this->promptPlanejamento($b, $comum),
+        };
+
+        // maxTokens alto (o parecer é longo) e timeout generoso.
+        $parecer = $this->ai->query($prompt, false, self::MAX_PARECER_TOKENS, 180);
+
+        // Parecer cortado no limite de saída para de vez de sumir em silêncio:
+        // o coordenador precisa saber que o texto acabou por limite, e não
+        // porque a IANNE não tinha mais nada a apontar.
+        if ($this->ai->lastStopReason() === 'max_tokens') {
+            $parecer .= "
+
+---
+
+> **Este parecer foi interrompido por limite de tamanho e está incompleto.** "
+                . "O que aparece acima é válido, mas pode haver mais itens não listados. "
+                . "Clique em \"Refazer análise\" ou avalie o restante manualmente.";
+        }
+
+        return $parecer;
+    }
+
+    /**
+     * Rubrica de PLANEJAMENTO — a original. Cobra dias letivos, momentos da
+     * metodologia e instrumentos de avaliação.
+     */
+    private function promptPlanejamento(array $b, array $c): string
+    {
+        $extra = $this->blocoExtra($b['parecer_extra'] ?? '');
+
+        return <<<PROMPT
 {$b['parecer_persona']}
 
 REGRAS DE CALENDÁRIO (obrigatórias):
@@ -85,19 +140,13 @@ REGRAS DE CALENDÁRIO (obrigatórias):
 - Ao verificar a cobertura da vigência, conte apenas os dias úteis (segunda a sexta) dentro do período.
 - EXCEÇÕES: as "Observações do coordenador" têm PRIORIDADE sobre as regras acima. Se ele informar feriado, recesso ou dia sem aula, NÃO cobre planejamento para essa data; se informar sábado letivo ou reposição, esse dia PASSA a contar como letivo e deve ter planejamento. Ajuste a contagem de dias letivos conforme essas informações.
 
-DADOS INFORMADOS PELO COORDENADOR:
-- Professor(a): {$professor}
-- Turma/ano: {$turma}
-- Componente curricular: {$disciplina}
-- Período de vigência informado: {$vigencia}
-- Nº de aulas previstas: {$aulas}
-- Observações do coordenador: {$observacoes}
+{$c['dados']}
 
-{$dcrrBloco}
-{$referenciasBloco}TEXTO DO PLANEJAMENTO:
-{$plan}{$avisoCorte}
+{$c['dcrrBloco']}
+{$c['referenciasBloco']}TEXTO DO PLANEJAMENTO:
+{$c['texto']}
 
-REGRA DE CORREÇÃO DE HABILIDADES: sempre que apontar erro de habilidade (código inexistente, de outro ano/componente, ou incompatível com o objeto de conhecimento/conteúdo trabalhado), INDIQUE a habilidade CORRETA para o professor substituir: localize no material do DCRR fornecido a habilidade adequada ao conteúdo e ao ano, e cite o código com um resumo curto da descrição (ex: "substituir por EF05MA08 — resolver problemas de multiplicação e divisão..."). Se a habilidade correta não estiver no material fornecido, oriente o professor a consultar a seção do DCRR daquele ano/componente — NUNCA invente um código.
+{$c['regraHabilidades']}
 
 CRITÉRIOS A VERIFICAR (checklist interno — não os copie como seções do parecer):
 {$b['parecer_criterios']}
@@ -121,23 +170,109 @@ FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio
    - A mensagem deve ser autossuficiente: o professor precisa entender o que corrigir sem ler o restante do parecer.
    - Se não houver nada a corrigir, escreva uma mensagem curta parabenizando e confirmando que o plano foi aprovado sem ressalvas.{$extra}
 PROMPT;
+    }
 
-        // maxTokens alto (o parecer é longo) e timeout generoso.
-        $parecer = $this->ai->query($prompt, false, self::MAX_PARECER_TOKENS, 180);
+    /**
+     * Rubrica de RELATÓRIO de acompanhamento de aluno (AEE, educação infantil).
+     *
+     * Três coisas que o parecer de planejamento não tem, e que definem este aqui:
+     * o alerta de saúde vem ANTES de tudo; todo termo capacitista encontrado vira
+     * reescrita proposta, não só apontamento; e é proibido cobrar estrutura de
+     * planejamento de um documento que nunca se propôs a ter uma.
+     */
+    private function promptRelatorio(array $b, array $c): string
+    {
+        $extra = $this->blocoExtra($b['relatorio_extra'] ?? '');
 
-        // Parecer cortado no limite de saída para de vez de sumir em silêncio:
-        // o coordenador precisa saber que o texto acabou por limite, e não
-        // porque a IANNE não tinha mais nada a apontar.
-        if ($this->ai->lastStopReason() === 'max_tokens') {
-            $parecer .= "
+        $termos = trim($b['relatorio_termos_vetados'] ?? '');
+        $listaTermos = $termos !== ''
+            ? $termos
+            : '(nenhum termo cadastrado — use seu próprio julgamento sobre linguagem capacitista)';
 
----
+        return <<<PROMPT
+{$b['relatorio_persona']}
 
-> **Este parecer foi interrompido por limite de tamanho e está incompleto.** "
-                . "O que aparece acima é válido, mas pode haver mais itens não listados. "
-                . "Clique em \"Refazer análise\" ou avalie o restante manualmente.";
-        }
+REGRA DE ESCOPO (obrigatória): este documento é um RELATÓRIO, não um planejamento. NUNCA cobre dele: cobertura de dias letivos, divisão da metodologia em momentos, quantidade de aulas, ou qualquer elemento próprio de plano de aula. Cobrar isso de um relatório invalida o parecer inteiro.
 
-        return $parecer;
+{$c['dados']}
+
+{$c['dcrrBloco']}
+{$c['referenciasBloco']}TEXTO DO RELATÓRIO:
+{$c['texto']}
+
+{$c['regraHabilidades']}
+
+TERMOS CAPACITISTAS OU DEFICITÁRIOS A SINALIZAR (procure estes e QUALQUER equivalente de mesmo sentido):
+{$listaTermos}
+
+CRITÉRIOS A VERIFICAR (checklist interno — não os copie como seções do parecer):
+{$b['relatorio_criterios']}
+
+FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio da análise):
+
+1. "## 🚨 Atenção: sinal de saúde" — inclua SOMENTE se o relatório mencionar dor, desconforto, perda ou falta de mobilidade, crise, regressão física ou outro sinal clínico. Cite o trecho exato e recomende o diálogo com a família e o encaminhamento à área da saúde. Se não houver nada disso, OMITA a seção por completo. Quando houver, esta seção vem ANTES de todas as outras — é a informação mais urgente do documento.
+
+2. "## ⚠️ Erros graves" — inclua SOMENTE se houver ao menos um destes problemas (caso contrário, omita por completo):
+{$b['relatorio_erros_graves']}
+
+3. "## Pontos a melhorar" — liste APENAS o que precisa ser corrigido ou está faltando, em itens objetivos, citando trechos do relatório. NÃO descreva o que está adequado.
+
+4. "## Reescrita sugerida" — inclua SOMENTE se houver termo capacitista/deficitário ou trecho de redação problemática. Para cada ocorrência, uma linha no formato:
+   - *Onde está:* "trecho original" → *Trocar por:* "reescrita proposta"
+   A reescrita deve focar na NECESSIDADE DE SUPORTE e na MEDIAÇÃO COMUNICATIVA, nunca no déficit do aluno. Ex: "não consegue ler sozinho" → "realiza a leitura com apoio de mediação e material adaptado".
+
+5. "## Correções de escrita" — erros de ortografia e sintaxe, campos vazios ou inaplicáveis. Lista curta. Omita se não houver.
+
+6. "## Pontos positivos" — curto e objetivo.
+
+7. "**Situação geral:** " + uma única frase (ex: apto com pequenos ajustes / precisa de correções antes de aprovar / adequado).
+
+8. "## Mensagem ao professor" — resumo pronto para envio, que o coordenador poderá encaminhar ao professor. Regras desta seção:
+   - Dirija-se diretamente ao professor, em tom respeitoso e objetivo.
+   - Liste as correções NUMERADAS (1., 2., 3...), uma por linha.
+   - Em cada item, localize o ponto pelo campo ou seção do relatório (ex: "2. No campo 'Parecer conclusivo': a conclusão diz que o aluno não participou, mas o campo de frequência registra 92% — ajustar uma das duas informações").
+   - Quando o item for de linguagem, inclua o trecho original E a reescrita proposta, para o professor só substituir.
+   - Se o relatório trouxer sinal de saúde, mencione o encaminhamento à família logo no início da mensagem.
+   - A mensagem deve ser autossuficiente.
+   - Se não houver nada a corrigir, escreva uma mensagem curta confirmando que o relatório foi aprovado sem ressalvas.{$extra}
+PROMPT;
+    }
+
+    /**
+     * Documento que não é planejamento nem relatório (um PEI, por exemplo, até
+     * ganhar rubrica própria). Deliberadamente modesto: avalia o documento pelo
+     * que ele se propõe a ser, em vez de impor uma régua que não serve.
+     */
+    private function promptOutro(array $b, array $c): string
+    {
+        return <<<PROMPT
+Você é um(a) coordenador(a) pedagógico(a) experiente da rede municipal de Roraima. O documento abaixo NÃO foi classificado como planejamento nem como relatório de aluno, então você ainda não sabe que régua aplicar.
+
+{$b['outro_criterios']}
+
+{$c['dados']}
+
+{$c['dcrrBloco']}
+{$c['referenciasBloco']}TEXTO DO DOCUMENTO:
+{$c['texto']}
+
+{$c['regraHabilidades']}
+
+FORMATO DO PARECER (markdown, em português):
+
+1. "## Tipo identificado" — uma frase dizendo que documento você entendeu que é.
+2. "## Pontos a melhorar" — apenas o que precisa de correção, em itens objetivos.
+3. "**Situação geral:** " + uma única frase.
+4. "## Mensagem ao professor" — resumo pronto para envio, com as correções numeradas.
+
+Ao final, acrescente em itálico: *"Este documento não se encaixa nas rubricas de planejamento nem de relatório. Se este tipo for frequente nesta rede, peça ao administrador do sistema para cadastrar uma rubrica específica."*
+PROMPT;
+    }
+
+    private function blocoExtra(string $texto): string
+    {
+        $texto = trim($texto);
+
+        return $texto !== '' ? "\n\nINSTRUÇÕES ADICIONAIS DESTA REDE:\n{$texto}" : '';
     }
 }

@@ -67,6 +67,9 @@ Regra de disciplina:
 Regra de título:
 {$b['inferencia_titulo']}
 
+Regra de TIPO do documento (decide qual rubrica de correção será aplicada — errar aqui faz um relatório ser cobrado como plano de aula):
+{$b['inferencia_tipo']}
+
 Regras de matching:
 - Compare nomes ignorando acentos, maiúsculas e nomes parciais (ex: "Profª Maria S." casa com "Maria da Silva").
 - Só preencha professor_id/class_id se tiver confiança razoável; na dúvida, use null e preencha apenas o campo *_detected.
