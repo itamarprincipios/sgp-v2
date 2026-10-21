@@ -57,7 +57,7 @@ Extraia os metadados do documento abaixo e retorne APENAS um objeto JSON com est
   "class_name_detected": <turma como está escrita no documento (ex: "3º Ano B"), ou null>,
   "discipline": <componente curricular, seguindo a regra de disciplina abaixo>,
   "reference_label": <período de APLICAÇÃO do plano normalizado (ex: "Quinzena 12/05 a 23/05/{$currentYear}", "1º Bimestre {$currentYear}"), ou null>,
-  "type": <"planejamento", "relatorio" ou "outro">,
+  "type": <"planejamento", "relatorio", "pei" ou "outro">,
   "title": <título seguindo a regra de título abaixo (máx 80 caracteres)>
 }
 
@@ -116,7 +116,9 @@ PROMPT;
                 $result['class_id'] = null;
             }
 
-            if (!in_array($result['type'], ['planejamento', 'relatorio', 'outro'], true)) {
+            // Precisa acompanhar o enum de documents.type: um valor ausente aqui
+            // é rebaixado para "outro" em silêncio, e o documento perde a rubrica.
+            if (!in_array($result['type'], ['planejamento', 'relatorio', 'pei', 'outro'], true)) {
                 $result['type'] = 'outro';
             }
 

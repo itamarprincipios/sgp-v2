@@ -110,6 +110,7 @@
                                 <select x-model="doc.type" class="mt-1 w-full text-sm rounded-lg border-slate-300 text-slate-900 focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="planejamento">Planejamento</option>
                                     <option value="relatorio">Relatório</option>
+                                    <option value="pei">PEI (Plano Educacional Individualizado)</option>
                                     <option value="outro">Outro documento</option>
                                 </select>
                             </div>

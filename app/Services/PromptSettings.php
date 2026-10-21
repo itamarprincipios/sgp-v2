@@ -76,7 +76,7 @@ class PromptSettings
         'relatorio_termos_vetados' => [
             'grupo' => 'relatorio',
             'label' => 'Termos capacitistas a sinalizar',
-            'ajuda' => 'A IANNE procura estes termos E equivalentes de mesmo sentido. Um por linha. Toda ocorrência vira reescrita sugerida.',
+            'ajuda' => 'Vale para o parecer de relatório E para o de PEI. A IANNE procura estes termos E equivalentes de mesmo sentido. Um por linha. Toda ocorrência vira reescrita sugerida.',
             'default' => "não se entende nada\nnão tem autonomia\nentediado\nnão consegue\nnão acompanha\nincapaz\nnão rende\nnão participa de nada\nnão evolui",
         ],
         'relatorio_erros_graves' => [
@@ -93,6 +93,43 @@ class PromptSettings
             'grupo' => 'relatorio',
             'label' => 'Instruções adicionais (opcional)',
             'ajuda' => 'Texto livre acrescentado ao final do prompt do relatório. Deixe vazio se não precisar.',
+            'default' => '',
+        ],
+
+        // ---------- Parecer de PEI (PlanAnalyzer, quando type = pei) ----------
+        'pei_persona' => [
+            'grupo' => 'pei',
+            'label' => 'Quem a IANNE é e como escreve',
+            'ajuda' => 'Abre o prompt do PEI. O PEI é híbrido: prospectivo como um plano, mas sobre UM aluno, como um relatório.',
+            'default' => 'Você é um(a) coordenador(a) pedagógico(a) experiente da rede municipal de Roraima auditando um PEI — Plano Educacional Individualizado. O PEI PLANEJA o percurso de UM estudante com deficiência ao longo de um período, então é híbrido: tem metas e estratégias como um plano, mas é individual como um relatório. NÃO o cobre como plano de aula quinzenal nem como relatório de desempenho. Seja honesto(a), específico(a) e construtivo(a), lembrando que este documento é validado pela família e orienta o trabalho de regente, AEE e monitor durante todo o período.',
+        ],
+        'pei_criterios' => [
+            'grupo' => 'pei',
+            'label' => 'Critérios a verificar',
+            'ajuda' => 'A rubrica de auditoria do PEI. Checklist interno — não vira seção do parecer. Um critério por linha.',
+            'default' => "1. IDENTIFICAÇÃO E CLÍNICA: os códigos CID-10/CID-11 foram informados e estão coerentes entre si, sem duplicidade conceitual (o mesmo quadro repetido em dois códigos)? O plano delimita data de início, de fim e de revisão (semestral ou trimestral)?\n"
+                . "2. CONSISTÊNCIA E NÃO-CONTRADIÇÃO: há habilidade descrita como JÁ CONSOLIDADA em uma seção e listada como NECESSIDADE A DESENVOLVER em outra, sem explicação? Ex: \"tem autonomia na higiene\" no perfil e \"desenvolver autonomia na higiene\" nas metas. Cite os dois trechos ao apontar.\n"
+                . "3. ALINHAMENTO CURRICULAR BNCC/DCRR: o plano abrange os componentes curriculares (Língua Portuguesa, Matemática e demais) ou foca apenas em desenvolvimento comportamental e motor? PEI que só trata de comportamento exclui o aluno do currículo — aponte. As metas são mensuráveis, com critério de tempo, frequência ou percentual observável?\n"
+                . "4. PERSONALIZAÇÃO E HIPERFOCO: o hiperfoco ou interesse restrito do estudante foi aproveitado didaticamente para mediar aprendizagens mais complexas, ou só aparece descrito no perfil? As estratégias são compatíveis com o Nível de Suporte indicado no documento?\n"
+                . "5. RECURSOS E VIABILIDADE OPERACIONAL: o plano diferencia com clareza o papel do professor regente, do AEE e do monitor? Os recursos de comunicação alternativa e as adaptações de material são objetivos e aplicáveis, ou genéricos (\"usar material concreto\" sem dizer qual)? O documento separa o que é atribuição pedagógica da escola do que é terapia clínica externa?\n"
+                . "6. NORMA PADRÃO E FORMALIDADE: gramática e pontuação; campos de assinatura e registro de validação pela família presentes e preenchidos.",
+        ],
+        'pei_erros_graves' => [
+            'grupo' => 'pei',
+            'label' => 'O que conta como erro grave',
+            'ajuda' => 'A seção "⚠️ Erros graves" só aparece se um destes for encontrado. Um item por linha, começando com hífen.',
+            'default' => "- contradição entre habilidade consolidada e meta a desenvolver, sem justificativa;\n"
+                . "- PEI sem NENHUM componente curricular, tratando só de comportamento e motricidade;\n"
+                . "- metas sem qualquer critério observável de tempo, frequência ou percentual;\n"
+                . "- papéis de regente, AEE e monitor indefinidos ou sobrepostos;\n"
+                . "- ausência de data de revisão do plano;\n"
+                . "- atribuição à escola de procedimento que é terapia clínica externa;\n"
+                . "- ausência de registro de validação pela família.",
+        ],
+        'pei_extra' => [
+            'grupo' => 'pei',
+            'label' => 'Instruções adicionais (opcional)',
+            'ajuda' => 'Texto livre acrescentado ao final do prompt do PEI. Deixe vazio se não precisar.',
             'default' => '',
         ],
 
@@ -136,8 +173,9 @@ class PromptSettings
             'ajuda' => 'Como a IANNE decide se o arquivo é planejamento, relatório ou outro. É esta decisão que define QUAL rubrica será aplicada na correção — errar aqui faz o relatório ser cobrado como plano.',
             'default' => "- \"planejamento\": documento PROSPECTIVO, que organiza aulas futuras. Sinais: datas de aulas a ministrar, objetivos, metodologia, recursos, avaliação prevista, tabela por dia/semana, habilidades a desenvolver.\n"
                 . "- \"relatorio\": documento RETROSPECTIVO, que descreve o que JÁ aconteceu, normalmente sobre UM aluno nomeado. Sinais: nome de um estudante, descrição de desempenho e comportamento no período, frequência, parecer conclusivo, menção a AEE, laudo, monitor, tecnologia assistiva, adaptação. Relatório de educação infantil também entra aqui.\n"
-                . "- \"outro\": não se encaixa com clareza em nenhum dos dois.\n"
-                . "Na dúvida entre planejamento e relatório, pergunte-se: o texto PLANEJA o que vai ser feito, ou RELATA o que foi feito e como o aluno respondeu? Relatar = \"relatorio\".",
+                . "- \"pei\": PLANO EDUCACIONAL INDIVIDUALIZADO. Prospectivo como um plano, porém sobre UM estudante com deficiência. Sinais: a sigla PEI ou o nome por extenso, código CID, nível de suporte, metas e estratégias individualizadas, papéis de regente/AEE/monitor, campo de validação pela família, data de revisão do plano.\n"
+                . "- \"outro\": não se encaixa com clareza em nenhum dos anteriores.\n"
+                . "Na dúvida, pergunte-se: o texto PLANEJA aulas para uma TURMA (= planejamento), PLANEJA o percurso de UM ALUNO com deficiência (= pei), ou RELATA o que já aconteceu e como o aluno respondeu (= relatorio)?",
         ],
         'inferencia_titulo' => [
             'grupo' => 'inferencia',
@@ -160,6 +198,11 @@ class PromptSettings
             'titulo' => 'Parecer de relatório',
             'descricao' => 'Usado quando o documento é classificado como relatório — acompanhamento de aluno, AEE, educação infantil. Régua própria: avalia o texto sobre o estudante, não uma estrutura de aulas.',
             'fixo' => 'Continuam travados: a seção de alerta de saúde vir ANTES de tudo quando houver menção a dor ou mobilidade, a obrigação de propor a reescrita de cada termo capacitista encontrado (e não só apontá-lo), a proibição de cobrar do relatório elementos de planejamento, e as mesmas regras de DCRR do parecer de planejamento.',
+        ],
+        'pei' => [
+            'titulo' => 'Parecer de PEI',
+            'descricao' => 'Plano Educacional Individualizado. Híbrido: planeja o percurso de um estudante, então não é cobrado nem como plano de aula nem como relatório de desempenho.',
+            'fixo' => 'Continuam travados: a proibição de afirmar que um código CID não existe (mesma regra do DCRR — a IANNE não tem a tabela CID completa, só pode apontar incoerência evidente), a obrigação de reescrever toda meta não mensurável em vez de só criticá-la, a verificação de contradição citando os dois trechos, e os termos capacitistas cadastrados no parecer de relatório, que valem aqui também.',
         ],
         'outro' => [
             'titulo' => 'Parecer de documento não classificado',

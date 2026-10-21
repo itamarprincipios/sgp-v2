@@ -148,7 +148,7 @@ class CorrectionController extends Controller
         $request->validate([
             'id' => ['required', 'exists:documents,id'],
             'title' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'in:planejamento,relatorio,outro'],
+            'type' => ['required', 'in:planejamento,relatorio,pei,outro'],
             'professor_id' => ['nullable', 'exists:users,id'],
             'new_professor_name' => ['nullable', 'string', 'max:255'],
             'class_id' => ['nullable', 'exists:classes,id'],

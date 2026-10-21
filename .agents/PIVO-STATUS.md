@@ -189,6 +189,32 @@ CREATE TABLE tenant_reference_files (
 > O que entra no prompt é o `content_text` extraído no upload, não o arquivo.
 > A geração de pareceres continua funcionando normalmente com os prompts padrão.
 
+### 8. PEI como tipo de documento (commit desta entrega — ⚠️ PENDENTE DE EXECUÇÃO)
+
+```sql
+ALTER TABLE documents MODIFY type ENUM('planejamento','relatorio','pei','outro') NOT NULL;
+```
+
+> Sem este ALTER, confirmar um documento como PEI falha ao gravar (valor fora do enum).
+> Planejamento, relatório e "outro" continuam funcionando normalmente.
+
+---
+
+## Rubricas de correção por tipo de documento (out/2026)
+
+`PlanAnalyzer` escolhe a régua por `documents.type`. Antes, tudo era corrigido como
+planejamento — um relatório voltava "todo errado" porque era cobrado por dias letivos.
+
+| type | Rubrica | Seções exclusivas do parecer |
+|---|---|---|
+| `planejamento` | 10 critérios, dias letivos, momentos da metodologia | — |
+| `relatorio` | 7 critérios (AEE/acompanhamento de aluno) | Alerta de saúde (vem antes de tudo), Reescrita sugerida |
+| `pei` | 6 critérios (auditoria de PEI) | Contradições encontradas, Metas a reescrever, cautela com CID |
+| `outro` | genérica e modesta | Tipo identificado |
+
+Todos os blocos são editáveis em SuperAdmin → município → Prompts da IANNE.
+A lista de termos capacitistas é única e vale para relatório e PEI.
+
 ---
 
 ## Histórico passo a passo

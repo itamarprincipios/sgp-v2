@@ -100,6 +100,7 @@ BLOCO_DADOS;
 
         $prompt = match ($document->type) {
             'relatorio' => $this->promptRelatorio($b, $comum),
+            'pei' => $this->promptPei($b, $comum),
             'outro' => $this->promptOutro($b, $comum),
             default => $this->promptPlanejamento($b, $comum),
         };
@@ -239,9 +240,78 @@ PROMPT;
     }
 
     /**
-     * Documento que não é planejamento nem relatório (um PEI, por exemplo, até
-     * ganhar rubrica própria). Deliberadamente modesto: avalia o documento pelo
-     * que ele se propõe a ser, em vez de impor uma régua que não serve.
+     * Rubrica de PEI — Plano Educacional Individualizado.
+     *
+     * Híbrido: planeja como um plano, mas é sobre uma pessoa como um relatório.
+     * O que define este parecer: a caça a CONTRADIÇÕES entre o perfil e as metas
+     * (habilidade dada como consolidada reaparecendo como necessidade), a
+     * reescrita de toda meta não mensurável, e a mesma cautela do DCRR aplicada
+     * ao CID — a IANNE não tem a tabela completa e não pode decretar inexistência.
+     */
+    private function promptPei(array $b, array $c): string
+    {
+        $extra = $this->blocoExtra($b['pei_extra'] ?? '');
+
+        $termos = trim($b['relatorio_termos_vetados'] ?? '');
+        $blocoTermos = $termos !== ''
+            ? "TERMOS CAPACITISTAS OU DEFICITÁRIOS A SINALIZAR (procure estes e QUALQUER equivalente de mesmo sentido — o PEI é validado pela família):\n{$termos}\n"
+            : '';
+
+        return <<<PROMPT
+{$b['pei_persona']}
+
+REGRA DE ESCOPO (obrigatória): este documento é um PEI. NUNCA cobre dele cobertura de dias letivos, divisão da metodologia em momentos ou número de aulas — isso é de plano de aula quinzenal e não se aplica. Cobre dele o que é próprio do PEI: metas individualizadas mensuráveis, estratégias, recursos, papéis e revisão.
+
+REGRA CRÍTICA SOBRE CÓDIGOS CID: você NÃO dispõe da tabela CID-10/CID-11 completa. NUNCA afirme que um código CID "não existe" ou "está errado" por não reconhecê-lo. Você PODE apontar: código com formato claramente inválido; dois códigos que descrevem o mesmo quadro (duplicidade conceitual); incoerência entre o código informado e o quadro descrito no texto; ou ausência do código quando o documento tem campo para ele. Fora disso, escreva "não verificável — confirmar com o laudo". Decretar inexistência de um CID induz a escola a erro diante da família.
+
+{$c['dados']}
+
+{$c['dcrrBloco']}
+{$c['referenciasBloco']}TEXTO DO PEI:
+{$c['texto']}
+
+{$c['regraHabilidades']}
+
+{$blocoTermos}
+CRITÉRIOS A VERIFICAR (checklist interno — não os copie como seções do parecer):
+{$b['pei_criterios']}
+
+FORMATO DO PARECER (markdown, em português — seja direto, sem elogios no meio da análise):
+
+1. "## ⚠️ Erros graves" — inclua SOMENTE se houver ao menos um destes problemas (caso contrário, omita por completo):
+{$b['pei_erros_graves']}
+
+2. "## Contradições encontradas" — inclua SOMENTE se houver. Para cada uma, cite OS DOIS trechos que se contradizem, no formato:
+   - *Na seção X:* "trecho" — *mas na seção Y:* "trecho". *Conflito:* explicação em uma linha.
+   Omita a seção se o documento for coerente.
+
+3. "## Metas a reescrever" — inclua SOMENTE se houver meta sem critério observável. Para cada uma, uma linha no formato:
+   - *Como está:* "meta original" → *Reescrever como:* "meta com critério de tempo, frequência ou percentual"
+   Ex: "desenvolver autonomia na alimentação" → "alimentar-se sozinho(a) com talher adaptado em 4 de 5 refeições na escola, até a revisão de junho".
+
+4. "## Pontos a melhorar" — o que mais precisa de correção, em itens objetivos, citando trechos. Inclua aqui: componentes curriculares ausentes, hiperfoco não aproveitado didaticamente, recursos genéricos demais, papéis indefinidos, confusão entre atribuição pedagógica e terapia clínica.
+
+5. "## Formalidade" — gramática, pontuação, campos de assinatura e validação da família. Lista curta. Omita se não houver.
+
+6. "## Pontos positivos" — curto e objetivo.
+
+7. "**Situação geral:** " + uma única frase (ex: apto com pequenos ajustes / precisa de correções antes de aprovar / adequado).
+
+8. "## Mensagem ao professor" — resumo pronto para envio ao professor responsável pelo PEI. Regras desta seção:
+   - Dirija-se diretamente ao professor, em tom respeitoso e objetivo.
+   - Liste as correções NUMERADAS (1., 2., 3...), uma por linha.
+   - Localize cada item pela seção ou campo do PEI.
+   - Quando o item for meta não mensurável, traga a meta reescrita pronta para substituir.
+   - Quando for contradição, cite os dois trechos para o professor decidir qual vale.
+   - A mensagem deve ser autossuficiente.
+   - Se não houver nada a corrigir, escreva uma mensagem curta confirmando que o PEI foi aprovado sem ressalvas.{$extra}
+PROMPT;
+    }
+
+    /**
+     * Documento que não é planejamento, relatório nem PEI. Deliberadamente
+     * modesto: avalia o documento pelo que ele se propõe a ser, em vez de impor
+     * uma régua que não serve.
      */
     private function promptOutro(array $b, array $c): string
     {
