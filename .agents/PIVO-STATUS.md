@@ -2,7 +2,7 @@
 
 > **Para agentes de IA:** este arquivo é o log passo a passo da implementação do pivô descrito na **seção 14 do AGENTS.md**. Leia os dois antes de continuar qualquer trabalho. Atualize este arquivo a cada passo concluído.
 
-**Última atualização:** 25/08/2026
+**Última atualização:** 20/10/2026
 **Fase atual:** Fases 1 e 2 CONCLUÍDAS — próxima: Fase 3 (diagnóstico da rede)
 
 ---
@@ -189,14 +189,13 @@ CREATE TABLE tenant_reference_files (
 > O que entra no prompt é o `content_text` extraído no upload, não o arquivo.
 > A geração de pareceres continua funcionando normalmente com os prompts padrão.
 
-### 8. PEI como tipo de documento (commit desta entrega — ⚠️ PENDENTE DE EXECUÇÃO)
+### 8. PEI como tipo de documento (commit `3d86cc4` — ✅ JÁ EXECUTADO em 20/10/2026)
 
 ```sql
 ALTER TABLE documents MODIFY type ENUM('planejamento','relatorio','pei','outro') NOT NULL;
 ```
 
-> Sem este ALTER, confirmar um documento como PEI falha ao gravar (valor fora do enum).
-> Planejamento, relatório e "outro" continuam funcionando normalmente.
+> A migration no repositório é guardada por driver/tabela, então rodar migrate não quebra.
 
 ---
 
